@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 30, 2021 at 06:07 AM
+-- Generation Time: Sep 22, 2021 at 03:40 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.3.15
 
@@ -19,33 +19,27 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `db_inventori_gudang`
+-- Database: `db_sima`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `barangs`
+-- Table structure for table `dosen`
 --
 
-CREATE TABLE `barangs` (
+CREATE TABLE `dosen` (
   `id` bigint(20) UNSIGNED NOT NULL,
+  `id_user` bigint(20) NOT NULL,
   `nama` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `id_kategori` bigint(20) NOT NULL,
-  `satuan` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `stok` bigint(20) NOT NULL,
+  `id_prodi` bigint(20) NOT NULL,
+  `keterangan` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` enum('ON','OFF') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nomor_hp` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `barangs`
---
-
-INSERT INTO `barangs` (`id`, `nama`, `id_kategori`, `satuan`, `stok`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'kertas', 1, 'Pcs', 4, '2021-05-28 07:48:02', '2021-06-03 09:41:39', NULL),
-(2, 'mic', 2, 'Set', 21, '2021-05-28 07:48:13', '2021-05-28 07:48:56', NULL);
 
 -- --------------------------------------------------------
 
@@ -66,24 +60,46 @@ CREATE TABLE `failed_jobs` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kategoris`
+-- Table structure for table `magang`
 --
 
-CREATE TABLE `kategoris` (
+CREATE TABLE `magang` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `nama` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id_mahasiswa` bigint(20) NOT NULL,
+  `id_dosen` bigint(20) DEFAULT NULL,
+  `matkul_pilihan` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nilai_matkul` char(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
+  `url_transkrip` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `url_laporan` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `ipk` double(8,2) NOT NULL,
+  `nama_sekolah` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status_pengajuan` enum('proses','ditolak','diterima','selesai','gagal') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nilai_pembimbing` char(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `keterangan_status` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `id_periode` bigint(20) NOT NULL DEFAULT 0,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `kategoris`
+-- Table structure for table `mahasiswa`
 --
 
-INSERT INTO `kategoris` (`id`, `nama`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'ATK', NULL, NULL, NULL),
-(2, 'Kantor', NULL, NULL, NULL);
+CREATE TABLE `mahasiswa` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `id_user` bigint(20) NOT NULL,
+  `nama` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `alamat` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id_prodi` bigint(20) NOT NULL,
+  `kelas` enum('a','b') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nomor_hp` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -102,14 +118,17 @@ CREATE TABLE `migrations` (
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
-(1, '2014_10_12_000000_create_users_table', 1),
-(2, '2014_10_12_100000_create_password_resets_table', 1),
-(3, '2019_08_19_000000_create_failed_jobs_table', 1),
-(4, '2021_03_28_075716_create_permission_tables', 1),
-(5, '2021_04_28_070734_create_barangs_table', 1),
-(6, '2021_05_12_013314_create_requests_table', 1),
-(7, '2021_05_28_082019_create_kategoris_table', 1),
-(8, '2021_05_28_082122_create_peminjamans_table', 1);
+(8, '2021_09_20_194107_create_periode_pendaftaran_table', 2),
+(9, '2021_09_20_194121_create_periode_magang_table', 2),
+(11, '2014_10_12_000000_create_users_table', 3),
+(12, '2014_10_12_100000_create_password_resets_table', 3),
+(13, '2019_08_19_000000_create_failed_jobs_table', 3),
+(14, '2021_03_28_075716_create_permission_tables', 3),
+(15, '2021_09_20_194020_create_mahasiswa_table', 3),
+(16, '2021_09_20_194035_create_dosen_table', 3),
+(17, '2021_09_20_194049_create_magang_table', 3),
+(18, '2021_09_20_194937_create_prodi_table', 3),
+(19, '2021_09_21_123158_create_periode_table', 3);
 
 -- --------------------------------------------------------
 
@@ -140,9 +159,7 @@ CREATE TABLE `model_has_roles` (
 --
 
 INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
-(1, 'App\\Models\\User', 1),
-(2, 'App\\Models\\User', 3),
-(3, 'App\\Models\\User', 2);
+(1, 'App\\Models\\User', 1);
 
 -- --------------------------------------------------------
 
@@ -159,31 +176,19 @@ CREATE TABLE `password_resets` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `peminjamans`
+-- Table structure for table `periode`
 --
 
-CREATE TABLE `peminjamans` (
+CREATE TABLE `periode` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `nama_peminjam` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `id_barang` bigint(20) NOT NULL,
-  `estimasi` bigint(20) NOT NULL,
-  `jml_pinjam` bigint(20) NOT NULL,
-  `fungsi` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `pengembalian_at` timestamp NULL DEFAULT NULL,
+  `mulai_daftar` date DEFAULT NULL,
+  `akhir_daftar` date DEFAULT NULL,
+  `mulai_magang` date DEFAULT NULL,
+  `akhir_magang` date DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `peminjamans`
---
-
-INSERT INTO `peminjamans` (`id`, `nama_peminjam`, `id_barang`, `estimasi`, `jml_pinjam`, `fungsi`, `pengembalian_at`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Anto', 1, 10, 10, 'nulis', '2021-05-28 07:49:00', '2021-05-28 07:48:35', '2021-05-28 07:49:00', NULL),
-(2, 'Andi', 2, 2, 2, 'acara', '2021-05-28 07:48:56', '2021-05-28 07:48:49', '2021-05-28 07:48:56', NULL),
-(3, 'Dini', 1, 2, 1, '-', NULL, '2021-06-03 09:41:39', NULL, NULL),
-(4, 'Anto', 1, 2, 1, '-', NULL, '2021-06-03 09:41:39', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -202,25 +207,26 @@ CREATE TABLE `permissions` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `requests`
+-- Table structure for table `prodi`
 --
 
-CREATE TABLE `requests` (
+CREATE TABLE `prodi` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `id_barang` bigint(20) NOT NULL,
-  `stok` bigint(20) NOT NULL,
-  `terpenuhi` bigint(20) DEFAULT NULL,
+  `nama` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `requests`
+-- Dumping data for table `prodi`
 --
 
-INSERT INTO `requests` (`id`, `id_barang`, `stok`, `terpenuhi`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 1, 200, NULL, '2021-05-28 07:49:29', NULL, NULL);
+INSERT INTO `prodi` (`id`, `nama`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(4, 'PENDIDIKAN INFORMATIKA', '2021-09-21 13:12:25', '2021-09-21 13:12:25', NULL),
+(6, 'PENDIDIKAN BAHASA INGGRIS', '2021-09-21 13:13:36', '2021-09-21 13:13:36', NULL),
+(7, 'PENDIDIKAN IPA', '2021-09-21 13:13:45', '2021-09-21 13:13:45', NULL),
+(8, 'PENDIDIKAN VOKASIONAL TEKNIK ELEKTRO', '2021-09-21 13:14:02', '2021-09-21 13:14:02', NULL);
 
 -- --------------------------------------------------------
 
@@ -241,9 +247,9 @@ CREATE TABLE `roles` (
 --
 
 INSERT INTO `roles` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'web', '2021-05-28 07:46:38', '2021-05-28 07:46:38'),
-(2, 'pegawai', 'web', '2021-05-28 07:46:38', '2021-05-28 07:46:38'),
-(3, 'pimpinan', 'web', '2021-05-28 07:46:38', '2021-05-28 07:46:38');
+(1, 'admin', 'web', '2021-09-21 05:34:12', '2021-09-21 05:34:12'),
+(2, 'mahasiswa', 'web', '2021-09-21 05:34:12', '2021-09-21 05:34:12'),
+(3, 'dosen', 'web', '2021-09-21 05:34:12', '2021-09-21 05:34:12');
 
 -- --------------------------------------------------------
 
@@ -264,11 +270,9 @@ CREATE TABLE `role_has_permissions` (
 
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `nama` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nomor_induk` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `nomor_hp` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `tipe_user` enum('admin','pimpinan','pegawai') COLLATE utf8mb4_unicode_ci NOT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -279,19 +283,17 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `nama`, `password`, `nomor_hp`, `tipe_user`, `remember_token`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Admin', 'Admin', '$2y$10$C.j0pnaxY3ZRlHduSErYxO13fDK76goW6S5nvHFIEnpRd.QwOyHdy', '-', 'admin', NULL, '2021-05-28 07:46:38', '2021-05-28 07:46:38', NULL),
-(2, 'pimpinan', 'pimpinan', '$2y$10$k2T5IPAUrbeVE7SYVLT0meg9GZFd.j5J47cdRNNvFt2AybfEVDZMS', '+10823122324', 'pimpinan', NULL, '2021-05-28 07:47:12', '2021-05-28 07:47:12', NULL),
-(3, 'pegawai', 'pegawai', '$2y$10$33NA6qqKG5lnzkvV/C8MP.w0iBv8Zylpa1PEht7j29MiGvq.DJ1u6', '082385786314', 'pegawai', NULL, '2021-05-28 07:47:26', '2021-05-28 07:47:26', NULL);
+INSERT INTO `users` (`id`, `nomor_induk`, `email`, `password`, `remember_token`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'admin1234', 'admin1234', '$2y$10$jOSyBY4NcrKws1VWFuCYiunvhl2hPXbw.jL8SBqyG84KU.QtciVv6', NULL, '2021-09-21 05:34:13', '2021-09-21 05:34:13', NULL);
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `barangs`
+-- Indexes for table `dosen`
 --
-ALTER TABLE `barangs`
+ALTER TABLE `dosen`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -302,9 +304,15 @@ ALTER TABLE `failed_jobs`
   ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
 
 --
--- Indexes for table `kategoris`
+-- Indexes for table `magang`
 --
-ALTER TABLE `kategoris`
+ALTER TABLE `magang`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `mahasiswa`
+--
+ALTER TABLE `mahasiswa`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -334,9 +342,9 @@ ALTER TABLE `password_resets`
   ADD KEY `password_resets_email_index` (`email`);
 
 --
--- Indexes for table `peminjamans`
+-- Indexes for table `periode`
 --
-ALTER TABLE `peminjamans`
+ALTER TABLE `periode`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -347,9 +355,9 @@ ALTER TABLE `permissions`
   ADD UNIQUE KEY `permissions_name_guard_name_unique` (`name`,`guard_name`);
 
 --
--- Indexes for table `requests`
+-- Indexes for table `prodi`
 --
-ALTER TABLE `requests`
+ALTER TABLE `prodi`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -371,16 +379,17 @@ ALTER TABLE `role_has_permissions`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `users_username_unique` (`username`);
+  ADD UNIQUE KEY `users_nomor_induk_unique` (`nomor_induk`),
+  ADD UNIQUE KEY `users_email_unique` (`email`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `barangs`
+-- AUTO_INCREMENT for table `dosen`
 --
-ALTER TABLE `barangs`
+ALTER TABLE `dosen`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
@@ -390,22 +399,28 @@ ALTER TABLE `failed_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `kategoris`
+-- AUTO_INCREMENT for table `magang`
 --
-ALTER TABLE `kategoris`
+ALTER TABLE `magang`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `mahasiswa`
+--
+ALTER TABLE `mahasiswa`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
--- AUTO_INCREMENT for table `peminjamans`
+-- AUTO_INCREMENT for table `periode`
 --
-ALTER TABLE `peminjamans`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+ALTER TABLE `periode`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `permissions`
@@ -414,10 +429,10 @@ ALTER TABLE `permissions`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `requests`
+-- AUTO_INCREMENT for table `prodi`
 --
-ALTER TABLE `requests`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `prodi`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -429,7 +444,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables
