@@ -1,14 +1,23 @@
+<!-- jQuery  -->
+</div>
+<!-- App js -->
+<script src="{{asset('adminto/js/jquery.core.js')}}"></script>
+<script src="{{asset('adminto/js/jquery.app.js')}}"></script>
 
 <!-- Toastr js -->
 <script src="{{asset('adminto/plugins/toastr/toastr.min.js')}}"></script>
 <script src="{{asset('adminto/js/popper.min.js')}}"></script>
 <script src="{{asset('adminto/js/bootstrap.min.js')}}"></script>
+<script src="{{asset('adminto/js/detect.js')}}"></script>
+<script src="{{asset('adminto/js/fastclick.js')}}"></script>
+<script src="{{asset('adminto/js/jquery.blockUI.js')}}"></script>
 <script src="{{asset('adminto/js/waves.js')}}"></script>
+<script src="{{asset('adminto/js/jquery.nicescroll.js')}}"></script>
 <script src="{{asset('adminto/js/jquery.slimscroll.js')}}"></script>
+<script src="{{asset('adminto/js/jquery.scrollTo.min.js')}}"></script>
 
-<!-- App js -->
-<script src="{{asset('adminto/js/jquery.core.js')}}"></script>
-<script src="{{asset('adminto/js/jquery.app.js')}}"></script>
+<!-- Validation js (Parsleyjs) -->
+<script type="text/javascript" src="{{asset('adminto/plugins/parsleyjs/dist/parsley.min.js')}}"></script>
 
 <!-- Required datatable js -->
 <script src="{{asset('adminto/plugins/datatables/jquery.dataTables.min.js')}}"></script>
@@ -40,14 +49,21 @@
 
 <!-- time picker -->
 <script src="{{asset('adminto/plugins/timepicker/bootstrap-timepicker.min.js')}}"></script>
+<script src="{{asset('adminto/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js')}}"></script>
+<script src="{{asset('adminto/plugins/bootstrap-daterangepicker/daterangepicker.js"')}}></script>
 
 <!-- file uploads js -->
-<script src="{{asset('adminto/plugins/fileuploads/js/dropify.min.js')}}"></script>
+<script src=" {{asset('adminto/plugins/fileuploads/js/dropify.min.js')}}"></script>
 
 <!-- select2 -->
 <script src="{{asset('adminto/plugins/select2/js/select2.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('adminto/plugins/switchery/switchery.min.js')}}"></script>
 <script src="{{asset('adminto/plugins/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js')}}"></script>
+
+
+<!-- Form wizard -->
+<script src="{{asset('adminto/plugins/bootstrap-wizard/jquery.bootstrap.wizard.js')}}"></script>
+<script src="{{asset('adminto/plugins/jquery-validation/dist/jquery.validate.min.js')}}"></script>
 
 <script type="text/javascript">
     // Select2
@@ -67,17 +83,25 @@
 </script>
 
 <script type="text/javascript">
+   
     $(document).ready(function() {
+        // form
+        $('form').parsley();
         // Select2
         $(".select2").select2();
         // Date Picker
         jQuery('#datepicker').datepicker();
         jQuery('.datepicker-autoclose').datepicker({
             autoclose: true,
-            format: 'dd/M/yyyy',
+            format: 'dd-M-yyyy',
             todayHighlight: true
         });
 
+        jQuery('.date-range').datepicker({
+            toggleActive: true,
+            autoclose: true,
+            format: 'dd-M-yyyy',
+        });
 
 
 

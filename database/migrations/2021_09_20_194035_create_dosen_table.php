@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRequestsTable extends Migration
+class CreateDosenTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,14 @@ class CreateRequestsTable extends Migration
      */
     public function up()
     {
-        Schema::create('requests', function (Blueprint $table) {
+        Schema::create('dosen', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('id_barang');
-            $table->bigInteger('stok');
-            $table->bigInteger('terpenuhi')->nullable();
+            $table->bigInteger('id_user');
+            $table->string('nama');
+            $table->bigInteger('id_prodi');
+            $table->string('keterangan');
+            $table->enum('status',['ON', 'OFF']);
+            $table->string('nomor_hp');
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
         });
@@ -30,6 +33,6 @@ class CreateRequestsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('requests');
+        Schema::dropIfExists('dosen');
     }
 }

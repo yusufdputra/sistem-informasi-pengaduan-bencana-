@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBarangsTable extends Migration
+class CreatePeriodeTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateBarangsTable extends Migration
      */
     public function up()
     {
-        Schema::create('barangs', function (Blueprint $table) {
+        Schema::create('periode', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
-            $table->bigInteger('id_kategori');
-            $table->string('satuan');
-            $table->bigInteger('stok');
+            $table->timestamp('mulai_daftar')->nullable();
+            $table->timestamp('akhir_daftar')->nullable();
+            $table->timestamp('mulai_magang')->nullable();
+            $table->timestamp('akhir_magang')->nullable();
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
         });
@@ -31,6 +31,6 @@ class CreateBarangsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('barangs');
+        Schema::dropIfExists('periode');
     }
 }

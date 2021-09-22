@@ -630,7 +630,6 @@ textarea.form-control {
     background-color: $white;
     border: 1px solid #E3E3E3;
     border-radius: 4px;
-    height: 38px;
     font-size: $base-font-size;
     max-width: 100%;
     -webkit-box-shadow: none;
@@ -764,7 +763,6 @@ select[multiple] {
 
 .pagination-split li {
    margin-left: 5px;
-   display: inline-block;
    float: left;
 }
 
@@ -1286,29 +1284,22 @@ pre{
 ============= */
 
 @media print {
-  .page-title-box,
-  .topbar-left,
-  .hidden-print,
-  .breadcrumb,
-  .page-title,
-  .footer,
-  #topnav,
-  .btn-custom {
+  .page-title-box,.topbar-left,.hidden-print,.breadcrumb,.page-title,.footer,.topbar {
     display: none;
-    margin: 0px;
-    padding: 0px;
-  }
-  .left,
-  .right-bar {
-    display: none;
-  }
-  .wrapper {
-    padding-top: 0 !important;
+    margin: 0;
+    padding: 0;
   }
 
+  .left,.right-bar {
+    display: none;
+  }
+  .content {
+    margin-top: 0 !important;
+    padding-top: 0;
+  }
   .content-page {
-    margin-left: 0px;
-    margin-top: 0px;
+    margin-left: 0 !important;
+    margin-top: 0;
   }
 
 }

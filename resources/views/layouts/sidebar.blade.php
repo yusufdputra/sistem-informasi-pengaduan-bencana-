@@ -35,33 +35,38 @@
         @role('admin')
 
         <li class="has_sub">
-          <a href="javascript:void(0);" class="waves-effect"><i class=" mdi mdi-account-multiple"></i> <span> Data User </span> <span class="fa menu-arrow"></span></a>
+          <a href="javascript:void(0);" class="waves-effect"><i class=" mdi mdi-account-multiple"></i> <span> User Management </span> <span class="fa menu-arrow"></span></a>
           <ul class=" list-unstyled">
-            <li><a href="{{route ('user.index', 'pimpinan')}}">Pimpinan</a></li>
-            <li><a href="{{route ('user.index', 'pegawai')}}">Pegawai</a></li>
+            <li><a href="{{route ('user.index', 'mahasiswa')}}">Mahasiswa</a></li>
+            <li><a href="{{route ('user.index', 'dosen')}}">Dosen</a></li>
           </ul>
+        </li>
+
+        <li>
+          <a href="{{route ('periode.index')}}" class="waves-effect"><i class="fa fa-calendar"></i> <span> Periode Magang </span> </a>
+        </li>
+        
+        <li>
+          <a href="{{route ('prodi.index')}}" class="waves-effect"><i class="fa fa-server"></i> <span> Program Studi </span> </a>
+        </li>
+
+        <li>
+          <a href="{{route ('pengajuanMagang.index')}}" class="waves-effect"><i class="fa fa-address-card-o"></i> <span> Pengajuan Magang </span> </a>
         </li>
 
         @endrole
 
 
-        @role('admin|pegawai|pimpinan')
+        @role('mahasiswa')
         <li>
-          <a href="{{route ('barang.index')}}" class="waves-effect"><i class="mdi mdi-package-variant-closed"></i> <span> Barang </span> </a>
+          <a href="{{route ('pengajuanMagang.index')}}" class="waves-effect"><i class="fa fa-address-card-o"></i> <span> Pengajuan Magang </span> </a>
         </li>
+        @endrole
 
-        <li class="has_sub">
-          <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-cube-send"></i> <span> Transaksi </span> <span class="fa menu-arrow"></span></a>
-          <ul class=" list-unstyled">
-            <li><a href="{{route ('masuk.index')}}">Masuk</a></li>
-            <li><a href="{{route ('keluar.index')}}">Keluar</a></li>
-          </ul>
-        </li>
-
+        @role('dosen')
         <li>
-          <a href="{{route ('restok.index')}}" class="waves-effect"><i class="mdi mdi-basket-fill"></i> <span> Restok </span> </a>
+          <a href="{{route ('mahasiswa.index')}}" class="waves-effect"><i class="fa fa-group "></i> <span> Mahasiswa Bimbingan </span> </a>
         </li>
-
         @endrole
 
 

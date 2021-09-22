@@ -478,7 +478,6 @@ File: Pages
 }
 
 
-
 /* Form wizard */
 .navtab-wizard {
   li:first-of-type {
@@ -1794,14 +1793,6 @@ div.hopscotch-bubble .hopscotch-bubble-arrow-container.down .hopscotch-bubble-ar
   }
   .logo {
     font-size: 42px;
-    font-family: 'Rancho', cursive;
-    color: $primary;
-
-    span {
-      span {
-        color: $success;
-      }
-    }
   }
 }
 
@@ -1812,9 +1803,9 @@ div.hopscotch-bubble .hopscotch-bubble-arrow-container.down .hopscotch-bubble-ar
     padding: 30px;
   }
   .panel-heading {
-    -moz-border-radius: 6px 6px 0 0;
-    -webkit-border-radius: 6px 6px 0 0;
-    border-radius: 6px 6px 0 0;
+    -moz-border-radius: 6px 6px 0px 0px;
+    -webkit-border-radius: 6px 6px 0px 0px;
+    border-radius: 6px 6px 0px 0px;
     padding: 40px 20px;
     position: relative;
     h3 {
@@ -1829,7 +1820,7 @@ div.hopscotch-bubble .hopscotch-bubble-arrow-container.down .hopscotch-bubble-ar
   z-index: 999;
   img {
     height: 88px;
-    margin: 0 auto;
+    margin: 0px auto;
     width: 88px;
   }
 }
@@ -2039,8 +2030,8 @@ div.hopscotch-bubble .hopscotch-bubble-arrow-container.down .hopscotch-bubble-ar
 
 #main {
   position: fixed;
-  top: 121px;
-  left: 330px;
+  top: 72px;
+  left: 490px;
   bottom: 0;
   right: 0;
   z-index: 4;
@@ -2335,7 +2326,7 @@ div.hopscotch-bubble .hopscotch-bubble-arrow-container.down .hopscotch-bubble-ar
 
 #message {
   position: fixed;
-  top: 121px;
+  top: 72px;
   left: 60%;
   bottom: 0;
   width: 40%;
@@ -2537,11 +2528,6 @@ div.hopscotch-bubble .hopscotch-bubble-arrow-container.down .hopscotch-bubble-ar
   #main {
     left: 0;
     box-shadow: none;
-    top: 60px;
-  }
-
-  #message {
-    top: 60px;
   }
 
   #main .header .page-title .sidebar-toggle-btn {

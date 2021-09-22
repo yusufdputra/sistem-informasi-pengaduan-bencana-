@@ -3,11 +3,9 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
-  <meta content="Coderthemes" name="author" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>INVENTORI GUDANG PT TUJUHSATU MAHAKARYA INDONESIA</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SI-MA | FAKULTAS KEGURUAN DAN ILMU PENDIDIKAN UMRI</title>
 
   <link rel="shortcut icon" href="{{asset('adminto/images/brand/logo.png')}}">
 
@@ -16,7 +14,7 @@
   <link href="{{asset('adminto/css/icons.css')}}" rel="stylesheet" type="text/css" />
   <link href="{{asset('adminto/css/style.css')}}" rel="stylesheet" type="text/css" />
 
-  <script src="{{asset('adminto/js/modernizr.min.js')}}"></script>
+  <link href="{{asset('adminto/plugins/switchery/switchery.min.css')}}" rel="stylesheet" />
 
   <!-- DataTables -->
   <link href="{{asset('adminto/plugins/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet" type="text/css" />
@@ -24,6 +22,7 @@
 
 
   <link href="{{asset('adminto/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css')}}" rel="stylesheet">
+  <link href="{{asset('adminto/plugins/bootstrap-daterangepicker/daterangepicker.css')}}" rel="stylesheet">
   <!-- Notification css (Toastr) -->
   <link href="{{asset('adminto/plugins/toastr/toastr.min.css')}}" rel="stylesheet" type="text/css" />
 
@@ -42,7 +41,11 @@
   <link href="{{asset('adminto/plugins/bootstrap-tagsinput/dist/bootstrap-tagsinput.css')}}" rel="stylesheet" />
   <!-- @toastr_css -->
 
+  <script src="{{asset('adminto/js/modernizr.min.js')}}"></script>
 </head>
 
-<body >
+<body class="fixed-left">
 
+
+  <!-- Begin page -->
+  <div id="wrapper">

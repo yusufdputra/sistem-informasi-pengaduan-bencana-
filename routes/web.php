@@ -1,13 +1,19 @@
 <?php
+
 use App\Http\Controllers\AjaxController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\BarangKeluarController;
 use App\Http\Controllers\BarangMasukController;
 use App\Http\Controllers\CetakController;
+use App\Http\Controllers\DaftarController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\PeminjamanController;
+use App\Http\Controllers\PengajuanMagangController;
 use App\Http\Controllers\PengembalianController;
+use App\Http\Controllers\PeriodeController;
+use App\Http\Controllers\ProdiController;
 use App\Http\Controllers\RabController;
 use App\Http\Controllers\RabTempController;
 use App\Http\Controllers\RequestController;
@@ -31,6 +37,8 @@ Route::get('/', [HomeController::class, 'auth'])->name('/');
 
 Auth::routes();
 
+Route::post('/register/mahasiswa', [RegisterController::class, 'mahasiswa'])->name('register.mahasiswa');
+Route::post('/register/dosen', [RegisterController::class, 'dosen'])->name('register.dosen');
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 // admin
@@ -38,60 +46,55 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::group(['middleware' => ['role:admin']], function () {
     // user management
     Route::get('/user/{jenis}', [UserManagementController::class, 'index'])->name('user.index');
-    Route::post('/user/store', [UserManagementController::class, 'store'])->name('user.store');
-    Route::post('/user/edit', [UserManagementController::class, 'edit'])->name('user.edit');
-    Route::post('/user/update', [UserManagementController::class, 'update'])->name('user.update');
     Route::post('/user/hapus', [UserManagementController::class, 'hapus'])->name('user.hapus');
     Route::post('/user/resetpw', [UserManagementController::class, 'resetpw'])->name('user.resetpw');
+    Route::post('/user/status', [UserManagementController::class, 'status'])->name('user.status');
 
-     // kelola barang
-     Route::post('/barang/store', [BarangController::class, 'store'])->name('barang.store');
-     Route::get('/barang/edit/{id}', [BarangController::class, 'edit'])->name('barang/edit');
-     Route::POST('/barang/update/', [BarangController::class, 'update'])->name('barang.update');
-     Route::POST('/barang/hapus/', [BarangController::class, 'hapus'])->name('barang.hapus');
-
+    // kelola periode
+    Route::get('/periode', [PeriodeController::class, 'index'])->name('periode.index');
+    Route::post('/periode/store', [PeriodeController::class, 'store'])->name('periode.store');
+    Route::POST('/periode/hapus/', [PeriodeController::class, 'hapus'])->name('periode.hapus');
+    Route::get('/getPeriodeById/{id}', [PeriodeController::class, 'getPeriodeById'])->name('getPeriodeById');
+    
+    
+    // kelola prodi
+    Route::get('/prodi', [ProdiController::class, 'index'])->name('prodi.index');
+    Route::post('/prodi/store', [ProdiController::class, 'store'])->name('prodi.store');
+    Route::POST('/prodi/hapus/', [ProdiController::class, 'hapus'])->name('prodi.hapus');
+    
+    //kelola pengajuan magang
+    Route::get('pengajuan-magang/detail/{id}', [PengajuanMagangController::class, 'detail'])->name('pengajuanMagang.detail');
+    Route::post('pengajuan-magang/proses', [PengajuanMagangController::class, 'proses'])->name('pengajuanMagang.proses');
+    
    
-    // kelola kategori
-    Route::get('/kategori', [KategoriController::class, 'index'])->name('kategori.index');
-    Route::post('/kategori/store', [KategoriController::class, 'store'])->name('kategori.store');
-    Route::POST('/kategori/edit', [KategoriController::class, 'update'])->name('kategori.update');
-    Route::POST('/kategori/hapus/', [KategoriController::class, 'hapus'])->name('kategori.hapus');
+});
 
-    // kelola ajax
-    Route::get('/GetBarangByKategori/{id}', [AjaxController::class, 'GetBarangByKategori'])->name('GetBarangByKategori');
+Route::group(['middleware' => ['role:mahasiswa']], function () {
 
+    // kelola pengajuan magang
+    Route::get('pengajuan-magang/tambah', [PengajuanMagangController::class, 'tambah'])->name('pengajuanMagang.tambah');
+    Route::post('pengajuan-magang/store', [PengajuanMagangController::class, 'store'])->name('pengajuanMagang.store');
+    Route::get('/pengajuan-magang/edit/{id}', [PengajuanMagangController::class, 'detail'])->name('pengajuanMagang/edit');
+    // Route::POST('/pengajuan-magang/hapus/', [PengajuanMagangController::class, 'hapus'])->name('pengajuanMagang.hapus');
 
 });
 
-Route::group(['middleware' => ['role:admin|pegawai']], function () {
+Route::group(['middleware' => ['role:admin|mahasiswa']], function () {
 
-    // barang Peminjaman
-    Route::post('peminjaman/store', [PeminjamanController::class, 'store'])->name('peminjaman.store');
-    Route::get('/peminjaman/edit/{id}', [PeminjamanController::class, 'edit'])->name('peminjaman/edit');
-    Route::POST('/peminjaman/update/', [PeminjamanController::class, 'update'])->name('peminjaman.update');
-    Route::POST('/peminjaman/hapus/', [PeminjamanController::class, 'hapus'])->name('peminjaman.hapus');
+    // kelola pengajuan magang
+    Route::get('pengajuan-magang/', [PengajuanMagangController::class, 'index'])->name('pengajuanMagang.index');
 
-    // barang pengembalian
-    Route::get('/pengembalian/edit/{id}', [PengembalianController::class, 'edit'])->name('pengembalian/edit');
-    Route::POST('/pengembalian/update/', [PengembalianController::class, 'update'])->name('pengembalian.update');
-  
-    // kelola restok barang 
-    Route::post('restok/store', [RequestController::class, 'store'])->name('restok.store');
-    Route::get('/restok/edit/{id}', [RequestController::class, 'edit'])->name('restok/edit');
-    Route::POST('/restok/update/', [RequestController::class, 'update'])->name('restok.update');
-    Route::POST('/restok/terima/', [RequestController::class, 'terima'])->name('restok.terima');
-    Route::POST('/restok/hapus/', [RequestController::class, 'hapus'])->name('restok.hapus');
+
+    // kelola cetak
+    Route::post('/cetak/cetak', [CetakController::class, 'cetak'])->name('cetak.cetak');
 });
 
-Route::group(['middleware' => ['role:pegawai|admin|pimpinan']], function () {  
-    // barang peminjaman
-    Route::get('/peminjaman', [PeminjamanController::class, 'index'])->name('peminjaman.index');
-    // barang pengembalian
-    Route::get('/pengembalian', [PengembalianController::class, 'index'])->name('pengembalian.index');
-    // kelola barang index
-    Route::get('/barang', [BarangController::class, 'index'])->name('barang.index');
-    // kelola restok barang 
-    Route::get('/restok', [RequestController::class, 'index'])->name('restok.index');
+Route::group(['middleware' => ['role:admin|mahasiswa']], function () {
+
+    // kelola pengajuan magang
+    Route::get('pengajuan-magang/', [PengajuanMagangController::class, 'index'])->name('pengajuanMagang.index');
+
+
     // kelola cetak
     Route::post('/cetak/cetak', [CetakController::class, 'cetak'])->name('cetak.cetak');
 });
