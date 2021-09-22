@@ -105,7 +105,7 @@
   </div> <!-- content -->
 
   <footer class="footer text-right">
-    2021 - PT. Sejahtera Mandiri Pekanbaru
+    2021 - FAKULTAS KEGURUAN DAN ILMU PENDIDIKAN UMRI
   </footer>
 
 </div><?php /**PATH C:\xampp\htdocs\SIMA UP2KT\resources\views/layouts/sidebar.blade.php ENDPATH**/ ?>
