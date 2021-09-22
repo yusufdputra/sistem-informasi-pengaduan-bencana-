@@ -23,6 +23,11 @@ class Magang extends Model
         return $this->hasOne(Dosen::class, 'id', 'id_dosen')->withTrashed();
     }
 
+    public function periode()
+    {
+        return $this->hasOne(Periode::class, 'id', 'id_periode')->withTrashed();
+    }
+
     
 
 }

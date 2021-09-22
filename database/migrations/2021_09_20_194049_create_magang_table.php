@@ -26,7 +26,7 @@ class CreateMagangTable extends Migration
             $table->enum('status_pengajuan', ['proses','ditolak', 'diterima', 'selesai','gagal']);
             $table->char('nilai_pembimbing')->nullable();
             $table->string('keterangan_status')->nullable();
-            $table->string('tanggal_pelaksanaan');
+            $table->bigInteger('id_periode');
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
         });

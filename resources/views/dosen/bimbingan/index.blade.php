@@ -38,7 +38,8 @@
             <td>{{$value->mhs->user->nomor_induk}}</td>
             <td>{{$value->mhs->nama}}</td>
             <td>{{$value->nama_sekolah}}</td>
-            <td>{{$value->tanggal_pelaksanaan}}</td>
+            <td>
+            {{date('d-F-Y', strtotime($value->periode->mulai_magang))}} s/d {{date('d-F-Y', strtotime($value->periode->akhir_magang))}}</td>
             <td>
               @if($value->nilai_pembimbing == null)
               Tidak Ada Nilai

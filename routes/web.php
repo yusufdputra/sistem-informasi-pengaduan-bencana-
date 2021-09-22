@@ -18,6 +18,7 @@ use App\Http\Controllers\ProdiController;
 use App\Http\Controllers\RabController;
 use App\Http\Controllers\RabTempController;
 use App\Http\Controllers\RequestController;
+use App\Http\Controllers\RiwayatController;
 use App\Http\Controllers\UserManagementController;
 use App\Models\Barang;
 use Illuminate\Support\Facades\Auth;
@@ -56,18 +57,20 @@ Route::group(['middleware' => ['role:admin']], function () {
     Route::post('/periode/store', [PeriodeController::class, 'store'])->name('periode.store');
     Route::POST('/periode/hapus/', [PeriodeController::class, 'hapus'])->name('periode.hapus');
     Route::get('/getPeriodeById/{id}', [PeriodeController::class, 'getPeriodeById'])->name('getPeriodeById');
-    
-    
+
+
     // kelola prodi
     Route::get('/prodi', [ProdiController::class, 'index'])->name('prodi.index');
     Route::post('/prodi/store', [ProdiController::class, 'store'])->name('prodi.store');
     Route::POST('/prodi/hapus/', [ProdiController::class, 'hapus'])->name('prodi.hapus');
-    
+
     //kelola pengajuan magang
     Route::get('pengajuan-magang/detail/{id}', [PengajuanMagangController::class, 'detail'])->name('pengajuanMagang.detail');
     Route::post('pengajuan-magang/proses', [PengajuanMagangController::class, 'proses'])->name('pengajuanMagang.proses');
-    
-   
+
+    // kelola cetak
+    Route::get('/riwayat', [RiwayatController::class, 'index'])->name('riwayat.index');
+    Route::post('/riwayat/cetak', [CetakController::class, 'cetak'])->name('cetak');
 });
 
 Route::group(['middleware' => ['role:mahasiswa']], function () {
@@ -78,25 +81,19 @@ Route::group(['middleware' => ['role:mahasiswa']], function () {
     Route::post('pengajuan-magang/upload', [PengajuanMagangController::class, 'uploadLaporan'])->name('pengajuanMagang.upload');
     Route::get('/pengajuan-magang/edit/{id}', [PengajuanMagangController::class, 'detail'])->name('pengajuanMagang/edit');
     // Route::POST('/pengajuan-magang/hapus/', [PengajuanMagangController::class, 'hapus'])->name('pengajuanMagang.hapus');
-    
+
 });
 
 Route::group(['middleware' => ['role:admin|mahasiswa']], function () {
-    
+
     // kelola pengajuan magang
     Route::get('pengajuan-magang/', [PengajuanMagangController::class, 'index'])->name('pengajuanMagang.index');
-    
-    
-    // kelola cetak
-    Route::post('/cetak/cetak', [CetakController::class, 'cetak'])->name('cetak.cetak');
 });
 
 Route::group(['middleware' => ['role:dosen']], function () {
-    
+
     // kelola mhs magang
     Route::get('mahasiswa-bimbingan/', [MahasiswaBimbingan::class, 'index'])->name('mahasiswa.index');
 
     Route::post('pengajuan-magang/nilai', [MahasiswaBimbingan::class, 'inputNilai'])->name('pengajuanMagang.nilai');
-
 });
-

@@ -114,7 +114,7 @@
         //Buttons examples
         var table = $('#datatable-buttons').DataTable({
             lengthChange: false,
-            buttons: ['copy', 'excel', 'pdf']
+            buttons: ['excel', 'pdf']
         });
 
 

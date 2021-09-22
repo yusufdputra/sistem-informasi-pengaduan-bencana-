@@ -38,7 +38,8 @@
             <td><?php echo e($value->mhs->user->nomor_induk); ?></td>
             <td><?php echo e($value->mhs->nama); ?></td>
             <td><?php echo e($value->nama_sekolah); ?></td>
-            <td><?php echo e($value->tanggal_pelaksanaan); ?></td>
+            <td>
+            <?php echo e(date('d-F-Y', strtotime($value->periode->mulai_magang))); ?> s/d <?php echo e(date('d-F-Y', strtotime($value->periode->akhir_magang))); ?></td>
             <td>
               <?php if($value->nilai_pembimbing == null): ?>
               Tidak Ada Nilai

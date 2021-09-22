@@ -71,7 +71,10 @@
             <td><?php echo e($value->mhs->nama); ?></td>
             <?php endif; ?>
             <td><?php echo e($value->nama_sekolah); ?></td>
-            <td><?php echo e($value->tanggal_pelaksanaan); ?></td>
+            <td>
+            <?php echo e(date('d-F-Y', strtotime($value->periode->mulai_magang))); ?> s/d <?php echo e(date('d-F-Y', strtotime($value->periode->akhir_magang))); ?>
+
+            </td>
             <td>
               <?php if($value->id_dosen == null): ?>
               Belum Ditentukan
@@ -89,9 +92,13 @@
               <?php endif; ?>
             </td>
 
+            <?php if($value->url_laporan == NULL && \Carbon\Carbon::now() > $value->periode->akhir_magang ): ?>
+            <td><span class="badge badge-danger">GAGAL</span></td>
+            <td>
+              Tidak Tersedia
+            </td>
 
-
-            <?php if($value->status_pengajuan == 'proses'): ?>
+            <?php elseif($value->status_pengajuan == 'proses'): ?>
             <td><span class="badge badge-primary"><?php echo e(strtoupper($value->status_pengajuan)); ?></span></td>
             <td>
               <?php if(auth()->check() && auth()->user()->hasRole('mahasiswa')): ?>
@@ -111,7 +118,11 @@
               <a href="<?php echo e($value->url_laporan); ?>" target="_BLANK" class="btn btn-sm btn-purple waves-effect waves-light upload_laporan_modal"><i class="fa fa-file-pdf-o"></i></a>
               <?php endif; ?>
               <?php if(auth()->check() && auth()->user()->hasRole('mahasiswa')): ?>
+              <?php if($value->nilai_pembimbing == null): ?>
               <a href="#upload-laporan-modal" data-animation="sign" data-plugin="custommodal" data-id='<?php echo e($value->id); ?>' data-overlaySpeed="100" data-overlayColor="#36404a" class="btn btn-sm btn-primary waves-effect waves-light upload_laporan_modal"><i class="fa fa-upload"></i></a>
+              <?php endif; ?>
+              <?php elseif(auth()->check() && auth()->user()->hasRole('admin')): ?>
+              Tidak Tersedia
               <?php endif; ?>
               <?php endif; ?>
             </td>
@@ -126,11 +137,7 @@
 
             </td>
            
-            <?php elseif($value->status_pengajuan == 'gagal'): ?>
-            <td><span class="badge badge-danger"><?php echo e(strtoupper($value->status_pengajuan)); ?></span></td>
-            <td>
-
-            </td>
+            
             <?php endif; ?>
 
           </tr>

@@ -27,7 +27,7 @@
         <input type="hidden" name="id_pengajuan" @if($pengajuan !=null) value="{{$pengajuan->id}}" @endif>
         <input type="hidden" name="url_transkrip_lama" @if($pengajuan !=null) value="{{$pengajuan->url_transkrip}}" @endif>
         <input type="hidden" name="id_mahasiswa" value="{{$mhs['id']}}">
-        <input type="hidden" name="tanggal_pelaksanaan" value="{{date('d-F-Y', strtotime($periode['mulai_magang']))}} s/d {{date('d-F-Y', strtotime($periode['akhir_magang']))}}">
+        <input type="hidden" name="id_periode" value="{{$periode->id}}">
         <div class="row">
           <div class="col-xl-6">
             <div class="form-group row">

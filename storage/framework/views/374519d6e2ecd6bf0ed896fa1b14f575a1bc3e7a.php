@@ -54,13 +54,16 @@
         <li>
           <a href="<?php echo e(route ('pengajuanMagang.index')); ?>" class="waves-effect"><i class="fa fa-address-card-o"></i> <span> Pengajuan Magang </span> </a>
         </li>
+        <li>
+          <a href="<?php echo e(route ('riwayat.index')); ?>" class="waves-effect"><i class="fa fa-history"></i> <span> Riwayat Magang </span> </a>
+        </li>
 
         <?php endif; ?>
 
 
         <?php if(auth()->check() && auth()->user()->hasRole('mahasiswa')): ?>
         <li>
-          <a href="<?php echo e(route ('pengajuanMagang.index')); ?>" class="waves-effect"><i class="fa fa-address-card-o"></i> <span> Pengajuan Magang </span> </a>
+          <a href="<?php echo e(route ('pengajuanMagang.index')); ?>" class="waves-effect"><i class="fa fa-address-card-o"></i> <span> Magang </span> </a>
         </li>
         <?php endif; ?>
 

@@ -71,7 +71,9 @@
             <td>{{$value->mhs->nama}}</td>
             @endrole
             <td>{{$value->nama_sekolah}}</td>
-            <td>{{$value->tanggal_pelaksanaan}}</td>
+            <td>
+            {{date('d-F-Y', strtotime($value->periode->mulai_magang))}} s/d {{date('d-F-Y', strtotime($value->periode->akhir_magang))}}
+            </td>
             <td>
               @if($value->id_dosen == null)
               Belum Ditentukan
@@ -87,9 +89,13 @@
               @endif
             </td>
 
+            @if ($value->url_laporan == NULL && \Carbon\Carbon::now() > $value->periode->akhir_magang )
+            <td><span class="badge badge-danger">GAGAL</span></td>
+            <td>
+              Tidak Tersedia
+            </td>
 
-
-            @if($value->status_pengajuan == 'proses')
+            @elseif($value->status_pengajuan == 'proses')
             <td><span class="badge badge-primary">{{strtoupper($value->status_pengajuan)}}</span></td>
             <td>
               @role('mahasiswa')
@@ -109,7 +115,11 @@
               <a href="{{$value->url_laporan}}" target="_BLANK" class="btn btn-sm btn-purple waves-effect waves-light upload_laporan_modal"><i class="fa fa-file-pdf-o"></i></a>
               @endif
               @role('mahasiswa')
+              @if($value->nilai_pembimbing == null)
               <a href="#upload-laporan-modal" data-animation="sign" data-plugin="custommodal" data-id='{{$value->id}}' data-overlaySpeed="100" data-overlayColor="#36404a" class="btn btn-sm btn-primary waves-effect waves-light upload_laporan_modal"><i class="fa fa-upload"></i></a>
+              @endif
+              @elserole('admin')
+              Tidak Tersedia
               @endrole
               @endif
             </td>
@@ -124,11 +134,7 @@
 
             </td>
            
-            @elseif ($value->status_pengajuan == 'gagal')
-            <td><span class="badge badge-danger">{{strtoupper($value->status_pengajuan)}}</span></td>
-            <td>
-
-            </td>
+            
             @endif
 
           </tr>

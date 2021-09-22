@@ -28,7 +28,7 @@
         <input type="hidden" name="id_pengajuan" <?php if($pengajuan !=null): ?> value="<?php echo e($pengajuan->id); ?>" <?php endif; ?>>
         <input type="hidden" name="url_transkrip_lama" <?php if($pengajuan !=null): ?> value="<?php echo e($pengajuan->url_transkrip); ?>" <?php endif; ?>>
         <input type="hidden" name="id_mahasiswa" value="<?php echo e($mhs['id']); ?>">
-        <input type="hidden" name="tanggal_pelaksanaan" value="<?php echo e(date('d-F-Y', strtotime($periode['mulai_magang']))); ?> s/d <?php echo e(date('d-F-Y', strtotime($periode['akhir_magang']))); ?>">
+        <input type="hidden" name="id_periode" value="<?php echo e($periode->id); ?>">
         <div class="row">
           <div class="col-xl-6">
             <div class="form-group row">

@@ -48,7 +48,7 @@ class PengajuanMagangController extends Controller
         }
         if (Auth::user()->roles[0]['name'] == 'admin') {
             $pengajuan = Magang::with('mhs', 'dsn')
-                ->where('nilai_pembimbing', '==', null)
+                ->where('status_pengajuan', '!=', 'selesai')
                 ->orderBy('updated_at', 'DESC')
                 ->get();
             return view('umum.pengajuan.index', compact('title', 'pengajuan', 'status_daftar','status_magang'));
@@ -113,7 +113,7 @@ class PengajuanMagangController extends Controller
             'url_transkrip'         => $file_path,
             'ipk'                   => $request->ipk,
             'nama_sekolah'          => $request->nama_sekolah,
-            'tanggal_pelaksanaan'   => $request->tanggal_pelaksanaan,
+            'id_periode'            => $request->id_periode,
             'status_pengajuan'      => 'proses',
             'created_at'            => Carbon::now(),
             'updated_at'            => Carbon::now(),
