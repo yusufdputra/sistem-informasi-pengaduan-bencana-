@@ -120,7 +120,10 @@
             <td>
               <?php if(auth()->check() && auth()->user()->hasRole('mahasiswa')): ?>
               <a href="#ket-modal" data-animation="sign" data-plugin="custommodal" data-ket="<?php echo e($value->keterangan_status); ?>" data-id='<?php echo e($value->id); ?>' data-overlaySpeed="100" data-overlayColor="#36404a" class="btn btn-sm btn-primary waves-effect waves-light ket_modal"><i class="fa fa-eye"></i></a>
+              <?php elseif(auth()->check() && auth()->user()->hasRole('admin')): ?>
+              Tidak Tersedia
               <?php endif; ?>
+
             </td>
            
             <?php elseif($value->status_pengajuan == 'gagal'): ?>

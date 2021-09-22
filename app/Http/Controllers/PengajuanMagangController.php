@@ -48,6 +48,7 @@ class PengajuanMagangController extends Controller
         }
         if (Auth::user()->roles[0]['name'] == 'admin') {
             $pengajuan = Magang::with('mhs', 'dsn')
+                ->where('nilai_pembimbing', '==', null)
                 ->orderBy('updated_at', 'DESC')
                 ->get();
             return view('umum.pengajuan.index', compact('title', 'pengajuan', 'status_daftar','status_magang'));

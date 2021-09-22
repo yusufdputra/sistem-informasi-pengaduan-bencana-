@@ -118,7 +118,10 @@
             <td>
               @role('mahasiswa')
               <a href="#ket-modal" data-animation="sign" data-plugin="custommodal" data-ket="{{$value->keterangan_status}}" data-id='{{$value->id}}' data-overlaySpeed="100" data-overlayColor="#36404a" class="btn btn-sm btn-primary waves-effect waves-light ket_modal"><i class="fa fa-eye"></i></a>
+              @elserole('admin')
+              Tidak Tersedia
               @endrole
+
             </td>
            
             @elseif ($value->status_pengajuan == 'gagal')
