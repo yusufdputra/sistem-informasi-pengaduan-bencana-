@@ -9,6 +9,7 @@ use App\Http\Controllers\CetakController;
 use App\Http\Controllers\DaftarController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\MahasiswaBimbingan;
 use App\Http\Controllers\PeminjamanController;
 use App\Http\Controllers\PengajuanMagangController;
 use App\Http\Controllers\PengembalianController;
@@ -89,14 +90,10 @@ Route::group(['middleware' => ['role:admin|mahasiswa']], function () {
     Route::post('/cetak/cetak', [CetakController::class, 'cetak'])->name('cetak.cetak');
 });
 
-Route::group(['middleware' => ['role:admin|mahasiswa']], function () {
+Route::group(['middleware' => ['role:dosen']], function () {
 
     // kelola pengajuan magang
-    Route::get('pengajuan-magang/', [PengajuanMagangController::class, 'index'])->name('pengajuanMagang.index');
+    Route::get('mahasiswa-bimbingan/', [MahasiswaBimbingan::class, 'index'])->name('mahasiswa.index');
 
-
-    // kelola cetak
-    Route::post('/cetak/cetak', [CetakController::class, 'cetak'])->name('cetak.cetak');
 });
 
-Route::get('/getBarangById/{id}', [BarangController::class, 'getBarangById'])->name('getBarangById');

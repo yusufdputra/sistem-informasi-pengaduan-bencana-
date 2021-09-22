@@ -7,7 +7,7 @@
         <img src="<?php echo e(asset('adminto/images/users/avatar-1.jpg')); ?>" alt="user-img" title="Mat Helme" class="rounded-circle img-thumbnail img-responsive">
         <div class="user-status online"><i class="mdi mdi-adjust"></i></div>
       </div>
-      <h5><a href="#"> <?php echo e(Auth::user()->nama); ?></a> </h5>
+      <h5><a href="#"> <?php echo e(Auth::user()->nomor_induk); ?></a> </h5>
       <ul class="list-inline">
 
 
@@ -62,13 +62,12 @@
         <li>
           <a href="<?php echo e(route ('pengajuanMagang.index')); ?>" class="waves-effect"><i class="fa fa-address-card-o"></i> <span> Pengajuan Magang </span> </a>
         </li>
+        <?php endif; ?>
 
-        <!-- <li>
-          <a href="<?php echo e(route ('pengajuanMagang.index')); ?>" class="waves-effect"><i class="fa fa-address-card-o"></i> <span> Riwayat pengajuan </span> </a>
-        </li> -->
-
-   
-
+        <?php if(auth()->check() && auth()->user()->hasRole('dosen')): ?>
+        <li>
+          <a href="<?php echo e(route ('mahasiswa.index')); ?>" class="waves-effect"><i class="fa fa-group "></i> <span> Mahasiswa Bimbingan </span> </a>
+        </li>
         <?php endif; ?>
 
 

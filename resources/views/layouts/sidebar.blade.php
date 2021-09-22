@@ -7,7 +7,7 @@
         <img src="{{asset('adminto/images/users/avatar-1.jpg')}}" alt="user-img" title="Mat Helme" class="rounded-circle img-thumbnail img-responsive">
         <div class="user-status online"><i class="mdi mdi-adjust"></i></div>
       </div>
-      <h5><a href="#"> {{ Auth::user()->nama }}</a> </h5>
+      <h5><a href="#"> {{ Auth::user()->nomor_induk }}</a> </h5>
       <ul class="list-inline">
 
 
