@@ -6,11 +6,17 @@
     <div class="card-box table-responsive">
 
       <div class="alert alert-success">
-        <strong><?php if($status_daftar != null): ?>
-          Pendaftaran BUKA
-          <?php else: ?>
-          Pendaftaran TUTUP
-          <?php endif; ?></strong>
+
+        <?php if($status_daftar != null): ?>
+        Pendaftaran BUKA.
+        <?php else: ?>
+        Pendaftaran TUTUP.
+        <?php endif; ?>
+
+        <?php if($status_magang != null): ?>
+        Silahkan Upload Berkas Laporan Jika Telah Selesai.
+        <?php endif; ?>
+
       </div>
 
       <?php if(auth()->check() && auth()->user()->hasRole('mahasiswa')): ?>
@@ -93,10 +99,17 @@
               <?php endif; ?>
             </td>
 
-            <?php elseif($value->status_pengajuan == 'diterima'): ?>
+            <?php elseif($value->status_pengajuan == 'diterima' || $value->status_pengajuan == 'selesai'): ?>
             <td><span class="badge badge-success"><?php echo e(strtoupper($value->status_pengajuan)); ?></span></td>
             <td>
-
+              <?php if($status_magang == null): ?>
+              Tidak Tersedia
+              <?php else: ?>
+              <?php if($value->url_laporan != null): ?>
+              <a href="<?php echo e($value->url_laporan); ?>" target="_BLANK" class="btn btn-sm btn-purple waves-effect waves-light upload_laporan_modal"><i class="fa fa-file-pdf-o"></i></a>
+              <?php endif; ?>
+              <a href="#upload-laporan-modal" data-animation="sign" data-plugin="custommodal" data-id='<?php echo e($value->id); ?>' data-overlaySpeed="100" data-overlayColor="#36404a" class="btn btn-sm btn-primary waves-effect waves-light upload_laporan_modal"><i class="fa fa-upload"></i></a>
+              <?php endif; ?>
             </td>
             <?php elseif($value->status_pengajuan == 'ditolak'): ?>
             <td><span class="badge badge-danger"><?php echo e(strtoupper($value->status_pengajuan)); ?></span></td>
@@ -105,11 +118,7 @@
               <a href="#ket-modal" data-animation="sign" data-plugin="custommodal" data-ket="<?php echo e($value->keterangan_status); ?>" data-id='<?php echo e($value->id); ?>' data-overlaySpeed="100" data-overlayColor="#36404a" class="btn btn-sm btn-primary waves-effect waves-light ket_modal"><i class="fa fa-eye"></i></a>
               <?php endif; ?>
             </td>
-            <?php elseif($value->status_pengajuan == 'selesai'): ?>
-            <td><span class="badge badge-success"><?php echo e(strtoupper($value->status_pengajuan)); ?></span></td>
-            <td>
-
-            </td>
+           
             <?php elseif($value->status_pengajuan == 'gagal'): ?>
             <td><span class="badge badge-danger"><?php echo e(strtoupper($value->status_pengajuan)); ?></span></td>
             <td>
@@ -160,6 +169,41 @@
 
 </div>
 
+<div id="upload-laporan-modal" class="modal-demo">
+  <button type="button" class="close" onclick="Custombox.close();">
+    <span>&times;</span><span class="sr-only">Close</span>
+  </button>
+
+  <div class="custom-modal-text">
+
+    <div class="text-center">
+      <h4 class="text-uppercase font-bold mb-0">Upload Laporan Magang</h4>
+    </div>
+    <div class="text-left">
+    <form class="form-horizontal m-t-20" enctype="multipart/form-data" action="<?php echo e(route('pengajuanMagang.upload')); ?>" method="POST">
+        <?php echo csrf_field(); ?>
+        <input type="hidden" id="id" name="id_pengajuan">
+
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label">URL Laporan</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" name="url_laporan" required placeholder="Link laporan yang telah di upload di Google Drive"/>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" onclick="Custombox.close();" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary waves-effect waves-light">Save changes</button>
+        </div>
+
+
+      </form>
+
+    </div>
+  </div>
+
+</div>
+
 <script type="text/javascript">
   $('.ket_modal').click(function() {
     var id = $(this).data('id');
@@ -179,6 +223,11 @@
     $('#tolak_id').val(id)
     $('#tolak_nama').val(nama)
     $('#tolak_nim').val(nim)
+  });
+
+  $('.upload_laporan_modal').click(function() {
+    var id = $(this).data('id');
+    $('#id').val(id)
   });
 </script>
 

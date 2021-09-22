@@ -20,7 +20,7 @@ class CreateMagangTable extends Migration
             $table->string('matkul_pilihan');
             $table->float('nilai_matkul');
             $table->string('url_transkrip');
-            $table->string('url_laporan')->nullable();
+            $table->text('url_laporan')->nullable();
             $table->float('ipk');
             $table->string('nama_sekolah');
             $table->enum('status_pengajuan', ['proses','ditolak', 'diterima', 'selesai','gagal']);

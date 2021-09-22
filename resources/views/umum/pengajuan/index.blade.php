@@ -6,11 +6,17 @@
     <div class="card-box table-responsive">
 
       <div class="alert alert-success">
-        <strong>@if($status_daftar != null)
-          Pendaftaran BUKA
-          @else
-          Pendaftaran TUTUP
-          @endif</strong>
+
+        @if($status_daftar != null)
+        Pendaftaran BUKA.
+        @else
+        Pendaftaran TUTUP.
+        @endif
+
+        @if($status_magang != null)
+        Silahkan Upload Berkas Laporan Jika Telah Selesai.
+        @endif
+
       </div>
 
       @role('mahasiswa')
@@ -91,10 +97,17 @@
               @endrole
             </td>
 
-            @elseif ($value->status_pengajuan == 'diterima')
+            @elseif ($value->status_pengajuan == 'diterima' || $value->status_pengajuan == 'selesai')
             <td><span class="badge badge-success">{{strtoupper($value->status_pengajuan)}}</span></td>
             <td>
-
+              @if($status_magang == null)
+              Tidak Tersedia
+              @else
+              @if($value->url_laporan != null)
+              <a href="{{$value->url_laporan}}" target="_BLANK" class="btn btn-sm btn-purple waves-effect waves-light upload_laporan_modal"><i class="fa fa-file-pdf-o"></i></a>
+              @endif
+              <a href="#upload-laporan-modal" data-animation="sign" data-plugin="custommodal" data-id='{{$value->id}}' data-overlaySpeed="100" data-overlayColor="#36404a" class="btn btn-sm btn-primary waves-effect waves-light upload_laporan_modal"><i class="fa fa-upload"></i></a>
+              @endif
             </td>
             @elseif ($value->status_pengajuan == 'ditolak')
             <td><span class="badge badge-danger">{{strtoupper($value->status_pengajuan)}}</span></td>
@@ -103,11 +116,7 @@
               <a href="#ket-modal" data-animation="sign" data-plugin="custommodal" data-ket="{{$value->keterangan_status}}" data-id='{{$value->id}}' data-overlaySpeed="100" data-overlayColor="#36404a" class="btn btn-sm btn-primary waves-effect waves-light ket_modal"><i class="fa fa-eye"></i></a>
               @endrole
             </td>
-            @elseif ($value->status_pengajuan == 'selesai')
-            <td><span class="badge badge-success">{{strtoupper($value->status_pengajuan)}}</span></td>
-            <td>
-
-            </td>
+           
             @elseif ($value->status_pengajuan == 'gagal')
             <td><span class="badge badge-danger">{{strtoupper($value->status_pengajuan)}}</span></td>
             <td>
@@ -158,6 +167,41 @@
 
 </div>
 
+<div id="upload-laporan-modal" class="modal-demo">
+  <button type="button" class="close" onclick="Custombox.close();">
+    <span>&times;</span><span class="sr-only">Close</span>
+  </button>
+
+  <div class="custom-modal-text">
+
+    <div class="text-center">
+      <h4 class="text-uppercase font-bold mb-0">Upload Laporan Magang</h4>
+    </div>
+    <div class="text-left">
+    <form class="form-horizontal m-t-20" enctype="multipart/form-data" action="{{route('pengajuanMagang.upload')}}" method="POST">
+        @csrf
+        <input type="hidden" id="id" name="id_pengajuan">
+
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label">URL Laporan</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" name="url_laporan" required placeholder="Link laporan yang telah di upload di Google Drive"/>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" onclick="Custombox.close();" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary waves-effect waves-light">Save changes</button>
+        </div>
+
+
+      </form>
+
+    </div>
+  </div>
+
+</div>
+
 <script type="text/javascript">
   $('.ket_modal').click(function() {
     var id = $(this).data('id');
@@ -177,6 +221,11 @@
     $('#tolak_id').val(id)
     $('#tolak_nama').val(nama)
     $('#tolak_nim').val(nim)
+  });
+
+  $('.upload_laporan_modal').click(function() {
+    var id = $(this).data('id');
+    $('#id').val(id)
   });
 </script>
 

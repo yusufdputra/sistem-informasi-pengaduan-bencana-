@@ -23,7 +23,7 @@ class PeriodeController extends Controller
             ->where('akhir_daftar', '>=', Carbon::now())
             ->first();
 
-        // get status daftar periode saat ini
+        // get status magang periode saat ini
         $status_magang = Periode::where('mulai_magang', '<=', Carbon::now())
             ->where('akhir_magang', '>=', Carbon::now())
             ->first();

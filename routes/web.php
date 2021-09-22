@@ -75,6 +75,7 @@ Route::group(['middleware' => ['role:mahasiswa']], function () {
     // kelola pengajuan magang
     Route::get('pengajuan-magang/tambah', [PengajuanMagangController::class, 'tambah'])->name('pengajuanMagang.tambah');
     Route::post('pengajuan-magang/store', [PengajuanMagangController::class, 'store'])->name('pengajuanMagang.store');
+    Route::post('pengajuan-magang/upload', [PengajuanMagangController::class, 'uploadLaporan'])->name('pengajuanMagang.upload');
     Route::get('/pengajuan-magang/edit/{id}', [PengajuanMagangController::class, 'detail'])->name('pengajuanMagang/edit');
     // Route::POST('/pengajuan-magang/hapus/', [PengajuanMagangController::class, 'hapus'])->name('pengajuanMagang.hapus');
 

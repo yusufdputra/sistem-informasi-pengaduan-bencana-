@@ -26,6 +26,11 @@ class PengajuanMagangController extends Controller
             ->where('akhir_daftar', '>=', Carbon::now())
             ->first();
 
+        // get status magang periode saat ini
+        $status_magang = Periode::where('mulai_magang', '<=', Carbon::now())
+            ->where('akhir_magang', '>=', Carbon::now())
+            ->first();
+
         if (Auth::user()->roles[0]['name'] == 'mahasiswa') {
             // dapatkan id mahasiswa
             $id_mhs = Mahasiswa::select('id')->where('id_user', Auth::user()->id)->first();
@@ -34,18 +39,18 @@ class PengajuanMagangController extends Controller
                 ->where('id_mahasiswa', $id_mhs->id)
                 ->orderBy('updated_at', 'DESC')
                 ->get();
-            
+
             // cek apakah sudah ada pengajuan di periode ini
             $status = Magang::where('id_mahasiswa', $id_mhs->id)
-            ->whereBetween('created_at', [$status_daftar['mulai_daftar'], $status_daftar['akhir_daftar']])->first();
-            
-            return view('umum.pengajuan.index', compact('title', 'pengajuan', 'status_daftar','status'));
+                ->whereBetween('created_at', [$status_daftar['mulai_daftar'], $status_daftar['akhir_daftar']])->first();
+
+            return view('umum.pengajuan.index', compact('title', 'pengajuan', 'status_daftar','status_magang', 'status'));
         }
         if (Auth::user()->roles[0]['name'] == 'admin') {
             $pengajuan = Magang::with('mhs', 'dsn')
                 ->orderBy('updated_at', 'DESC')
                 ->get();
-            return view('umum.pengajuan.index', compact('title', 'pengajuan', 'status_daftar'));
+            return view('umum.pengajuan.index', compact('title', 'pengajuan', 'status_daftar','status_magang'));
         }
     }
 
@@ -79,7 +84,7 @@ class PengajuanMagangController extends Controller
             if ($request->url_transkrip_lama != null && $request->trankrip == null) {
                 $file_path =  $request->url_transkrip_lama;
             }
-           
+
             // jika file sebelumnya ada dan ada upload baru
             else if ($request->trankrip != null) {
                 if ($request->url_transkrip_lama != null) {
@@ -159,6 +164,21 @@ class PengajuanMagangController extends Controller
             return redirect()->route('pengajuanMagang.index')->with('success', 'Pengajuan berhasil diproses');
         } else {
             return redirect()->back()->with('alert', 'Terjadi Kesalahan!');
+        }
+    }
+
+    public function uploadLaporan(Request $request)
+    {
+        $query = Magang::where('id', $request->id_pengajuan)
+            ->update([
+                'status_pengajuan'  => 'selesai',
+                'url_laporan' => $request->url_laporan
+            ]);
+
+        if ($query) {
+            return redirect()->back()->with('success', 'Laporan berhasil diupload');
+        } else {
+            return redirect()->back()->with('alert', 'Laporan gagal diupload');
         }
     }
 }
