@@ -13,8 +13,10 @@
         Pendaftaran TUTUP.
         <?php endif; ?>
 
+        <?php if(auth()->check() && auth()->user()->hasRole('mahasiswa')): ?>
         <?php if($status_magang != null): ?>
         Silahkan Upload Berkas Laporan Jika Telah Selesai.
+        <?php endif; ?>
         <?php endif; ?>
 
       </div>
@@ -108,7 +110,9 @@
               <?php if($value->url_laporan != null): ?>
               <a href="<?php echo e($value->url_laporan); ?>" target="_BLANK" class="btn btn-sm btn-purple waves-effect waves-light upload_laporan_modal"><i class="fa fa-file-pdf-o"></i></a>
               <?php endif; ?>
+              <?php if(auth()->check() && auth()->user()->hasRole('mahasiswa')): ?>
               <a href="#upload-laporan-modal" data-animation="sign" data-plugin="custommodal" data-id='<?php echo e($value->id); ?>' data-overlaySpeed="100" data-overlayColor="#36404a" class="btn btn-sm btn-primary waves-effect waves-light upload_laporan_modal"><i class="fa fa-upload"></i></a>
+              <?php endif; ?>
               <?php endif; ?>
             </td>
             <?php elseif($value->status_pengajuan == 'ditolak'): ?>
@@ -212,7 +216,6 @@
     $('#keterangan').val(ket)
     $('#ref_edit').attr('href', '<?php echo e(url("pengajuan-magang/edit")); ?>/' + id)
 
-    console.log(ket);
 
   });
 
