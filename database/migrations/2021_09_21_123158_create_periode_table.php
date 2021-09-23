@@ -15,10 +15,10 @@ class CreatePeriodeTable extends Migration
     {
         Schema::create('periode', function (Blueprint $table) {
             $table->id();
-            $table->timestamp('mulai_daftar')->nullable();
-            $table->timestamp('akhir_daftar')->nullable();
-            $table->timestamp('mulai_magang')->nullable();
-            $table->timestamp('akhir_magang')->nullable();
+            $table->date('mulai_daftar')->nullable();
+            $table->date('akhir_daftar')->nullable();
+            $table->date('mulai_magang')->nullable();
+            $table->date('akhir_magang')->nullable();
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
         });
