@@ -76,7 +76,7 @@
 
               <a href="#hapus-modal" data-animation="sign" data-plugin="custommodal" data-jenis="{{$jenis}}" data-id='{{$value->id}}' data-iduser='{{$value->id_user}}' data-overlaySpeed="100" data-overlayColor="#36404a" class="btn btn-danger btn-sm hapus"><i class="fa fa-trash"></i></a>
 
-              @if($jenis)
+              @if($jenis == "dosen")
               <a href="#edit-status" data-animation="sign" data-plugin="custommodal" data-status="{{$value->status}}" data-id='{{$value->id}}' data-overlaySpeed="100" data-overlayColor="#36404a" class="btn btn-primary btn-sm modal_status"><i class="fa fa-toggle-on"></i></a>
               @endif
 

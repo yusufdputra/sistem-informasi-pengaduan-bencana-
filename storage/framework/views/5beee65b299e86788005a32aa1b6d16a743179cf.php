@@ -57,7 +57,7 @@
             <td><?php echo e($value->alamat); ?></td>
             <td>Reguler <?php echo e(strtoupper($value->kelas)); ?></td>
             <?php endif; ?>
-            <td><?php echo e(strtoupper($value->prodi[0]['nama'])); ?></td>
+            <td><?php echo e(strtoupper($value->prodi->nama)); ?></td>
             <td><?php echo e($value->nomor_hp); ?></td>
 
             <?php if($jenis == "dosen"): ?>
@@ -76,7 +76,7 @@
 
               <a href="#hapus-modal" data-animation="sign" data-plugin="custommodal" data-jenis="<?php echo e($jenis); ?>" data-id='<?php echo e($value->id); ?>' data-iduser='<?php echo e($value->id_user); ?>' data-overlaySpeed="100" data-overlayColor="#36404a" class="btn btn-danger btn-sm hapus"><i class="fa fa-trash"></i></a>
 
-              <?php if($jenis): ?>
+              <?php if($jenis == "dosen"): ?>
               <a href="#edit-status" data-animation="sign" data-plugin="custommodal" data-status="<?php echo e($value->status); ?>" data-id='<?php echo e($value->id); ?>' data-overlaySpeed="100" data-overlayColor="#36404a" class="btn btn-primary btn-sm modal_status"><i class="fa fa-toggle-on"></i></a>
               <?php endif; ?>
 
