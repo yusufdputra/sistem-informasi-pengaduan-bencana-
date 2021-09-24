@@ -57,7 +57,7 @@
             <td><?php echo e($value->alamat); ?></td>
             <td>Reguler <?php echo e(strtoupper($value->kelas)); ?></td>
             <?php endif; ?>
-            <td>PENDIDIKAN <?php echo e(strtoupper($value->prodi[0]['nama'])); ?></td>
+            <td><?php echo e(strtoupper($value->prodi[0]['nama'])); ?></td>
             <td><?php echo e($value->nomor_hp); ?></td>
 
             <?php if($jenis == "dosen"): ?>

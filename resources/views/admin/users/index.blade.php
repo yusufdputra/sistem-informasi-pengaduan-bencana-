@@ -57,7 +57,7 @@
             <td>{{$value->alamat}}</td>
             <td>Reguler {{strtoupper($value->kelas)}}</td>
             @endif
-            <td>PENDIDIKAN {{strtoupper($value->prodi[0]['nama'])}}</td>
+            <td>{{strtoupper($value->prodi->nama)}}</td>
             <td>{{$value->nomor_hp}}</td>
 
             @if($jenis == "dosen")

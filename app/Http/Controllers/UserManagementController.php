@@ -21,7 +21,7 @@ class UserManagementController extends Controller
         if ($jenis == "mahasiswa") {
             $users = Mahasiswa::with('user', 'prodi')->get();
         }else{
-            $users = Dosen::with('user')->get();
+            $users = Dosen::with('user', 'prodi')->get();
         }
 
         return view('admin.users.index', compact('title', 'users', 'jenis'));
