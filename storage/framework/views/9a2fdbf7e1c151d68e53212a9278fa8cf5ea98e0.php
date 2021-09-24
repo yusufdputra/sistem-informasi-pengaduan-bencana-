@@ -57,27 +57,7 @@
                 <input type="text" value="Reguler <?php echo e(strtoupper($pengajuan->mhs->kelas)); ?>" readonly class="form-control" />
               </div>
             </div>
-            <div class="form-group row">
-              <label class="col-sm-3 col-form-label">Nilai IPK</label>
-              <div class="col-sm-6">
-                <input data-parsley-type="number" value="<?php echo e($pengajuan->ipk); ?>" type="text" readonly class="form-control" required />
-              </div>
-            </div>
-          </div><!-- end col -->
 
-          <div class="col-xl-6">
-            <div class="form-group row">
-              <label class="col-sm-3 col-form-label">Sudah mengikuti dan lulus mata kuliah</label>
-              <div class="col-sm-6">
-                <input data-parsley-type="number" type="text" value="<?php echo e($pengajuan->matkul_pilihan); ?>" readonly class="form-control" required />
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-sm-3 col-form-label">Nilai Mata Kuliah</label>
-              <div class="col-sm-6">
-                <input data-parsley-type="number" type="text" value="<?php echo e($pengajuan->nilai_matkul); ?>" readonly class="form-control" required />
-              </div>
-            </div>
 
             <div class="form-group row">
               <label class="col-sm-3 col-form-label">Nama Tempat Magang</label>
@@ -85,6 +65,43 @@
                 <textarea required readonly class="form-control"><?php echo e($pengajuan->nama_sekolah); ?></textarea>
               </div>
             </div>
+
+          </div><!-- end col -->
+
+          <div class="col-xl-6">
+            <div class="form-group row">
+              <label class="col-sm-12 col-form-label text-danger">Sudah mengikuti dan lulus mata kuliah</label>
+              <div class="col-sm-12">
+                <div class="form-group row">
+                  <label class="col-sm-6 col-form-label">Psikologi dan Perkembangan Peserta Didik</label>
+                  <div class="col-sm-3">
+                    <input data-parsley-type="number" value="<?php echo e($nilai_matkul[0]); ?>" type="text" readonly class="form-control" required />
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-sm-6 col-form-label">Pengembangan kurikulum dan pembelajaran</label>
+                  <div class="col-sm-3">
+                    <input data-parsley-type="number" value="<?php echo e($nilai_matkul[1]); ?>" type="text" readonly class="form-control" required />
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-sm-6 col-form-label">Microteaching</label>
+                  <div class="col-sm-3">
+                    <input data-parsley-type="number" value="<?php echo e($nilai_matkul[2]); ?>" type="text" readonly class="form-control" required />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-sm-6 col-form-label">Nilai IPK</label>
+              <div class="col-sm-3">
+                <input data-parsley-type="number" value="<?php echo e($pengajuan->ipk); ?>" type="text" readonly class="form-control" required />
+              </div>
+            </div>
+
             <div class="form-group row">
               <label class="col-sm-3 col-form-label">Transkrip Nilai/KHS</label>
               <div class="col-sm-6">

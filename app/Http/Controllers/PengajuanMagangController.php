@@ -106,10 +106,15 @@ class PengajuanMagangController extends Controller
             'id' => $request->id_pengajuan
         ];
 
+        $nilai_matkul = [
+            $request->nilai_matkul_1,
+            $request->nilai_matkul_2,
+            $request->nilai_matkul_3
+        ];
+
         $values = [
             'id_mahasiswa'          => $request->id_mahasiswa,
-            'matkul_pilihan'        => $request->matkul_pilihan,
-            'nilai_matkul'          => $request->nilai_matkul,
+            'nilai_matkul'          => serialize($nilai_matkul) ,
             'url_transkrip'         => $file_path,
             'ipk'                   => $request->ipk,
             'nama_sekolah'          => $request->nama_sekolah,
@@ -138,8 +143,10 @@ class PengajuanMagangController extends Controller
         $pengajuan = Magang::where('id', $id)->with('mhs', 'dsn')->first();
         $dosen = Dosen::where('status', 'ON')->get();
 
+        // extract array nilai matkul
+        $nilai_matkul = unserialize($pengajuan['nilai_matkul']);
         if (Auth::user()->roles[0]['name'] == 'admin') {
-            return view('admin.pengajuan.detail', compact('title', 'pengajuan', 'dosen'));
+            return view('admin.pengajuan.detail', compact('title', 'pengajuan', 'dosen', 'nilai_matkul'));
         }
         if (Auth::user()->roles[0]['name'] == 'mahasiswa') {
             $prodi = Prodi::all();
@@ -148,7 +155,7 @@ class PengajuanMagangController extends Controller
             $periode = Periode::where('mulai_daftar', '<=', Carbon::now())
                 ->where('akhir_daftar', '>=', Carbon::now())
                 ->first();
-            return view('mahasiswa.pengajuan.form', compact('title', 'pengajuan', 'dosen', 'mhs', 'periode', 'prodi'));
+            return view('mahasiswa.pengajuan.form', compact('title', 'pengajuan', 'dosen', 'mhs', 'periode', 'prodi', 'nilai_matkul'));
         }
     }
 

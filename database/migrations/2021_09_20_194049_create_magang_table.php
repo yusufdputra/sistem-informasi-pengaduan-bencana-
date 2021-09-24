@@ -17,8 +17,7 @@ class CreateMagangTable extends Migration
             $table->id();
             $table->bigInteger('id_mahasiswa');
             $table->bigInteger('id_dosen')->nullable();
-            $table->string('matkul_pilihan');
-            $table->float('nilai_matkul');
+            $table->string('nilai_matkul');
             $table->string('url_transkrip');
             $table->text('url_laporan')->nullable();
             $table->float('ipk');

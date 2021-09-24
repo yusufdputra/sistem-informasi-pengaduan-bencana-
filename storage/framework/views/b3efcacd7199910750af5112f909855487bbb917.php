@@ -77,36 +77,6 @@
                 <input data-parsley-type="number" <?php if($pengajuan !=null): ?> value="<?php echo e($pengajuan->ipk); ?>" <?php endif; ?> max="4" min="0" type="text" name="ipk" class="form-control" required placeholder="Gunakan titik (.)" />
               </div>
             </div>
-          </div><!-- end col -->
-
-          <div class="col-xl-6">
-            <div class="form-group row">
-              <label class="col-sm-3 col-form-label">Sudah mengikuti dan lulus mata kuliah</label>
-              <div class="col-sm-6">
-                <select required class="form-control" name="matkul_pilihan">
-                  <option value="Psikologi dan perkembangan peserta didik" <?php if($pengajuan !=null): ?> <?= $pengajuan['matkul_pilihan'] == 'Psikologi dan perkembangan peserta didik' ? 'selected' : ''; ?> <?php endif; ?>>Psikologi dan perkembangan peserta didik</option>
-                  <option value="Pengembangan kurikulum dan pembelajaran" <?php if($pengajuan !=null): ?> <?= $pengajuan['matkul_pilihan'] == 'Pengembangan kurikulum dan pembelajaran' ? 'selected' : ''; ?> <?php endif; ?>>Pengembangan kurikulum dan pembelajaran</option>
-                  <option value="Microteaching" <?php if($pengajuan !=null): ?> <?= $pengajuan['matkul_pilihan'] == 'Microteaching' ? 'selected' : ''; ?> <?php endif; ?>>Microteaching</option>
-                </select>
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-sm-3 col-form-label">Nilai Mata Kuliah</label>
-              <div class="col-sm-6">
-                <select required class="form-control" name="nilai_matkul">
-                  <option disabled>...Pilih...</option>
-                  <option value="A" <?php if($pengajuan !=null): ?> <?= $pengajuan['nilai_matkul'] == '' ? 'selected' : ''; ?> <?php endif; ?>>A</option>
-                  <option value="A-" <?php if($pengajuan !=null): ?> <?= $pengajuan['nilai_matkul'] == 'A-' ? 'selected' : ''; ?> <?php endif; ?>>A-</option>
-                  <option value="B+" <?php if($pengajuan !=null): ?> <?= $pengajuan['nilai_matkul'] == 'B+' ? 'selected' : ''; ?> <?php endif; ?>>B+</option>
-                  <option value="B" <?php if($pengajuan !=null): ?> <?= $pengajuan['nilai_matkul'] == 'B' ? 'selected' : ''; ?> <?php endif; ?>>B</option>
-                  <option value="B-" <?php if($pengajuan !=null): ?> <?= $pengajuan['nilai_matkul'] == 'B-' ? 'selected' : ''; ?> <?php endif; ?>>B-</option>
-                  <option value="C+" <?php if($pengajuan !=null): ?> <?= $pengajuan['nilai_matkul'] == 'C+' ? 'selected' : ''; ?> <?php endif; ?>>C+</option>
-                  <option value="C" <?php if($pengajuan !=null): ?> <?= $pengajuan['nilai_matkul'] == 'C' ? 'selected' : ''; ?> <?php endif; ?>>C</option>
-                  <option value="D" <?php if($pengajuan !=null): ?> <?= $pengajuan['nilai_matkul'] == 'D' ? 'selected' : ''; ?> <?php endif; ?>>D</option>
-                  <option value="E" <?php if($pengajuan !=null): ?> <?= $pengajuan['nilai_matkul'] == 'E' ? 'selected' : ''; ?> <?php endif; ?>>E</option>
-                </select>
-              </div>
-            </div>
 
             <div class="form-group row">
               <label class="col-sm-3 col-form-label">Nama Tempat Magang</label>
@@ -114,6 +84,74 @@
                 <textarea required placeholder="Nama Sekolah" name="nama_sekolah" class="form-control"><?php if($pengajuan != null): ?> <?php echo e($pengajuan->nama_sekolah); ?> <?php endif; ?></textarea>
               </div>
             </div>
+
+
+          </div><!-- end col -->
+
+          <div class="col-xl-6">
+            <div class="form-group row">
+              <label class="col-sm-12 col-form-label text-danger mb-1">Sudah mengikuti dan lulus mata kuliah</label>
+              <div class="col-sm-12">
+                <div class="form-group row">
+                  <label class="col-sm-6 col-form-label">Psikologi dan Perkembangan Peserta Didik</label>
+                  <div class="col-sm-3">
+                    <select required class="form-control" name="nilai_matkul_1">
+                      <option disabled>...Pilih...</option>
+                      <option value="A" <?php if($pengajuan !=null): ?> <?= $nilai_matkul[0] == '' ? 'selected' : ''; ?> <?php endif; ?>>A</option>
+                      <option value="B+" <?php if($pengajuan !=null): ?> <?= $nilai_matkul[0] == 'B+' ? 'selected' : ''; ?> <?php endif; ?>>B+</option>
+                      <option value="A-" <?php if($pengajuan !=null): ?> <?= $nilai_matkul[0] == 'A-' ? 'selected' : ''; ?> <?php endif; ?>>A-</option>
+                      <option value="B" <?php if($pengajuan !=null): ?> <?= $nilai_matkul[0] == 'B' ? 'selected' : ''; ?> <?php endif; ?>>B</option>
+                      <option value="B-" <?php if($pengajuan !=null): ?> <?= $nilai_matkul[0] == 'B-' ? 'selected' : ''; ?> <?php endif; ?>>B-</option>
+                      <option value="C+" <?php if($pengajuan !=null): ?> <?= $nilai_matkul[0] == 'C+' ? 'selected' : ''; ?> <?php endif; ?>>C+</option>
+                      <option value="C" <?php if($pengajuan !=null): ?> <?= $nilai_matkul[0] == 'C' ? 'selected' : ''; ?> <?php endif; ?>>C</option>
+                      <option value="D" <?php if($pengajuan !=null): ?> <?= $nilai_matkul[0] == 'D' ? 'selected' : ''; ?> <?php endif; ?>>D</option>
+                      <option value="E" <?php if($pengajuan !=null): ?> <?= $nilai_matkul[0] == 'E' ? 'selected' : ''; ?> <?php endif; ?>>E</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-sm-6 col-form-label">Pengembangan kurikulum dan pembelajaran</label>
+                  <div class="col-sm-3">
+                    <select required class="form-control" name="nilai_matkul_2">
+                      <option disabled>...Pilih...</option>
+                      <option value="A" <?php if($pengajuan !=null): ?> <?= $nilai_matkul[1] == '' ? 'selected' : ''; ?> <?php endif; ?>>A</option>
+                      <option value="A-" <?php if($pengajuan !=null): ?> <?= $nilai_matkul[1] == 'A-' ? 'selected' : ''; ?> <?php endif; ?>>A-</option>
+                      <option value="B+" <?php if($pengajuan !=null): ?> <?= $nilai_matkul[1] == 'B+' ? 'selected' : ''; ?> <?php endif; ?>>B+</option>
+                      <option value="B" <?php if($pengajuan !=null): ?> <?= $nilai_matkul[1] == 'B' ? 'selected' : ''; ?> <?php endif; ?>>B</option>
+                      <option value="B-" <?php if($pengajuan !=null): ?> <?= $nilai_matkul[1] == 'B-' ? 'selected' : ''; ?> <?php endif; ?>>B-</option>
+                      <option value="C+" <?php if($pengajuan !=null): ?> <?= $nilai_matkul[1] == 'C+' ? 'selected' : ''; ?> <?php endif; ?>>C+</option>
+                      <option value="C" <?php if($pengajuan !=null): ?> <?= $nilai_matkul[1] == 'C' ? 'selected' : ''; ?> <?php endif; ?>>C</option>
+                      <option value="D" <?php if($pengajuan !=null): ?> <?= $nilai_matkul[1] == 'D' ? 'selected' : ''; ?> <?php endif; ?>>D</option>
+                      <option value="E" <?php if($pengajuan !=null): ?> <?= $nilai_matkul[1] == 'E' ? 'selected' : ''; ?> <?php endif; ?>>E</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-sm-6 col-form-label">Microteaching</label>
+                  <div class="col-sm-3">
+                    <select required class="form-control" name="nilai_matkul_3">
+                      <option disabled>...Pilih...</option>
+                      <option value="A" <?php if($pengajuan !=null): ?> <?= $nilai_matkul[2] == '' ? 'selected' : ''; ?> <?php endif; ?>>A</option>
+                      <option value="A-" <?php if($pengajuan !=null): ?> <?= $nilai_matkul[2] == 'A-' ? 'selected' : ''; ?> <?php endif; ?>>A-</option>
+                      <option value="B+" <?php if($pengajuan !=null): ?> <?= $nilai_matkul[2] == 'B+' ? 'selected' : ''; ?> <?php endif; ?>>B+</option>
+                      <option value="B" <?php if($pengajuan !=null): ?> <?= $nilai_matkul[2] == 'B' ? 'selected' : ''; ?> <?php endif; ?>>B</option>
+                      <option value="B-" <?php if($pengajuan !=null): ?> <?= $nilai_matkul[2] == 'B-' ? 'selected' : ''; ?> <?php endif; ?>>B-</option>
+                      <option value="C+" <?php if($pengajuan !=null): ?> <?= $nilai_matkul[2] == 'C+' ? 'selected' : ''; ?> <?php endif; ?>>C+</option>
+                      <option value="C" <?php if($pengajuan !=null): ?> <?= $nilai_matkul[2] == 'C' ? 'selected' : ''; ?> <?php endif; ?>>C</option>
+                      <option value="D" <?php if($pengajuan !=null): ?> <?= $nilai_matkul[2] == 'D' ? 'selected' : ''; ?> <?php endif; ?>>D</option>
+                      <option value="E" <?php if($pengajuan !=null): ?> <?= $nilai_matkul[2] == 'E' ? 'selected' : ''; ?> <?php endif; ?>>E</option>
+                    </select>
+                  </div>
+                </div>
+
+
+              </div>
+            </div>
+
+
+
 
             <?php if($pengajuan != null): ?>
 

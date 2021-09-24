@@ -8,7 +8,7 @@
         Periode Saat Ini : 
         <?php if($status_daftar != null): ?>
         Pendaftaran.
-        @elsif($status_magang != null)
+        <?php elseif($status_magang != null): ?>
         Pelaksanaan Magang.
         <?php else: ?>
         Tidak Ada
