@@ -39,7 +39,8 @@
             <td>{{$value->mhs->nama}}</td>
             <td>{{$value->nama_sekolah}}</td>
             <td>
-            {{date('d-F-Y', strtotime($value->periode->mulai_magang))}} s/d {{date('d-F-Y', strtotime($value->periode->akhir_magang))}}</td>
+              {{date('d-F-Y', strtotime($value->periode->mulai_magang))}} s/d {{date('d-F-Y', strtotime($value->periode->akhir_magang))}}
+            </td>
             <td>
               @if($value->nilai_pembimbing == null)
               Tidak Ada Nilai
@@ -50,7 +51,7 @@
             @if ($value->status_pengajuan == 'selesai')
             <td><span class="badge badge-success">{{strtoupper($value->status_pengajuan)}}</span></td>
             <td>
-              <a href="#input-nilai-modal" data-animation="sign" data-nama="{{$value->mhs->nama}}" data-nim="{{$value->mhs->user->nomor_induk}}" data-plugin="custommodal" data-id='{{$value->id}}' data-overlaySpeed="100" data-overlayColor="#36404a" class="btn btn-sm btn-purple waves-effect waves-light input_nilai_modal"><i class="fa fa-edit"></i></a>
+              <a href="#input-nilai-modal" data-animation="sign" data-nama="{{$value->mhs->nama}}" data-nim="{{$value->mhs->user->nomor_induk}}" data-plugin="custommodal" data-id='{{$value->id}}' data-overlaySpeed="100" data-overlayColor="#36404a" class="btn btn-sm btn-primary waves-effect waves-light input_nilai_modal"><i class="fa fa-edit"></i></a>
             </td>
             @elseif ($value->status_pengajuan == 'gagal')
             <td><span class="badge badge-danger">{{strtoupper($value->status_pengajuan)}}</span></td>

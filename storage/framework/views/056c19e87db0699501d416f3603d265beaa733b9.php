@@ -39,7 +39,9 @@
             <td><?php echo e($value->mhs->nama); ?></td>
             <td><?php echo e($value->nama_sekolah); ?></td>
             <td>
-            <?php echo e(date('d-F-Y', strtotime($value->periode->mulai_magang))); ?> s/d <?php echo e(date('d-F-Y', strtotime($value->periode->akhir_magang))); ?></td>
+              <?php echo e(date('d-F-Y', strtotime($value->periode->mulai_magang))); ?> s/d <?php echo e(date('d-F-Y', strtotime($value->periode->akhir_magang))); ?>
+
+            </td>
             <td>
               <?php if($value->nilai_pembimbing == null): ?>
               Tidak Ada Nilai
@@ -51,7 +53,7 @@
             <?php if($value->status_pengajuan == 'selesai'): ?>
             <td><span class="badge badge-success"><?php echo e(strtoupper($value->status_pengajuan)); ?></span></td>
             <td>
-              <a href="#input-nilai-modal" data-animation="sign" data-nama="<?php echo e($value->mhs->nama); ?>" data-nim="<?php echo e($value->mhs->user->nomor_induk); ?>" data-plugin="custommodal" data-id='<?php echo e($value->id); ?>' data-overlaySpeed="100" data-overlayColor="#36404a" class="btn btn-sm btn-purple waves-effect waves-light input_nilai_modal"><i class="fa fa-edit"></i></a>
+              <a href="#input-nilai-modal" data-animation="sign" data-nama="<?php echo e($value->mhs->nama); ?>" data-nim="<?php echo e($value->mhs->user->nomor_induk); ?>" data-plugin="custommodal" data-id='<?php echo e($value->id); ?>' data-overlaySpeed="100" data-overlayColor="#36404a" class="btn btn-sm btn-primary waves-effect waves-light input_nilai_modal"><i class="fa fa-edit"></i></a>
             </td>
             <?php elseif($value->status_pengajuan == 'gagal'): ?>
             <td><span class="badge badge-danger"><?php echo e(strtoupper($value->status_pengajuan)); ?></span></td>

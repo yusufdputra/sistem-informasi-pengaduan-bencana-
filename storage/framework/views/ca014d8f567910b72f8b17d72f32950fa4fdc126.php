@@ -30,6 +30,7 @@
             <th>Tanggal Pelaksanaan</th>
             <th>Dosen Pembimbing</th>
             <th>Nilai Magang</th>
+            <th>Laporan</th>
           </tr>
         </thead>
         <tbody>
@@ -40,9 +41,16 @@
             <td><?php echo e($value->mhs->nama); ?></td>
             <td><?php echo e($value->nama_sekolah); ?></td>
             <td>
-            <?php echo e(date('d-F-Y', strtotime($value->periode->mulai_magang))); ?> s/d <?php echo e(date('d-F-Y', strtotime($value->periode->akhir_magang))); ?></td>
+              <?php echo e(date('d-F-Y', strtotime($value->periode->mulai_magang))); ?> s/d <?php echo e(date('d-F-Y', strtotime($value->periode->akhir_magang))); ?>
+
+            </td>
             <td><?php echo e(strtoupper($value->dsn->nama)); ?></td>
             <td><?php echo e($value->nilai_pembimbing); ?></td>
+            <td>
+              <?php if($value->url_laporan != null): ?>
+              <a href="<?php echo e($value->url_laporan); ?>" target="_BLANK" class="btn btn-sm btn-purple waves-effect waves-light upload_laporan_modal"><i class="fa fa-file-pdf-o"></i></a>
+              <?php endif; ?>
+            </td>
 
 
           </tr>
@@ -74,7 +82,7 @@
           <label for="">Dari Tanggal</label>
           <div class="col-xs-12">
             <div class="input-group-append">
-              <input type="text" class="form-control datepicker-autoclose" placeholder="dd/mm/yyyy" autocomplete="off" name="start_date" >
+              <input type="text" class="form-control datepicker-autoclose" placeholder="dd/mm/yyyy" autocomplete="off" name="start_date">
               <span class="input-group-text"><i class="ti-calendar"></i></span>
             </div>
           </div>
@@ -84,7 +92,7 @@
           <label for="">Sampai Tanggal</label>
           <div class="col-xs-12">
             <div class="input-group-append">
-              <input type="text" class="form-control datepicker-autoclose" placeholder="dd/mm/yyyy" autocomplete="off" name="end_date" >
+              <input type="text" class="form-control datepicker-autoclose" placeholder="dd/mm/yyyy" autocomplete="off" name="end_date">
               <span class="input-group-text"><i class="ti-calendar"></i></span>
             </div>
           </div>
