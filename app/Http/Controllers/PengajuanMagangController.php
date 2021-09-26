@@ -66,7 +66,11 @@ class PengajuanMagangController extends Controller
             ->where('akhir_daftar', '>=', Carbon::now())
             ->first();
         $pengajuan = null;
-        return view('mahasiswa.pengajuan.form', compact('title', 'pengajuan', 'dosen', 'prodi', 'mhs', 'periode'));
+        if ($periode != null) {
+            return view('mahasiswa.pengajuan.form', compact('title', 'pengajuan', 'dosen', 'prodi', 'mhs', 'periode'));
+        }else{
+            return redirect()->back()->with('alert', 'Waktu pendaftaran ditutup.');
+        }
     }
 
     public function store(Request $request)
