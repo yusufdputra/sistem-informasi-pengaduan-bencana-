@@ -69,7 +69,6 @@ Route::group(['middleware' => ['role:admin']], function () {
     Route::post('pengajuan-magang/proses', [PengajuanMagangController::class, 'proses'])->name('pengajuanMagang.proses');
 
     // kelola cetak
-    Route::get('/riwayat', [RiwayatController::class, 'index'])->name('riwayat.index');
     Route::post('/riwayat/cetak', [CetakController::class, 'cetak'])->name('cetak');
 });
 
@@ -88,6 +87,11 @@ Route::group(['middleware' => ['role:admin|mahasiswa']], function () {
 
     // kelola pengajuan magang
     Route::get('pengajuan-magang/', [PengajuanMagangController::class, 'index'])->name('pengajuanMagang.index');
+});
+
+Route::group(['middleware' => ['role:dosen|admin']], function () {
+    // riwayat magang
+    Route::get('/riwayat', [RiwayatController::class, 'index'])->name('riwayat.index');
 });
 
 Route::group(['middleware' => ['role:dosen']], function () {

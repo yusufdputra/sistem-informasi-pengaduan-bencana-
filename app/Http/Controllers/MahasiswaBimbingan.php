@@ -24,6 +24,7 @@ class MahasiswaBimbingan extends Controller
         // dapatkan data magang user mahasiswa
         $mhs = Magang::with('mhs')
             ->where('id_dosen', $id_dsn->id)
+            ->where('nilai_pembimbing', '=' , NULL)
             ->orderBy('updated_at', 'ASC')
             ->get();
 

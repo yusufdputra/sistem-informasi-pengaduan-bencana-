@@ -70,11 +70,11 @@
         <li>
           <a href="{{route ('mahasiswa.index')}}" class="waves-effect"><i class="fa fa-group "></i> <span> Mahasiswa Bimbingan </span> </a>
         </li>
+
+        <li>
+          <a href="{{route ('riwayat.index')}}" class="waves-effect"><i class="fa fa-history"></i> <span> Riwayat Magang </span> </a>
+        </li>
         @endrole
-
-
-
-
 
 
       </ul>
