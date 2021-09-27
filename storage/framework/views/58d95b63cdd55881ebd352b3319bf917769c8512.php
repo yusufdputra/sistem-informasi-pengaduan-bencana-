@@ -8,7 +8,7 @@
         Periode Saat Ini : 
         <?php if($status_daftar != null): ?>
         Pendaftaran.
-        @elsif($status_magang != null)
+        <?php elseif($status_magang != null): ?>
         Pelaksanaan Magang.
         <?php else: ?>
         Tidak Ada
@@ -16,6 +16,7 @@
 
       </div>
 
+      
       <h2><strong>FAKULTAS KEGURUAN DAN ILMU PENDIDIKAN UMRI</strong></h2>
       <div class="col-lg-12 row">
         <div class="col-lg-4 col-xs-12 right">

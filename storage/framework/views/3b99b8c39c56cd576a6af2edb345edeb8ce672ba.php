@@ -68,12 +68,9 @@
 <script type="text/javascript">
     // Select2
     $(".select2").select2();
-
-
 </script>
 
 <script type="text/javascript">
-   
     $(document).ready(function() {
         // form
         $('form').parsley();
@@ -102,9 +99,31 @@
         $('#datatable2').DataTable();
 
         //Buttons examples
+        var column = [0,1,2,3,4,5,6]
         var table = $('#datatable-buttons').DataTable({
             lengthChange: false,
-            buttons: ['excel', 'pdf']
+            buttons: [
+                {
+                    extend: 'excelHtml5',
+                    exportOptions: {
+                        columns: column
+                    }
+                },
+                {
+                    extend: 'pdfHtml5',
+                    exportOptions: {
+                        columns: column
+                    }
+                },
+                {
+                    extend: 'print',
+                    exportOptions: {
+                        columns: column
+                    }
+                }
+            ],
+
+
         });
 
 
