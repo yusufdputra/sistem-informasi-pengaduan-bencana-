@@ -26,7 +26,6 @@ class PengajuanMagangController extends Controller
             ->where('akhir_daftar', '>=', Carbon::now())
             ->first();
 
-            dd(Carbon::now());
         // get status magang periode saat ini
         $status_magang = Periode::where('mulai_magang', '<=', Carbon::now())
             ->where('akhir_magang', '>=', Carbon::now())
@@ -43,7 +42,7 @@ class PengajuanMagangController extends Controller
 
             // cek apakah sudah ada pengajuan di periode ini
             $status = null;
-            if (isset($status_daftar)) {
+            if (($status_daftar) != null) {
                 $status = Magang::where('id_mahasiswa', $id_mhs->id)
                     ->whereBetween('created_at', [$status_daftar['mulai_daftar'], $status_daftar['akhir_daftar']])->first();
             }
