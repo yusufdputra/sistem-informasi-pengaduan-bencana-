@@ -1,26 +1,13 @@
 <?php
 
-use App\Http\Controllers\AjaxController;
 use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\BarangController;
-use App\Http\Controllers\BarangKeluarController;
-use App\Http\Controllers\BarangMasukController;
-use App\Http\Controllers\CetakController;
-use App\Http\Controllers\DaftarController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\MahasiswaBimbingan;
-use App\Http\Controllers\PeminjamanController;
 use App\Http\Controllers\PengajuanMagangController;
-use App\Http\Controllers\PengembalianController;
 use App\Http\Controllers\PeriodeController;
 use App\Http\Controllers\ProdiController;
-use App\Http\Controllers\RabController;
-use App\Http\Controllers\RabTempController;
-use App\Http\Controllers\RequestController;
 use App\Http\Controllers\RiwayatController;
 use App\Http\Controllers\UserManagementController;
-use App\Models\Barang;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -67,9 +54,6 @@ Route::group(['middleware' => ['role:admin']], function () {
     //kelola pengajuan magang
     Route::get('pengajuan-magang/detail/{id}', [PengajuanMagangController::class, 'detail'])->name('pengajuanMagang.detail');
     Route::post('pengajuan-magang/proses', [PengajuanMagangController::class, 'proses'])->name('pengajuanMagang.proses');
-
-    // kelola cetak
-    Route::post('/riwayat/cetak', [CetakController::class, 'cetak'])->name('cetak');
 });
 
 Route::group(['middleware' => ['role:mahasiswa']], function () {

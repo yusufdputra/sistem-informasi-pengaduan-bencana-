@@ -26,6 +26,7 @@ class PengajuanMagangController extends Controller
             ->where('akhir_daftar', '>=', Carbon::now())
             ->first();
 
+            dd(Carbon::now());
         // get status magang periode saat ini
         $status_magang = Periode::where('mulai_magang', '<=', Carbon::now())
             ->where('akhir_magang', '>=', Carbon::now())
@@ -41,17 +42,21 @@ class PengajuanMagangController extends Controller
                 ->get();
 
             // cek apakah sudah ada pengajuan di periode ini
-            $status = Magang::where('id_mahasiswa', $id_mhs->id)
-                ->whereBetween('created_at', [$status_daftar['mulai_daftar'], $status_daftar['akhir_daftar']])->first();
+            $status = null;
+            if (isset($status_daftar)) {
+                $status = Magang::where('id_mahasiswa', $id_mhs->id)
+                    ->whereBetween('created_at', [$status_daftar['mulai_daftar'], $status_daftar['akhir_daftar']])->first();
+            }
 
-            return view('umum.pengajuan.index', compact('title', 'pengajuan', 'status_daftar','status_magang', 'status'));
+
+            return view('umum.pengajuan.index', compact('title', 'pengajuan', 'status_daftar', 'status_magang', 'status'));
         }
         if (Auth::user()->roles[0]['name'] == 'admin') {
             $pengajuan = Magang::with('mhs', 'dsn')
                 ->where('status_pengajuan', '!=', 'selesai')
                 ->orderBy('updated_at', 'DESC')
                 ->get();
-            return view('umum.pengajuan.index', compact('title', 'pengajuan', 'status_daftar','status_magang'));
+            return view('umum.pengajuan.index', compact('title', 'pengajuan', 'status_daftar', 'status_magang'));
         }
     }
 
@@ -68,7 +73,7 @@ class PengajuanMagangController extends Controller
         $pengajuan = null;
         if ($periode != null) {
             return view('mahasiswa.pengajuan.form', compact('title', 'pengajuan', 'dosen', 'prodi', 'mhs', 'periode'));
-        }else{
+        } else {
             return redirect()->back()->with('alert', 'Waktu pendaftaran ditutup.');
         }
     }
@@ -118,7 +123,7 @@ class PengajuanMagangController extends Controller
 
         $values = [
             'id_mahasiswa'          => $request->id_mahasiswa,
-            'nilai_matkul'          => serialize($nilai_matkul) ,
+            'nilai_matkul'          => serialize($nilai_matkul),
             'url_transkrip'         => $file_path,
             'ipk'                   => $request->ipk,
             'nama_sekolah'          => $request->nama_sekolah,
