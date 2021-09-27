@@ -85,3 +85,4 @@ Route::group(['middleware' => ['role:dosen']], function () {
 
     Route::post('pengajuan-magang/nilai', [MahasiswaBimbingan::class, 'inputNilai'])->name('pengajuanMagang.nilai');
 });
+
