@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\KuisionerController;
 use App\Http\Controllers\MahasiswaBimbingan;
 use App\Http\Controllers\PengajuanMagangController;
 use App\Http\Controllers\PeriodeController;
@@ -65,12 +66,18 @@ Route::group(['middleware' => ['role:mahasiswa']], function () {
     Route::get('/pengajuan-magang/edit/{id}', [PengajuanMagangController::class, 'detail'])->name('pengajuanMagang/edit');
     // Route::POST('/pengajuan-magang/hapus/', [PengajuanMagangController::class, 'hapus'])->name('pengajuanMagang.hapus');
 
+    // kuisioner
+    Route::post('isi-kuisioner/store', [KuisionerController::class, 'store'])->name('kuisioner.store');
+
 });
 
 Route::group(['middleware' => ['role:admin|mahasiswa']], function () {
 
     // kelola pengajuan magang
     Route::get('pengajuan-magang/', [PengajuanMagangController::class, 'index'])->name('pengajuanMagang.index');
+    
+    // kuisioner
+    Route::get('isi-kuisioner/{id}', [KuisionerController::class, 'index'])->name('kuisioner');
 });
 
 Route::group(['middleware' => ['role:dosen|admin']], function () {

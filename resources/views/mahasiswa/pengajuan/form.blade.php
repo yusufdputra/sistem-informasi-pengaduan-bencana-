@@ -176,7 +176,7 @@
               <div class="col-sm-6">
                 <div class="checkbox checkbox-custom">
                   <input required id="checkbox-signup" type="checkbox" checked="checked">
-                  <label for="checkbox-signup">Sudah Mengisi Kuisioner <a target="_BLANK" href="https://forms.gle/jBoUKrM9QPLbPyJZ7">Lihat Kuisioner</a></label>
+                  <label for="checkbox-signup">Sudah Mengisi Kuisioner <a target="_BLANK" href="{{route('kuisioner',$mhs->id)}}">Lihat Kuisioner</a></label>
                 </div>
               </div>
             </div>
