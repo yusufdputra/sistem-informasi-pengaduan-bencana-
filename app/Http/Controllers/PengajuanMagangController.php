@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Dosen;
+use App\Models\Kuisioner;
 use App\Models\Magang;
 use App\Models\Mahasiswa;
 use App\Models\Periode;
@@ -70,8 +71,10 @@ class PengajuanMagangController extends Controller
             ->where('akhir_daftar', '>=', Carbon::now())
             ->first();
         $pengajuan = null;
+        // cek apakah kuisioner sudah terisi atau belum
+        $kuisioner = Kuisioner::where('id_mahasiswa', $mhs->id)->first();
         if ($periode != null) {
-            return view('mahasiswa.pengajuan.form', compact('title', 'pengajuan', 'dosen', 'prodi', 'mhs', 'periode'));
+            return view('mahasiswa.pengajuan.form', compact('title', 'pengajuan', 'dosen', 'prodi', 'mhs', 'periode', 'kuisioner'));
         } else {
             return redirect()->back()->with('alert', 'Waktu pendaftaran ditutup.');
         }
@@ -125,7 +128,6 @@ class PengajuanMagangController extends Controller
             'nilai_matkul'          => serialize($nilai_matkul),
             'url_transkrip'         => $file_path,
             'ipk'                   => $request->ipk,
-            'nama_sekolah'          => $request->nama_sekolah,
             'id_periode'            => $request->id_periode,
             'status_pengajuan'      => 'proses',
             'created_at'            => Carbon::now(),

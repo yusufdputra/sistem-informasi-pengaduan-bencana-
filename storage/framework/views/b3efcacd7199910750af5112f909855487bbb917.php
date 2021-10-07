@@ -78,12 +78,12 @@
               </div>
             </div>
 
-            <div class="form-group row">
+            <!-- <div class="form-group row">
               <label class="col-sm-3 col-form-label">Nama Tempat Magang</label>
               <div class="col-sm-6">
                 <textarea required placeholder="Nama Sekolah" name="nama_sekolah" class="form-control"><?php if($pengajuan != null): ?> <?php echo e($pengajuan->nama_sekolah); ?> <?php endif; ?></textarea>
               </div>
-            </div>
+            </div> -->
 
 
           </div><!-- end col -->
@@ -96,7 +96,7 @@
                   <label class="col-sm-6 col-form-label">Psikologi dan Perkembangan Peserta Didik</label>
                   <div class="col-sm-3">
                     <select required class="form-control" name="nilai_matkul_1">
-                      <option disabled>...Pilih...</option>
+                      <option value="" selected disabled hidden>Silahkan Pilih</option>
                       <option value="A" <?php if($pengajuan !=null): ?> <?= $nilai_matkul[0] == '' ? 'selected' : ''; ?> <?php endif; ?>>A</option>
                       <option value="B+" <?php if($pengajuan !=null): ?> <?= $nilai_matkul[0] == 'B+' ? 'selected' : ''; ?> <?php endif; ?>>B+</option>
                       <option value="A-" <?php if($pengajuan !=null): ?> <?= $nilai_matkul[0] == 'A-' ? 'selected' : ''; ?> <?php endif; ?>>A-</option>
@@ -114,7 +114,7 @@
                   <label class="col-sm-6 col-form-label">Pengembangan kurikulum dan pembelajaran</label>
                   <div class="col-sm-3">
                     <select required class="form-control" name="nilai_matkul_2">
-                      <option disabled>...Pilih...</option>
+                      <option value="" selected disabled hidden>Silahkan Pilih</option>
                       <option value="A" <?php if($pengajuan !=null): ?> <?= $nilai_matkul[1] == '' ? 'selected' : ''; ?> <?php endif; ?>>A</option>
                       <option value="A-" <?php if($pengajuan !=null): ?> <?= $nilai_matkul[1] == 'A-' ? 'selected' : ''; ?> <?php endif; ?>>A-</option>
                       <option value="B+" <?php if($pengajuan !=null): ?> <?= $nilai_matkul[1] == 'B+' ? 'selected' : ''; ?> <?php endif; ?>>B+</option>
@@ -132,7 +132,7 @@
                   <label class="col-sm-6 col-form-label">Microteaching</label>
                   <div class="col-sm-3">
                     <select required class="form-control" name="nilai_matkul_3">
-                      <option disabled>...Pilih...</option>
+                      <option value="" selected disabled hidden>Silahkan Pilih</option>
                       <option value="A" <?php if($pengajuan !=null): ?> <?= $nilai_matkul[2] == '' ? 'selected' : ''; ?> <?php endif; ?>>A</option>
                       <option value="A-" <?php if($pengajuan !=null): ?> <?= $nilai_matkul[2] == 'A-' ? 'selected' : ''; ?> <?php endif; ?>>A-</option>
                       <option value="B+" <?php if($pengajuan !=null): ?> <?= $nilai_matkul[2] == 'B+' ? 'selected' : ''; ?> <?php endif; ?>>B+</option>
@@ -176,7 +176,7 @@
               <label class="col-sm-3 col-form-label">Kuisioner</label>
               <div class="col-sm-6">
                 <div class="checkbox checkbox-custom">
-                  <input required id="checkbox-signup" type="checkbox" checked="checked">
+                  <input required disabled id="checkbox-signup" type="checkbox" <?php if($kuisioner !=null): ?> checked="checked" <?php endif; ?>>
                   <label for="checkbox-signup">Sudah Mengisi Kuisioner <a target="_BLANK" href="<?php echo e(route('kuisioner',$mhs->id)); ?>">Lihat Kuisioner</a></label>
                 </div>
               </div>
