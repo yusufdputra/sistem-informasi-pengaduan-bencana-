@@ -8,6 +8,7 @@ use App\Http\Controllers\PengajuanMagangController;
 use App\Http\Controllers\PeriodeController;
 use App\Http\Controllers\ProdiController;
 use App\Http\Controllers\RiwayatController;
+use App\Http\Controllers\SekolahController;
 use App\Http\Controllers\UserManagementController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -55,6 +56,11 @@ Route::group(['middleware' => ['role:admin']], function () {
     //kelola pengajuan magang
     Route::get('pengajuan-magang/detail/{id}', [PengajuanMagangController::class, 'detail'])->name('pengajuanMagang.detail');
     Route::post('pengajuan-magang/proses', [PengajuanMagangController::class, 'proses'])->name('pengajuanMagang.proses');
+
+    // kelola sekolah
+    Route::get('/sekolah', [SekolahController::class, 'index'])->name('sekolah.index');
+    Route::post('/sekolah/store', [SekolahController::class, 'store'])->name('sekolah.store');
+    Route::POST('/sekolah/hapus/', [SekolahController::class, 'hapus'])->name('sekolah.hapus');
 });
 
 Route::group(['middleware' => ['role:mahasiswa']], function () {

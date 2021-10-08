@@ -54,6 +54,11 @@
         <li>
           <a href="<?php echo e(route ('pengajuanMagang.index')); ?>" class="waves-effect"><i class="fa fa-address-card-o"></i> <span> Pengajuan Magang </span> </a>
         </li>
+
+        <li>
+          <a href="<?php echo e(route ('sekolah.index')); ?>" class="waves-effect"><i class="fa fa-building-o"></i> <span> Data Sekolah </span> </a>
+        </li>
+
         <li>
           <a href="<?php echo e(route ('riwayat.index')); ?>" class="waves-effect"><i class="fa fa-history"></i> <span> Riwayat Magang </span> </a>
         </li>
