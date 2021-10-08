@@ -27,9 +27,7 @@ class PeriodeController extends Controller
         $periode = Periode::orderBy('updated_at', 'DESC')->get();
 
         // get status daftar periode saat ini
-        $status_daftar = Periode::where('mulai_daftar', '<=', Carbon::now())
-            ->where('akhir_daftar', '>=', Carbon::now())
-            ->first();
+        $status_daftar = $this->cekPeriode();
 
         // get status magang periode saat ini
         $status_magang = Periode::where('mulai_magang', '<=', Carbon::now())

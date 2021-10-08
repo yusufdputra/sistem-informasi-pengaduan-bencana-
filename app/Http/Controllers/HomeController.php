@@ -37,9 +37,7 @@ class HomeController extends Controller
         $title = "Dashboard";
         if (Auth::check()) {
             // get status daftar periode saat ini
-            $status_daftar = Periode::where('mulai_daftar', '<=', Carbon::now())
-                ->where('akhir_daftar', '>=', Carbon::now())
-                ->first();
+            $status_daftar =  PeriodeController::cekPeriode();
 
             // get status magang periode saat ini
             $status_magang = Periode::where('mulai_magang', '<=', Carbon::now())

@@ -29,9 +29,7 @@ class PengajuanMagangController extends Controller
             ->first();
 
         // get status magang periode saat ini
-        $status_magang = Periode::where('mulai_magang', '<=', Carbon::now())
-            ->where('akhir_magang', '>=', Carbon::now())
-            ->first();
+        $status_magang = PeriodeController::cekPeriode();
 
         if (Auth::user()->roles[0]['name'] == 'mahasiswa') {
             // dapatkan id mahasiswa
@@ -70,9 +68,7 @@ class PengajuanMagangController extends Controller
         $prodi = Prodi::all();
         $mhs = Mahasiswa::with('user')->where('id_user', Auth::user()->id)->first();
         // get status daftar periode saat ini
-        $periode = Periode::where('mulai_daftar', '<=', Carbon::now())
-            ->where('akhir_daftar', '>=', Carbon::now())
-            ->first();
+        $periode = PeriodeController::cekPeriode();
         $pengajuan = null;
         // cek apakah kuisioner sudah terisi atau belum
         $kuisioner = Kuisioner::where('id_mahasiswa', $mhs->id)->first();
@@ -167,9 +163,7 @@ class PengajuanMagangController extends Controller
             $prodi = Prodi::all();
             $mhs = Mahasiswa::with('user')->where('id_user', Auth::user()->id)->first();
             // get status daftar periode saat ini
-            $periode = Periode::where('mulai_daftar', '<=', Carbon::now())
-                ->where('akhir_daftar', '>=', Carbon::now())
-                ->first();
+            $periode = PeriodeController::cekPeriode();
             return view('mahasiswa.pengajuan.form', compact('title', 'pengajuan', 'dosen', 'mhs', 'periode', 'prodi', 'nilai_matkul'));
         }
     }
