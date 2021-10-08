@@ -19,13 +19,18 @@ class KuisionerController extends Controller
     {
         $title = "Isi Kuisioner";
         // cek kuisioner dengan id mhs
-        $kuisioner = Kuisioner::with('mhs')->where('id_mahasiswa', $id_mhs)->get();
-
-        if (Auth::user()->roles[0]['name'] == 'mahasiswa') {
-            $mhs = Mahasiswa::with('user')->find($id_mhs)->first();
-
-            return view('umum.kuisioner.form', compact('title', 'kuisioner', 'mhs'));
+        $kuisioner = Kuisioner::with('mhs')->where('id_mahasiswa', $id_mhs)->first();
+        $jawaban = null;
+        if ($kuisioner != null) {
+            $jawaban = unserialize($kuisioner->jawaban);
         }
+
+        $mhs = Mahasiswa::with('user')->find($id_mhs)->first();
+        return view('umum.kuisioner.form', compact('title', 'kuisioner', 'mhs', 'jawaban'));
+        // if (Auth::user()->roles[0]['name'] == 'mahasiswa') {
+
+        // }
+        
     }
 
     public function store(Request $request)

@@ -59,12 +59,12 @@
             </div>
 
 
-            <div class="form-group row">
+            <!-- <div class="form-group row">
               <label class="col-sm-3 col-form-label">Nama Tempat Magang</label>
               <div class="col-sm-6">
                 <textarea required readonly class="form-control"><?php echo e($pengajuan->nama_sekolah); ?></textarea>
               </div>
-            </div>
+            </div> -->
 
           </div><!-- end col -->
 
@@ -113,7 +113,7 @@
               <div class="col-sm-6">
                 <div class="checkbox checkbox-custom">
                   <input disabled id="checkbox-signup" type="checkbox" checked="checked">
-                  <label for="checkbox-signup">Sudah Mengisi Kuisioner <a target="_BLANK" href="#">Lihat Kuisioner</a></label>
+                  <label for="checkbox-signup">Sudah Mengisi Kuisioner <a target="_BLANK" href="<?php echo e(route('kuisioner',$pengajuan->mhs->id)); ?>">Lihat Kuisioner</a></label>
                 </div>
               </div>
             </div>
