@@ -25,7 +25,7 @@
 
 
       <?php if($status_daftar != null): ?>
-      <?php if( $status == null): ?>
+      <?php if( ($status == null) ): ?>
       <div class="align-items-center">
         <a href="<?php echo e(route('pengajuanMagang.tambah')); ?>" class="btn btn-primary m-l-10 waves-light  mb-2">Tambah</a>
       </div>
@@ -70,9 +70,16 @@
             <td><?php echo e($value->mhs->user->nomor_induk); ?></td>
             <td><?php echo e($value->mhs->nama); ?></td>
             <?php endif; ?>
-            <td><?php echo e($value->nama_sekolah); ?></td>
             <td>
-            <?php echo e(date('d-F-Y', strtotime($value->periode->mulai_magang))); ?> s/d <?php echo e(date('d-F-Y', strtotime($value->periode->akhir_magang))); ?>
+              <?php if($value->sekolah != null): ?>
+              <?php echo e($value->sekolah->nama); ?>
+
+              <?php else: ?>
+              Belum Ditentukan
+              <?php endif; ?>
+            </td>
+            <td>
+              <?php echo e(date('d-F-Y', strtotime($value->periode->mulai_magang))); ?> s/d <?php echo e(date('d-F-Y', strtotime($value->periode->akhir_magang))); ?>
 
             </td>
             <td>
@@ -136,8 +143,8 @@
               <?php endif; ?>
 
             </td>
-           
-            
+
+
             <?php endif; ?>
 
           </tr>
@@ -194,14 +201,14 @@
       <h4 class="text-uppercase font-bold mb-0">Upload Laporan Magang</h4>
     </div>
     <div class="text-left">
-    <form class="form-horizontal m-t-20" enctype="multipart/form-data" action="<?php echo e(route('pengajuanMagang.upload')); ?>" method="POST">
+      <form class="form-horizontal m-t-20" enctype="multipart/form-data" action="<?php echo e(route('pengajuanMagang.upload')); ?>" method="POST">
         <?php echo csrf_field(); ?>
         <input type="hidden" id="id" name="id_pengajuan">
 
         <div class="form-group row">
           <label class="col-sm-3 col-form-label">URL Laporan</label>
           <div class="col-sm-9">
-            <input type="text" class="form-control" name="url_laporan" required placeholder="Link laporan yang telah di upload di Google Drive"/>
+            <input type="text" class="form-control" name="url_laporan" required placeholder="Link laporan yang telah di upload di Google Drive" />
           </div>
         </div>
 

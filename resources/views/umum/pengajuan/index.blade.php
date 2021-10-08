@@ -25,7 +25,7 @@
 
 
       @if($status_daftar != null)
-      @if ( $status == null)
+      @if ( ($status == null) )
       <div class="align-items-center">
         <a href="{{route('pengajuanMagang.tambah')}}" class="btn btn-primary m-l-10 waves-light  mb-2">Tambah</a>
       </div>
@@ -70,9 +70,15 @@
             <td>{{$value->mhs->user->nomor_induk}}</td>
             <td>{{$value->mhs->nama}}</td>
             @endrole
-            <td>{{$value->nama_sekolah}}</td>
             <td>
-            {{date('d-F-Y', strtotime($value->periode->mulai_magang))}} s/d {{date('d-F-Y', strtotime($value->periode->akhir_magang))}}
+              @if($value->sekolah != null)
+              {{$value->sekolah->nama}}
+              @else
+              Belum Ditentukan
+              @endif
+            </td>
+            <td>
+              {{date('d-F-Y', strtotime($value->periode->mulai_magang))}} s/d {{date('d-F-Y', strtotime($value->periode->akhir_magang))}}
             </td>
             <td>
               @if($value->id_dosen == null)
@@ -133,8 +139,8 @@
               @endrole
 
             </td>
-           
-            
+
+
             @endif
 
           </tr>
@@ -191,14 +197,14 @@
       <h4 class="text-uppercase font-bold mb-0">Upload Laporan Magang</h4>
     </div>
     <div class="text-left">
-    <form class="form-horizontal m-t-20" enctype="multipart/form-data" action="{{route('pengajuanMagang.upload')}}" method="POST">
+      <form class="form-horizontal m-t-20" enctype="multipart/form-data" action="{{route('pengajuanMagang.upload')}}" method="POST">
         @csrf
         <input type="hidden" id="id" name="id_pengajuan">
 
         <div class="form-group row">
           <label class="col-sm-3 col-form-label">URL Laporan</label>
           <div class="col-sm-9">
-            <input type="text" class="form-control" name="url_laporan" required placeholder="Link laporan yang telah di upload di Google Drive"/>
+            <input type="text" class="form-control" name="url_laporan" required placeholder="Link laporan yang telah di upload di Google Drive" />
           </div>
         </div>
 

@@ -8,6 +8,7 @@ use App\Models\Magang;
 use App\Models\Mahasiswa;
 use App\Models\Periode;
 use App\Models\Prodi;
+use App\Models\Sekolah;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -36,7 +37,7 @@ class PengajuanMagangController extends Controller
             // dapatkan id mahasiswa
             $id_mhs = Mahasiswa::select('id')->where('id_user', Auth::user()->id)->first();
             // dapatkan data magang user mahasiswa
-            $pengajuan = Magang::with('mhs', 'dsn')
+            $pengajuan = Magang::with('mhs', 'dsn', 'sekolah')
                 ->where('id_mahasiswa', $id_mhs->id)
                 ->orderBy('updated_at', 'DESC')
                 ->get();
@@ -45,14 +46,16 @@ class PengajuanMagangController extends Controller
             $status = null;
             if (($status_daftar) != null) {
                 $status = Magang::where('id_mahasiswa', $id_mhs->id)
-                    ->whereBetween('created_at', [$status_daftar['mulai_daftar'], $status_daftar['akhir_daftar']])->first();
+                    ->where('id_periode', $status_daftar['id'])
+                    ->first();
+                // dd($status_daftar);
+                // ->whereBetween('created_at', [$status_daftar['mulai_daftar'], $status_daftar['akhir_daftar']])->first();
             }
-
 
             return view('umum.pengajuan.index', compact('title', 'pengajuan', 'status_daftar', 'status_magang', 'status'));
         }
         if (Auth::user()->roles[0]['name'] == 'admin') {
-            $pengajuan = Magang::with('mhs', 'dsn')
+            $pengajuan = Magang::with('mhs', 'dsn', 'sekolah')
                 ->where('status_pengajuan', '!=', 'selesai')
                 ->orderBy('updated_at', 'DESC')
                 ->get();
@@ -153,10 +156,12 @@ class PengajuanMagangController extends Controller
         $pengajuan = Magang::where('id', $id)->with('mhs', 'dsn')->first();
         $dosen = Dosen::where('status', 'ON')->get();
 
+
         // extract array nilai matkul
         $nilai_matkul = unserialize($pengajuan['nilai_matkul']);
         if (Auth::user()->roles[0]['name'] == 'admin') {
-            return view('admin.pengajuan.detail', compact('title', 'pengajuan', 'dosen', 'nilai_matkul'));
+            $sekolah = Sekolah::all();
+            return view('admin.pengajuan.detail', compact('title', 'pengajuan', 'dosen', 'nilai_matkul', 'sekolah'));
         }
         if (Auth::user()->roles[0]['name'] == 'mahasiswa') {
             $prodi = Prodi::all();
@@ -175,6 +180,7 @@ class PengajuanMagangController extends Controller
             ->update([
                 'status_pengajuan'  => $request->proses,
                 'id_dosen'     => $request->id_dosen,
+                'id_sekolah'     => $request->id_sekolah,
                 'keterangan_status' => $request->keterangan
             ]);
 
@@ -198,5 +204,31 @@ class PengajuanMagangController extends Controller
         } else {
             return redirect()->back()->with('alert', 'Laporan gagal diupload');
         }
+    }
+
+    public function getDosenRekomendasi($id_sekolah)
+    {
+        // get status daftar periode saat ini
+        $periode = PeriodeController::cekPeriode();
+
+        $jml_magang = Magang::where('id_sekolah', $id_sekolah)
+            ->where('id_periode', $periode['id'])
+            ->count();
+
+        $dosen = Magang::with('dsn')
+            ->where('id_sekolah', $id_sekolah)
+            ->where('id_periode', $periode->id)
+            ->where('id_dosen', '!=', null)
+            ->first();
+
+        return compact('jml_magang', 'dosen');
+    }
+
+    public function getJumlahBimbingan($id_dosen)
+    {
+        $periode = PeriodeController::cekPeriode();
+        return Magang::where('id_dosen', $id_dosen)
+            ->where('id_periode', $periode['id'])
+            ->count();
     }
 }

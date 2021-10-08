@@ -46,16 +46,18 @@ Route::group(['middleware' => ['role:admin']], function () {
     Route::post('/periode/store', [PeriodeController::class, 'store'])->name('periode.store');
     Route::POST('/periode/hapus/', [PeriodeController::class, 'hapus'])->name('periode.hapus');
     Route::get('/getPeriodeById/{id}', [PeriodeController::class, 'getPeriodeById'])->name('getPeriodeById');
-
-
+    
+    
     // kelola prodi
     Route::get('/prodi', [ProdiController::class, 'index'])->name('prodi.index');
     Route::post('/prodi/store', [ProdiController::class, 'store'])->name('prodi.store');
     Route::POST('/prodi/hapus/', [ProdiController::class, 'hapus'])->name('prodi.hapus');
-
+    
     //kelola pengajuan magang
     Route::get('pengajuan-magang/detail/{id}', [PengajuanMagangController::class, 'detail'])->name('pengajuanMagang.detail');
     Route::post('pengajuan-magang/proses', [PengajuanMagangController::class, 'proses'])->name('pengajuanMagang.proses');
+    Route::get('/GetDosenRekomendasi/{id}', [PengajuanMagangController::class, 'getDosenRekomendasi'])->name('GetDosenRekomendasi');
+    Route::get('/GetJumlahBimbingan/{id}', [PengajuanMagangController::class, 'getJumlahBimbingan'])->name('GetJumlahBimbingan');
 
     // kelola sekolah
     Route::get('/sekolah', [SekolahController::class, 'index'])->name('sekolah.index');
