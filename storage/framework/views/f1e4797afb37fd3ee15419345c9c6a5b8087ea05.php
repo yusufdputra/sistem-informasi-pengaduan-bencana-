@@ -58,6 +58,9 @@
             <th>Tanggal Pelaksanaan</th>
             <th>Dosen Pembimbing</th>
             <th>Nilai Magang</th>
+            <?php if(auth()->check() && auth()->user()->hasRole('mahasiswa')): ?>
+            <th>Progres</th>
+            <?php endif; ?>
             <th>Status Pengajuan</th>
             <th>Aksi</th>
           </tr>
@@ -99,12 +102,25 @@
               <?php endif; ?>
             </td>
 
+
+            <!-- LOOKBOOK -->
+            <?php if(auth()->check() && auth()->user()->hasRole('mahasiswa')): ?>
+            <td>
+              <a href="<?php echo e(route('lookbook', $value->id)); ?>" class="btn btn-sm btn-info waves-effect waves-light">Lihat</a>
+            </td>
+            <?php endif; ?>
+
+
+            <!-- AKSI -->
+
+            <!-- NOTIF GAGAL -->
             <?php if($value->url_laporan == NULL && \Carbon\Carbon::now() > $value->periode->akhir_magang ): ?>
             <td><span class="badge badge-danger">GAGAL</span></td>
             <td>
               Tidak Tersedia
             </td>
 
+            <!-- NOTIF PROSES -->
             <?php elseif($value->status_pengajuan == 'proses'): ?>
             <td><span class="badge badge-primary"><?php echo e(strtoupper($value->status_pengajuan)); ?></span></td>
             <td>
@@ -115,6 +131,7 @@
               <?php endif; ?>
             </td>
 
+            <!-- NOTIF SELESAI -->
             <?php elseif($value->status_pengajuan == 'diterima' || $value->status_pengajuan == 'selesai'): ?>
             <td><span class="badge badge-success"><?php echo e(strtoupper($value->status_pengajuan)); ?></span></td>
             <td>
@@ -133,6 +150,8 @@
               <?php endif; ?>
               <?php endif; ?>
             </td>
+
+            <!-- NOTIF DITOLAK -->
             <?php elseif($value->status_pengajuan == 'ditolak'): ?>
             <td><span class="badge badge-danger"><?php echo e(strtoupper($value->status_pengajuan)); ?></span></td>
             <td>
@@ -146,6 +165,8 @@
 
 
             <?php endif; ?>
+
+
 
           </tr>
           <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

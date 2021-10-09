@@ -5,12 +5,13 @@
   <div class="col-12">
     <div class="card-box table-responsive">
 
+      @role('mahasiswa')
       <div class="align-items-center">
-
+        <a href="{{route('pengajuanMagang.index')}}" class="btn btn-danger m-l-10 waves-light  mb-2">Kembali</a>
         <a href="#tambah-modal" data-animation="sign" data-plugin="custommodal" data-overlaySpeed="100" data-overlayColor="#36404a" class="btn btn-primary m-l-10 waves-light  mb-2">Tambah</a>
-
       </div>
-      
+      @endrole
+
       @if(\Session::has('alert'))
       <div class="alert alert-danger">
         <div>{{Session::get('alert')}}</div>
@@ -28,21 +29,22 @@
         <thead>
           <tr>
             <th>No.</th>
-            <th>Nama Sekolah</th>
+            <th>Tanggal Kegiatan</th>
+            <th>Keterangan</th>
+            <th>Laporan</th>
             <th>Aksi</th>
           </tr>
         </thead>
         <tbody>
-          @foreach ($sekolah AS $key=>$value)
+          @foreach ($lookbooks AS $key=>$value)
           <tr>
             <td>{{$key+1}}</td>
-            <td>{{$value->nama}}</td>
-            
+            <td>{{date('d-F-Y', strtotime($value->created_at))}}</td>
+            <td>{{$value->keterangan}}</td>
+            <td><a href="\storage\{{$value->url_laporan}}" target="_BLANK" class="btn btn-rounded btn-info btn-sm"> Lihat <i class="fa fa-file-pdf-o"> </i></a></td>
 
             <td>
-              <a href="#edit-modal" data-animation="sign" data-plugin="custommodal" data-id='{{$value->id}}' data-nama="{{$value->nama}}" data-overlaySpeed="100" data-overlayColor="#36404a" class="btn btn-success btn-sm modal_edit"><i class="fa fa-edit"></i></a>
-
-              <a href="#hapus-modal" data-animation="sign" data-plugin="custommodal" data-id='{{$value->id}}' data-overlaySpeed="100" data-overlayColor="#36404a" class="btn btn-danger btn-sm hapus"><i class="fa fa-trash"></i></a>
+              <a href="#hapus-modal" data-animation="sign" data-plugin="custommodal" data-laporan="{{$value->url_laporan}}" data-id='{{$value->id}}' data-overlaySpeed="100" data-overlayColor="#36404a" class="btn btn-danger btn-sm hapus"><i class="fa fa-trash"></i></a>
 
 
             </td>
@@ -62,17 +64,35 @@
   <div class="custom-modal-text">
 
     <div class="text-center">
-      <h4 class="text-uppercase font-bold mb-0">Tambah Sekolah</h4>
+      <h4 class="text-uppercase font-bold mb-0">Tambah Lookbook</h4>
     </div>
     <div class="text-left">
-      <form class="form-horizontal m-t-20" enctype="multipart/form-data" action="{{route('sekolah.store')}}" method="POST">
+      <form class="form-horizontal m-t-20" enctype="multipart/form-data" action="{{route('lookbook.store')}}" method="POST">
         @csrf
 
-        <div class="form-group">
-          <div class="col-xs-12">
-            <input class="form-control" type="text" autocomplete="off" name="nama" required="" placeholder="Nama Sekolah">
+        <input type="hidden" name="id_pengajuan" value="{{$id_pengajuan}}">
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label">Tanggal Kegiatan</label>
+          <div class="col-sm-9">
+            <input class="form-control" type="date" autocomplete="off" name="tgl_kegiatan" required="" placeholder="Tanggal Kegiatan">
           </div>
         </div>
+
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label">Keterangan</label>
+          <div class="col-sm-9">
+            <textarea class="form-control" maxlength="255" type="text" autocomplete="off" name="keterangan" required="" placeholder="Keterangan"></textarea>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label">Upload File</label>
+          <div class="col-sm-9">
+            <input type="file" accept=".pdf" required data-max-file-size="2M" name="file_laporan" />
+          </div>
+        </div>
+
+
 
         <div class="modal-footer">
           <button type="button" onclick="Custombox.close();" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
@@ -87,39 +107,6 @@
 
 </div>
 
-<div id="edit-modal" class="modal-demo">
-  <button type="button" class="close" onclick="Custombox.close();">
-    <span>&times;</span><span class="sr-only">Close</span>
-  </button>
-
-  <div class="custom-modal-text">
-
-    <div class="text-center">
-      <h4 class="text-uppercase font-bold mb-0">Edit Sekolah</h4>
-    </div>
-    <div class="text-left">
-
-      <form class="form-horizontal m-t-20" enctype="multipart/form-data" action="{{route('sekolah.store')}}" method="POST">
-        @csrf
-        <input type="hidden" name="id" id="edit_id">
-        
-        <div class="form-group">
-          <div class="col-xs-12">
-            <input class="form-control" type="text" autocomplete="off" id="edit_nama" name="nama" required="" placeholder="Nama Sekolah">
-          </div>
-        </div>
-
-        <div class="modal-footer">
-          <button type="button" onclick="Custombox.close();" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary waves-effect waves-light">Save changes</button>
-        </div>
-
-      </form>
-
-    </div>
-  </div>
-
-</div>
 
 <div id="hapus-modal" class="modal-demo">
   <button type="button" class="close" onclick="Custombox.close();">
@@ -129,15 +116,16 @@
   <div class="custom-modal-text">
 
     <div class="text-center">
-      <h4 class="text-uppercase font-bold mb-0">Hapus Sekolah</h4>
+      <h4 class="text-uppercase font-bold mb-0">Hapus Lookbook ini?</h4>
     </div>
     <div class="">
 
-      <form class="form-horizontal m-t-20" enctype="multipart/form-data" action="{{route('sekolah.hapus')}}" method="POST">
+      <form class="form-horizontal m-t-20" enctype="multipart/form-data" action="{{route('lookbook.hapus')}}" method="POST">
         @csrf
         <div>
           <input type="hidden" id='id_hapus' name='id'>
-          <h5 id="exampleModalLabel">Apakah anda yakin ingin mengapus sekolah ini?</h5>
+          <input type="hidden" id='laporan' name='url_laporan'>
+          <h5 id="exampleModalLabel">Apakah anda yakin ingin mengapus kegiatan ini?</h5>
         </div>
 
         <div class="modal-footer">
@@ -154,17 +142,14 @@
 </div>
 
 <script type="text/javascript">
-  $('.modal_edit').click(function() {
-    var id = $(this).data('id');
-    var nama = $(this).data('nama');
-    $('#edit_id').val(id)
-    $('#edit_nama').val(nama)
-
-  });
+ 
 
   $('.hapus').click(function() {
     var id = $(this).data('id');
     $('#id_hapus').val(id);
+    var laporan = $(this).data('laporan');
+    $('#laporan').val(laporan);
   });
 </script>
+
 @endsection

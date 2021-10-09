@@ -58,6 +58,9 @@
             <th>Tanggal Pelaksanaan</th>
             <th>Dosen Pembimbing</th>
             <th>Nilai Magang</th>
+            @role('mahasiswa')
+            <th>Progres</th>
+            @endrole
             <th>Status Pengajuan</th>
             <th>Aksi</th>
           </tr>
@@ -95,12 +98,25 @@
               @endif
             </td>
 
+
+            <!-- LOOKBOOK -->
+            @role('mahasiswa')
+            <td>
+              <a href="{{route('lookbook', $value->id)}}" class="btn btn-sm btn-info waves-effect waves-light">Lihat</a>
+            </td>
+            @endrole
+
+
+            <!-- AKSI -->
+
+            <!-- NOTIF GAGAL -->
             @if ($value->url_laporan == NULL && \Carbon\Carbon::now() > $value->periode->akhir_magang )
             <td><span class="badge badge-danger">GAGAL</span></td>
             <td>
               Tidak Tersedia
             </td>
 
+            <!-- NOTIF PROSES -->
             @elseif($value->status_pengajuan == 'proses')
             <td><span class="badge badge-primary">{{strtoupper($value->status_pengajuan)}}</span></td>
             <td>
@@ -111,6 +127,7 @@
               @endrole
             </td>
 
+            <!-- NOTIF SELESAI -->
             @elseif ($value->status_pengajuan == 'diterima' || $value->status_pengajuan == 'selesai')
             <td><span class="badge badge-success">{{strtoupper($value->status_pengajuan)}}</span></td>
             <td>
@@ -129,6 +146,8 @@
               @endrole
               @endif
             </td>
+
+            <!-- NOTIF DITOLAK -->
             @elseif ($value->status_pengajuan == 'ditolak')
             <td><span class="badge badge-danger">{{strtoupper($value->status_pengajuan)}}</span></td>
             <td>
@@ -142,6 +161,8 @@
 
 
             @endif
+
+
 
           </tr>
           @endforeach

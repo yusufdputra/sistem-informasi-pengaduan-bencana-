@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KuisionerController;
+use App\Http\Controllers\LookBookController;
 use App\Http\Controllers\MahasiswaBimbingan;
 use App\Http\Controllers\PengajuanMagangController;
 use App\Http\Controllers\PeriodeController;
@@ -10,6 +11,7 @@ use App\Http\Controllers\ProdiController;
 use App\Http\Controllers\RiwayatController;
 use App\Http\Controllers\SekolahController;
 use App\Http\Controllers\UserManagementController;
+use App\Models\Lookbook;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -76,6 +78,11 @@ Route::group(['middleware' => ['role:mahasiswa']], function () {
 
     // kuisioner
     Route::post('isi-kuisioner/store', [KuisionerController::class, 'store'])->name('kuisioner.store');
+
+    //kelola lookbook
+    Route::get('/lookbook/{id}', [LookBookController::class, 'index'])->name('lookbook');
+    Route::post('lookbook/store', [LookBookController::class, 'store'])->name('lookbook.store');
+    Route::POST('/lookbook/hapus/', [LookBookController::class, 'hapus'])->name('lookbook.hapus');
 
 });
 
