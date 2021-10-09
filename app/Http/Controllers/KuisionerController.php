@@ -25,7 +25,7 @@ class KuisionerController extends Controller
             $jawaban = unserialize($kuisioner->jawaban);
         }
 
-        $mhs = Mahasiswa::with('user')->find($id_mhs)->first();
+        $mhs = Mahasiswa::with('user')->find($id_mhs);
         return view('umum.kuisioner.form', compact('title', 'kuisioner', 'mhs', 'jawaban'));
         // if (Auth::user()->roles[0]['name'] == 'mahasiswa') {
 
