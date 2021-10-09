@@ -24,7 +24,13 @@
       <h4 class="header-title mt-0 m-b-30">Total Selesai</h4>
       <div class="widget-box-2">
         <div class="widget-detail-2">
-          <span class="badge badge-success badge-pill pull-left m-t-20">{{round(($jml_selesai/$jml_daftar)*100)}}% <i class="mdi mdi-trending-up"></i> </span>
+          <span class="badge badge-success badge-pill pull-left m-t-20">
+            @if($jml_daftar != 0)
+            {{round(($jml_selesai/$jml_daftar)*100)}}% 
+            @else
+            0%
+            @endif
+            <i class="mdi mdi-trending-up"></i> </span>
           <h2 class="mb-0"> {{$jml_selesai}} </h2>
           <p class="text-muted m-b-25">Mahasiswa</p>
         </div>
