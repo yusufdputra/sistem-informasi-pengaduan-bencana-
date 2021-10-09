@@ -5,12 +5,16 @@
   <div class="col-12">
     <div class="card-box table-responsive">
 
-      @role('mahasiswa')
       <div class="align-items-center">
+        @role('mahasiswa')
         <a href="{{route('pengajuanMagang.index')}}" class="btn btn-danger m-l-10 waves-light  mb-2">Kembali</a>
         <a href="#tambah-modal" data-animation="sign" data-plugin="custommodal" data-overlaySpeed="100" data-overlayColor="#36404a" class="btn btn-primary m-l-10 waves-light  mb-2">Tambah</a>
+        @endrole
+
+        @role('dosen')
+        <a href="{{route('mahasiswa.index')}}" class="btn btn-danger m-l-10 waves-light  mb-2">Kembali</a>
+        @endrole
       </div>
-      @endrole
 
       @if(\Session::has('alert'))
       <div class="alert alert-danger">
@@ -32,7 +36,9 @@
             <th>Tanggal Kegiatan</th>
             <th>Keterangan</th>
             <th>Laporan</th>
+            @role('mahasiswa')
             <th>Aksi</th>
+            @endrole
           </tr>
         </thead>
         <tbody>
@@ -42,12 +48,11 @@
             <td>{{date('d-F-Y', strtotime($value->created_at))}}</td>
             <td>{{$value->keterangan}}</td>
             <td><a href="\storage\{{$value->url_laporan}}" target="_BLANK" class="btn btn-rounded btn-info btn-sm"> Lihat <i class="fa fa-file-pdf-o"> </i></a></td>
-
+            @role('mahasiswa')
             <td>
               <a href="#hapus-modal" data-animation="sign" data-plugin="custommodal" data-laporan="{{$value->url_laporan}}" data-id='{{$value->id}}' data-overlaySpeed="100" data-overlayColor="#36404a" class="btn btn-danger btn-sm hapus"><i class="fa fa-trash"></i></a>
-
-
             </td>
+            @endrole
           </tr>
           @endforeach
         </tbody>
@@ -142,8 +147,6 @@
 </div>
 
 <script type="text/javascript">
- 
-
   $('.hapus').click(function() {
     var id = $(this).data('id');
     $('#id_hapus').val(id);

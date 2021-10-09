@@ -27,6 +27,7 @@
             <th>Nama Sekolah</th>
             <th>Tanggal Pelaksanaan</th>
             <th>Nilai Magang</th>
+            <th>Lookbook</th>
             <th>Status Magang</th>
             <th>Aksi</th>
           </tr>
@@ -37,7 +38,7 @@
             <td><?php echo e($key+1); ?></td>
             <td><?php echo e($value->mhs->user->nomor_induk); ?></td>
             <td><?php echo e($value->mhs->nama); ?></td>
-            <td><?php echo e($value->nama_sekolah); ?></td>
+            <td><?php echo e($value->sekolah->nama); ?></td>
             <td>
               <?php echo e(date('d-F-Y', strtotime($value->periode->mulai_magang))); ?> s/d <?php echo e(date('d-F-Y', strtotime($value->periode->akhir_magang))); ?>
 
@@ -50,6 +51,11 @@
 
               <?php endif; ?>
             </td>
+
+            <td>
+              <a href="<?php echo e(route('lookbookMhs', $value->id)); ?>" class="btn btn-sm btn-info waves-effect waves-light">Lihat</a>
+            </td>
+
             <?php if($value->status_pengajuan == 'selesai'): ?>
             <td><span class="badge badge-success"><?php echo e(strtoupper($value->status_pengajuan)); ?></span></td>
             <td>

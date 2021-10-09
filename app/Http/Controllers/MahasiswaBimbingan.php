@@ -22,7 +22,7 @@ class MahasiswaBimbingan extends Controller
         $id_dsn = Dosen::select('id')->where('id_user', Auth::user()->id)->first();
 
         // dapatkan data magang user mahasiswa
-        $mhs = Magang::with('mhs')
+        $mhs = Magang::with('mhs', 'sekolah')
             ->where('id_dosen', $id_dsn->id)
             ->where('nilai_pembimbing', '=' , NULL)
             ->orderBy('updated_at', 'ASC')

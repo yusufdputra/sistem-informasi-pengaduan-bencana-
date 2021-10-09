@@ -19,7 +19,7 @@ class RiwayatController extends Controller
         $title = "Riwayat Magang Mahasiswa";
         $user = Auth::user();
         if ($user->roles[0]['name'] == 'admin') {
-            $riwayat = Magang::with('mhs', 'dsn')
+            $riwayat = Magang::with('mhs', 'dsn', 'sekolah')
             ->where('status_pengajuan', '=', 'selesai')
             ->where('nilai_pembimbing', '!=', NULL)
             ->orderBy('id_periode', 'DESC')
@@ -27,7 +27,7 @@ class RiwayatController extends Controller
         }else if ($user->roles[0]['name'] == 'dosen') {
             $dosen = Dosen::select('id')->where('id_user', $user->id)->first();
             
-            $riwayat = Magang::with('mhs', 'dsn')
+            $riwayat = Magang::with('mhs', 'dsn', 'sekolah')
             ->where('id_dosen', $dosen->id)
             ->where('nilai_pembimbing', '!=', NULL)
             ->orderBy('id_periode', 'DESC')

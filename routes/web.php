@@ -106,5 +106,8 @@ Route::group(['middleware' => ['role:dosen']], function () {
     Route::get('mahasiswa-bimbingan/', [MahasiswaBimbingan::class, 'index'])->name('mahasiswa.index');
 
     Route::post('pengajuan-magang/nilai', [MahasiswaBimbingan::class, 'inputNilai'])->name('pengajuanMagang.nilai');
+
+    //kelola lookbook
+    Route::get('/lookbookMhs/{id}', [LookBookController::class, 'index'])->name('lookbookMhs');
 });
 

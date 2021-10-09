@@ -44,7 +44,7 @@
             <td><?php echo e($key+1); ?></td>
             <td><?php echo e($value->mhs->user->nomor_induk); ?></td>
             <td><?php echo e($value->mhs->nama); ?></td>
-            <td><?php echo e($value->nama_sekolah); ?></td>
+            <td><?php echo e($value->sekolah->nama); ?></td>
             <td>
               <?php echo e(date('d-F-Y', strtotime($value->periode->mulai_magang))); ?> s/d <?php echo e(date('d-F-Y', strtotime($value->periode->akhir_magang))); ?>
 

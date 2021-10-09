@@ -28,7 +28,7 @@
         <thead>
           <tr>
             <th>No.</th>
-            <th>Nama Seolah</th>
+            <th>Nama Sekolah</th>
             <th>Aksi</th>
           </tr>
         </thead>

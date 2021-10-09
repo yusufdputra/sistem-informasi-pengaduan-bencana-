@@ -5,12 +5,16 @@
   <div class="col-12">
     <div class="card-box table-responsive">
 
-      <?php if(auth()->check() && auth()->user()->hasRole('mahasiswa')): ?>
       <div class="align-items-center">
+        <?php if(auth()->check() && auth()->user()->hasRole('mahasiswa')): ?>
         <a href="<?php echo e(route('pengajuanMagang.index')); ?>" class="btn btn-danger m-l-10 waves-light  mb-2">Kembali</a>
         <a href="#tambah-modal" data-animation="sign" data-plugin="custommodal" data-overlaySpeed="100" data-overlayColor="#36404a" class="btn btn-primary m-l-10 waves-light  mb-2">Tambah</a>
+        <?php endif; ?>
+
+        <?php if(auth()->check() && auth()->user()->hasRole('dosen')): ?>
+        <a href="<?php echo e(route('mahasiswa.index')); ?>" class="btn btn-danger m-l-10 waves-light  mb-2">Kembali</a>
+        <?php endif; ?>
       </div>
-      <?php endif; ?>
 
       <?php if(\Session::has('alert')): ?>
       <div class="alert alert-danger">
@@ -32,7 +36,9 @@
             <th>Tanggal Kegiatan</th>
             <th>Keterangan</th>
             <th>Laporan</th>
+            <?php if(auth()->check() && auth()->user()->hasRole('mahasiswa')): ?>
             <th>Aksi</th>
+            <?php endif; ?>
           </tr>
         </thead>
         <tbody>
@@ -42,12 +48,11 @@
             <td><?php echo e(date('d-F-Y', strtotime($value->created_at))); ?></td>
             <td><?php echo e($value->keterangan); ?></td>
             <td><a href="\storage\<?php echo e($value->url_laporan); ?>" target="_BLANK" class="btn btn-rounded btn-info btn-sm"> Lihat <i class="fa fa-file-pdf-o"> </i></a></td>
-
+            <?php if(auth()->check() && auth()->user()->hasRole('mahasiswa')): ?>
             <td>
               <a href="#hapus-modal" data-animation="sign" data-plugin="custommodal" data-laporan="<?php echo e($value->url_laporan); ?>" data-id='<?php echo e($value->id); ?>' data-overlaySpeed="100" data-overlayColor="#36404a" class="btn btn-danger btn-sm hapus"><i class="fa fa-trash"></i></a>
-
-
             </td>
+            <?php endif; ?>
           </tr>
           <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </tbody>
@@ -142,8 +147,6 @@
 </div>
 
 <script type="text/javascript">
- 
-
   $('.hapus').click(function() {
     var id = $(this).data('id');
     $('#id_hapus').val(id);

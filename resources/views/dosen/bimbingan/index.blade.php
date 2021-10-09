@@ -27,6 +27,7 @@
             <th>Nama Sekolah</th>
             <th>Tanggal Pelaksanaan</th>
             <th>Nilai Magang</th>
+            <th>Lookbook</th>
             <th>Status Magang</th>
             <th>Aksi</th>
           </tr>
@@ -37,7 +38,7 @@
             <td>{{$key+1}}</td>
             <td>{{$value->mhs->user->nomor_induk}}</td>
             <td>{{$value->mhs->nama}}</td>
-            <td>{{$value->nama_sekolah}}</td>
+            <td>{{$value->sekolah->nama}}</td>
             <td>
               {{date('d-F-Y', strtotime($value->periode->mulai_magang))}} s/d {{date('d-F-Y', strtotime($value->periode->akhir_magang))}}
             </td>
@@ -48,6 +49,11 @@
               {{$value->nilai_pembimbing}}
               @endif
             </td>
+
+            <td>
+              <a href="{{route('lookbookMhs', $value->id)}}" class="btn btn-sm btn-info waves-effect waves-light">Lihat</a>
+            </td>
+
             @if ($value->status_pengajuan == 'selesai')
             <td><span class="badge badge-success">{{strtoupper($value->status_pengajuan)}}</span></td>
             <td>
