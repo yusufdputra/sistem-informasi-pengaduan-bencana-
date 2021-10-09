@@ -45,8 +45,15 @@ class HomeController extends Controller
                 ->where('akhir_magang', '>=', Carbon::now())
                 ->first();
 
-            $jml_daftar = Magang::where('id_periode', $status_daftar['id'])->count();
-            $jml_selesai = Magang::where('id_periode', $status_daftar['id'])->where('status_pengajuan', 'selesai')->count();
+            if ($status_daftar != null) {
+                $jml_daftar = Magang::where('id_periode', $status_daftar['id'])->count();
+                $jml_selesai = Magang::where('id_periode', $status_daftar['id'])->where('status_pengajuan', 'selesai')->count();
+
+            }else{
+                $jml_daftar = 0;
+                $jml_selesai = 0;
+            }
+
 
             return view('home', compact('title', 'status_daftar', 'status_magang', 'jml_daftar','jml_selesai'));
         }
