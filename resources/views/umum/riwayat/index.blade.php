@@ -44,7 +44,7 @@
             <td>{{$key+1}}</td>
             <td>{{$value->mhs->user->nomor_induk}}</td>
             <td>{{$value->mhs->nama}}</td>
-            <td>{{$value->nama_sekolah}}</td>
+            <td>{{$value->sekolah->nama}}</td>
             <td>
               {{date('d-F-Y', strtotime($value->periode->mulai_magang))}} s/d {{date('d-F-Y', strtotime($value->periode->akhir_magang))}}
             </td>

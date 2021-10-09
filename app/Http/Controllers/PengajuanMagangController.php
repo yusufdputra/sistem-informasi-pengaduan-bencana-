@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Dosen;
+use App\Models\Kuisioner;
 use App\Models\Magang;
 use App\Models\Mahasiswa;
 use App\Models\Periode;
 use App\Models\Prodi;
+use App\Models\Sekolah;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -27,15 +29,13 @@ class PengajuanMagangController extends Controller
             ->first();
 
         // get status magang periode saat ini
-        $status_magang = Periode::where('mulai_magang', '<=', Carbon::now())
-            ->where('akhir_magang', '>=', Carbon::now())
-            ->first();
+        $status_magang = PeriodeController::cekPeriode();
 
         if (Auth::user()->roles[0]['name'] == 'mahasiswa') {
             // dapatkan id mahasiswa
             $id_mhs = Mahasiswa::select('id')->where('id_user', Auth::user()->id)->first();
             // dapatkan data magang user mahasiswa
-            $pengajuan = Magang::with('mhs', 'dsn')
+            $pengajuan = Magang::with('mhs', 'dsn', 'sekolah')
                 ->where('id_mahasiswa', $id_mhs->id)
                 ->orderBy('updated_at', 'DESC')
                 ->get();
@@ -44,14 +44,16 @@ class PengajuanMagangController extends Controller
             $status = null;
             if (($status_daftar) != null) {
                 $status = Magang::where('id_mahasiswa', $id_mhs->id)
-                    ->whereBetween('created_at', [$status_daftar['mulai_daftar'], $status_daftar['akhir_daftar']])->first();
+                    ->where('id_periode', $status_daftar['id'])
+                    ->first();
+                // dd($status_daftar);
+                // ->whereBetween('created_at', [$status_daftar['mulai_daftar'], $status_daftar['akhir_daftar']])->first();
             }
-
 
             return view('umum.pengajuan.index', compact('title', 'pengajuan', 'status_daftar', 'status_magang', 'status'));
         }
         if (Auth::user()->roles[0]['name'] == 'admin') {
-            $pengajuan = Magang::with('mhs', 'dsn')
+            $pengajuan = Magang::with('mhs', 'dsn', 'sekolah')
                 ->where('status_pengajuan', '!=', 'selesai')
                 ->orderBy('updated_at', 'DESC')
                 ->get();
@@ -66,12 +68,12 @@ class PengajuanMagangController extends Controller
         $prodi = Prodi::all();
         $mhs = Mahasiswa::with('user')->where('id_user', Auth::user()->id)->first();
         // get status daftar periode saat ini
-        $periode = Periode::where('mulai_daftar', '<=', Carbon::now())
-            ->where('akhir_daftar', '>=', Carbon::now())
-            ->first();
+        $periode = PeriodeController::cekPeriode();
         $pengajuan = null;
+        // cek apakah kuisioner sudah terisi atau belum
+        $kuisioner = Kuisioner::where('id_mahasiswa', $mhs->id)->first();
         if ($periode != null) {
-            return view('mahasiswa.pengajuan.form', compact('title', 'pengajuan', 'dosen', 'prodi', 'mhs', 'periode'));
+            return view('mahasiswa.pengajuan.form', compact('title', 'pengajuan', 'dosen', 'prodi', 'mhs', 'periode', 'kuisioner'));
         } else {
             return redirect()->back()->with('alert', 'Waktu pendaftaran ditutup.');
         }
@@ -125,7 +127,6 @@ class PengajuanMagangController extends Controller
             'nilai_matkul'          => serialize($nilai_matkul),
             'url_transkrip'         => $file_path,
             'ipk'                   => $request->ipk,
-            'nama_sekolah'          => $request->nama_sekolah,
             'id_periode'            => $request->id_periode,
             'status_pengajuan'      => 'proses',
             'created_at'            => Carbon::now(),
@@ -151,18 +152,18 @@ class PengajuanMagangController extends Controller
         $pengajuan = Magang::where('id', $id)->with('mhs', 'dsn')->first();
         $dosen = Dosen::where('status', 'ON')->get();
 
+
         // extract array nilai matkul
         $nilai_matkul = unserialize($pengajuan['nilai_matkul']);
         if (Auth::user()->roles[0]['name'] == 'admin') {
-            return view('admin.pengajuan.detail', compact('title', 'pengajuan', 'dosen', 'nilai_matkul'));
+            $sekolah = Sekolah::all();
+            return view('admin.pengajuan.detail', compact('title', 'pengajuan', 'dosen', 'nilai_matkul', 'sekolah'));
         }
         if (Auth::user()->roles[0]['name'] == 'mahasiswa') {
             $prodi = Prodi::all();
             $mhs = Mahasiswa::with('user')->where('id_user', Auth::user()->id)->first();
             // get status daftar periode saat ini
-            $periode = Periode::where('mulai_daftar', '<=', Carbon::now())
-                ->where('akhir_daftar', '>=', Carbon::now())
-                ->first();
+            $periode = PeriodeController::cekPeriode();
             return view('mahasiswa.pengajuan.form', compact('title', 'pengajuan', 'dosen', 'mhs', 'periode', 'prodi', 'nilai_matkul'));
         }
     }
@@ -173,6 +174,7 @@ class PengajuanMagangController extends Controller
             ->update([
                 'status_pengajuan'  => $request->proses,
                 'id_dosen'     => $request->id_dosen,
+                'id_sekolah'     => $request->id_sekolah,
                 'keterangan_status' => $request->keterangan
             ]);
 
@@ -196,5 +198,42 @@ class PengajuanMagangController extends Controller
         } else {
             return redirect()->back()->with('alert', 'Laporan gagal diupload');
         }
+    }
+
+    public function getDosenRekomendasi($id_sekolah)
+    {
+        // get status daftar periode saat ini
+        $periode = PeriodeController::cekPeriode();
+
+        $jml_magang = Magang::where('id_sekolah', $id_sekolah)
+            ->where('id_periode', $periode['id'])
+            ->count();
+
+        $dosen = Magang::with('dsn')
+            ->where('id_sekolah', $id_sekolah)
+            ->where('id_periode', $periode->id)
+            ->where('id_dosen', '!=', null)
+            ->first();
+
+        $dosen_kosong = null;
+        if ($dosen == null) {
+            $terpakai = Magang::select('id_dosen')
+                ->where('id_dosen', '!=', null)
+                ->where('id_periode', $periode->id)
+                ->groupBy('id_dosen')
+                ->get();
+
+            $dosen_kosong = Dosen::whereNotIn('id', $terpakai)->get();
+        }
+
+        return compact('jml_magang', 'dosen','dosen_kosong');
+    }
+
+    public function getJumlahBimbingan($id_dosen)
+    {
+        $periode = PeriodeController::cekPeriode();
+        return Magang::where('id_dosen', $id_dosen)
+            ->where('id_periode', $periode['id'])
+            ->count();
     }
 }

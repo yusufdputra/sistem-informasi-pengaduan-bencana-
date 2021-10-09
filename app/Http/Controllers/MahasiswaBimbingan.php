@@ -20,10 +20,12 @@ class MahasiswaBimbingan extends Controller
 
         // dapatkan id dosen
         $id_dsn = Dosen::select('id')->where('id_user', Auth::user()->id)->first();
+        $periode = PeriodeController::cekPeriode();
 
         // dapatkan data magang user mahasiswa
-        $mhs = Magang::with('mhs')
+        $mhs = Magang::with('mhs', 'sekolah')
             ->where('id_dosen', $id_dsn->id)
+            ->where('id_periode', $periode->id)
             ->where('nilai_pembimbing', '=' , NULL)
             ->orderBy('updated_at', 'ASC')
             ->get();

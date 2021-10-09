@@ -28,6 +28,11 @@ class Magang extends Model
         return $this->hasOne(Periode::class, 'id', 'id_periode')->withTrashed();
     }
 
+    public function sekolah()
+    {
+        return $this->hasOne(Sekolah::class, 'id', 'id_sekolah')->withTrashed();
+    }
+
     
 
 }

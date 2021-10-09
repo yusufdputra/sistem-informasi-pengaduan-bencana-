@@ -13,15 +13,21 @@ class PeriodeController extends Controller
         $this->middleware('auth');
     }
 
+    public static function cekPeriode()
+    {
+        // get status daftar periode saat ini
+        return Periode::where('mulai_daftar', '<=', Carbon::now())
+            ->where('akhir_daftar', '>=', Carbon::now())
+            ->first();
+    }
+
     public function index()
     {
         $title = "Kelola Periode Magang";
         $periode = Periode::orderBy('updated_at', 'DESC')->get();
 
         // get status daftar periode saat ini
-        $status_daftar = Periode::where('mulai_daftar', '<=', Carbon::now())
-            ->where('akhir_daftar', '>=', Carbon::now())
-            ->first();
+        $status_daftar = $this->cekPeriode();
 
         // get status magang periode saat ini
         $status_magang = Periode::where('mulai_magang', '<=', Carbon::now())
@@ -54,7 +60,7 @@ class PeriodeController extends Controller
             'created_at'   => Carbon::now(),
             'updated_at'   => Carbon::now(),
         ];
-        
+
         $query = Periode::updateOrInsert($where, $values);
 
         if ($query) {
@@ -78,9 +84,9 @@ class PeriodeController extends Controller
     {
         $query = Periode::where('id', $request->id)->delete();
 
-        if($query){
+        if ($query) {
             return redirect()->back()->with('success', 'Berhasil menghapus periode');
-        }else{
+        } else {
             return redirect()->back()->with('alert', 'Gagal menghapus periode');
         }
     }
