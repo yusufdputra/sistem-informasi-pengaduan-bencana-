@@ -185,9 +185,7 @@
               <optgroup id="dosen_rekomendasi" label="Dosen Rekomendasi">
               </optgroup>
               <optgroup id="dosen_tersedia" label="Dosen Tersedia">
-                <?php $__currentLoopData = $dosen; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                <option value="<?php echo e($value->id); ?>"><?php echo e(Str::upper($value->nama)); ?></option>
-                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+             
               </optgroup>
             </select>
             <span class="help-block text-danger"><small>Jumlah anak bimbingan : <span id="jml_bimbingan"></span> Orang</small></span>
@@ -279,6 +277,7 @@
 
   document.getElementById('get_sekolah').addEventListener("change", function() {
     $('#dosen_rekomendasi').html('')
+    $('#dosen_tersedia').html('')
     $('#jml_magang').html('')
     $.ajax({
       url: '<?php echo e(url("GetDosenRekomendasi")); ?>/' + this.value,
@@ -286,13 +285,20 @@
       dataType: 'json',
       success: 'success',
       success: function(data) {
+        console.log(data);
         $('#jml_magang').html(data['jml_magang'])
         if (data['dosen'] != null) {
           $('#dosen_rekomendasi').show()
           $('#dosen_tersedia').hide()
+
           var opt_dosen = new Option((data['dosen']['dsn']['nama']).toUpperCase(), data['dosen']['dsn']['id'])
           $('#dosen_rekomendasi').append(opt_dosen)
-        }else{
+        } else {
+          data['dosen_kosong'].forEach(element => {
+            var opt_dosen = new Option((element['nama']).toUpperCase(), element['id'])
+            $('#dosen_tersedia').append(opt_dosen)
+
+          });
           $('#dosen_rekomendasi').hide()
           $('#dosen_tersedia').show()
         }
@@ -311,7 +317,7 @@
       success: 'success',
       success: function(data) {
         $('#jml_bimbingan').html(data)
-        
+
       },
       error: function(data) {
         toastr.error('Gagal memanggil data! ')

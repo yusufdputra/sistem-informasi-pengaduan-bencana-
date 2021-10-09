@@ -215,7 +215,18 @@ class PengajuanMagangController extends Controller
             ->where('id_dosen', '!=', null)
             ->first();
 
-        return compact('jml_magang', 'dosen');
+        $dosen_kosong = null;
+        if ($dosen == null) {
+            $terpakai = Magang::select('id_dosen')
+                ->where('id_dosen', '!=', null)
+                ->where('id_periode', $periode->id)
+                ->groupBy('id_dosen')
+                ->get();
+
+            $dosen_kosong = Dosen::whereNotIn('id', $terpakai)->get();
+        }
+
+        return compact('jml_magang', 'dosen','dosen_kosong');
     }
 
     public function getJumlahBimbingan($id_dosen)
