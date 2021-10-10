@@ -22,7 +22,7 @@ class PengajuanMagangController extends Controller
 
     public function index()
     {
-        $title = "Pengajuan Magang";
+        $title = "Pengajuan PLP";
         // get status daftar periode saat ini
         $status_daftar = Periode::where('mulai_daftar', '<=', Carbon::now())
             ->where('akhir_daftar', '>=', Carbon::now())
@@ -63,7 +63,7 @@ class PengajuanMagangController extends Controller
 
     public function tambah()
     {
-        $title = "Pengajuan Magang Baru";
+        $title = "Pengajuan PLP Baru";
         $dosen = Dosen::where('status', 'ON')->get();
         $prodi = Prodi::all();
         $mhs = Mahasiswa::with('user')->where('id_user', Auth::user()->id)->first();
@@ -109,7 +109,7 @@ class PengajuanMagangController extends Controller
                 $file_path = $file_path;
             }
         } catch (\Throwable $th) {
-            return redirect()->back()->with('alert', 'Pengajuan magang gagal dikirim. Terjadi kesalahan saat upload file.');
+            return redirect()->back()->with('alert', 'Pengajuan PLP gagal dikirim. Terjadi kesalahan saat upload file.');
         }
 
         $where = [
@@ -137,7 +137,7 @@ class PengajuanMagangController extends Controller
         if ($query) {
             return redirect()->route('pengajuanMagang.index')->with('success', 'Pengajuan berhasil dikirim');
         } else {
-            return redirect()->back()->with('alert', 'Pengajuan magang gagal dikirim');
+            return redirect()->back()->with('alert', 'Pengajuan PLP gagal dikirim');
         }
     }
 

@@ -43,7 +43,7 @@
         </li>
 
         <li>
-          <a href="{{route ('periode.index')}}" class="waves-effect"><i class="fa fa-calendar"></i> <span> Periode Magang </span> </a>
+          <a href="{{route ('periode.index')}}" class="waves-effect"><i class="fa fa-calendar"></i> <span> Periode PLP </span> </a>
         </li>
         
         <li>
@@ -51,7 +51,7 @@
         </li>
 
         <li>
-          <a href="{{route ('pengajuanMagang.index')}}" class="waves-effect"><i class="fa fa-address-card-o"></i> <span> Pengajuan Magang </span> </a>
+          <a href="{{route ('pengajuanMagang.index')}}" class="waves-effect"><i class="fa fa-address-card-o"></i> <span> Pengajuan PLP </span> </a>
         </li>
 
         <li>
@@ -59,7 +59,7 @@
         </li>
 
         <li>
-          <a href="{{route ('riwayat.index')}}" class="waves-effect"><i class="fa fa-history"></i> <span> Riwayat Magang </span> </a>
+          <a href="{{route ('riwayat.index')}}" class="waves-effect"><i class="fa fa-history"></i> <span> Riwayat PLP </span> </a>
         </li>
 
         @endrole
@@ -67,7 +67,7 @@
 
         @role('mahasiswa')
         <li>
-          <a href="{{route ('pengajuanMagang.index')}}" class="waves-effect"><i class="fa fa-address-card-o"></i> <span> Magang </span> </a>
+          <a href="{{route ('pengajuanMagang.index')}}" class="waves-effect"><i class="fa fa-address-card-o"></i> <span> PLP </span> </a>
         </li>
         @endrole
 
@@ -77,7 +77,7 @@
         </li>
 
         <li>
-          <a href="{{route ('riwayat.index')}}" class="waves-effect"><i class="fa fa-history"></i> <span> Riwayat Magang </span> </a>
+          <a href="{{route ('riwayat.index')}}" class="waves-effect"><i class="fa fa-history"></i> <span> Riwayat PLP </span> </a>
         </li>
         @endrole
 

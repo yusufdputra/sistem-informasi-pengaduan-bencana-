@@ -52,7 +52,7 @@
     @if($status_daftar != null)
     Pendaftaran.
     @elseif($status_magang != null)
-    Pelaksanaan Magang.
+    Pelaksanaan PLP.
     @else
     Tidak Ada
     @endif

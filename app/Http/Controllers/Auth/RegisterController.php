@@ -10,6 +10,7 @@ use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
@@ -66,7 +67,8 @@ class RegisterController extends Controller
         ]);
 
         if ($mhs || $user) {
-            return redirect()->back()->with('success', 'Akun berhasil dibuat, silahkan masuk');
+            Auth::login($user);
+            return redirect()->route('/');
         } else {
             return redirect()->back()->with('alert', 'Akun gagal dibuat');
         }
@@ -110,7 +112,8 @@ class RegisterController extends Controller
         ]);
 
         if ($dsn || $user) {
-            return redirect()->back()->with('success', 'Akun berhasil dibuat, silahkan masuk');
+            Auth::login($user);
+            return redirect()->route('/');
         } else {
             return redirect()->back()->with('alert', 'Akun gagal dibuat');
         }

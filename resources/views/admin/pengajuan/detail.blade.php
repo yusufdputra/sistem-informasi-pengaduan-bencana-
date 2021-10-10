@@ -141,7 +141,7 @@
   <div class="custom-modal-text">
 
     <div class="text-center">
-      <h4 class="text-uppercase font-bold mb-0">Terima Pengajuan Magang</h4>
+      <h4 class="text-uppercase font-bold mb-0">Terima Pengajuan PLP</h4>
     </div>
     <div class="text-left">
       <form class="form-horizontal m-t-20" enctype="multipart/form-data" action="{{route('pengajuanMagang.proses')}}" method="POST">
@@ -173,7 +173,7 @@
               <option value="{{$value->id}}">{{Str::upper($value->nama)}}</option>
               @endforeach
             </select>
-            <span class="help-block text-danger"><small>Jumlah yang sudah magang : <span id="jml_magang"></span> Orang</small></span>
+            <span class="help-block text-danger"><small>Jumlah yang sudah PLP : <span id="jml_magang"></span> Orang</small></span>
           </div>
         </div>
 
@@ -213,7 +213,7 @@
   <div class="custom-modal-text">
 
     <div class="text-center">
-      <h4 class="text-uppercase font-bold mb-0">Tolak Pengajuan Magang</h4>
+      <h4 class="text-uppercase font-bold mb-0">Tolak Pengajuan PLP</h4>
     </div>
     <div class="text-left">
       <form class="form-horizontal m-t-20" enctype="multipart/form-data" action="{{route('pengajuanMagang.proses')}}" method="POST">

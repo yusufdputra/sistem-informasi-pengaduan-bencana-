@@ -23,7 +23,7 @@ class PeriodeController extends Controller
 
     public function index()
     {
-        $title = "Kelola Periode Magang";
+        $title = "Kelola Periode PLP";
         $periode = Periode::orderBy('updated_at', 'DESC')->get();
 
         // get status daftar periode saat ini

@@ -57,7 +57,7 @@
             <th>Nama Sekolah</th>
             <th>Tanggal Pelaksanaan</th>
             <th>Dosen Pembimbing</th>
-            <th>Nilai Magang</th>
+            <th>Nilai PLP</th>
             @role('mahasiswa')
             <th>Progres</th>
             @endrole
@@ -180,7 +180,7 @@
   <div class="custom-modal-text">
 
     <div class="text-center">
-      <h4 class="text-uppercase font-bold mb-0">Keterangan Pengajuan Magang</h4>
+      <h4 class="text-uppercase font-bold mb-0">Keterangan Pengajuan PLP</h4>
     </div>
     <div class="text-left">
       <form class="form-horizontal m-t-20">
@@ -215,7 +215,7 @@
   <div class="custom-modal-text">
 
     <div class="text-center">
-      <h4 class="text-uppercase font-bold mb-0">Upload Laporan Magang</h4>
+      <h4 class="text-uppercase font-bold mb-0">Upload Laporan PLP</h4>
     </div>
     <div class="text-left">
       <form class="form-horizontal m-t-20" enctype="multipart/form-data" action="{{route('pengajuanMagang.upload')}}" method="POST">

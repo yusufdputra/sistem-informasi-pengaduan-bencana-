@@ -52,7 +52,7 @@
     <?php if($status_daftar != null): ?>
     Pendaftaran.
     <?php elseif($status_magang != null): ?>
-    Pelaksanaan Magang.
+    Pelaksanaan PLP.
     <?php else: ?>
     Tidak Ada
     <?php endif; ?>
