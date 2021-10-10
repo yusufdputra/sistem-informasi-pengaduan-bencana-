@@ -26,9 +26,9 @@
             <th>Nama Mahasiswa</th>
             <th>Nama Sekolah</th>
             <th>Tanggal Pelaksanaan</th>
-            <th>Nilai Magang</th>
+            <th>Nilai PLP</th>
             <th>Lookbook</th>
-            <th>Status Magang</th>
+            <th>Status PLP</th>
             <th>Aksi</th>
           </tr>
         </thead>

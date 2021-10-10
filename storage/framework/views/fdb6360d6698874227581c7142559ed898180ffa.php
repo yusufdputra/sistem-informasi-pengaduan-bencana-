@@ -8,7 +8,7 @@
         <div class="text-center">
             <img src="<?php echo e(asset('adminto/images/brand/logo-big.png')); ?>" height="100px" alt="">
             <div class="text-center">
-                <a href="index.html" class="logo"><span style="color: #61372b !important">SI-MA</span></a>
+                <a href="index.html" class="logo"><span style="color: #61372b !important">SIPLP</span></a>
                 <h5 class="text-muted m-t-0 font-600" style="color: #61372b !important">FAKULTAS KEGURUAN DAN ILMU PENDIDIKAN UMRI</h5>
             </div>
         </div>

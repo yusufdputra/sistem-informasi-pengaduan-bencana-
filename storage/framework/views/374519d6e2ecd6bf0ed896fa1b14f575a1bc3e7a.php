@@ -44,7 +44,7 @@
         </li>
 
         <li>
-          <a href="<?php echo e(route ('periode.index')); ?>" class="waves-effect"><i class="fa fa-calendar"></i> <span> Periode Magang </span> </a>
+          <a href="<?php echo e(route ('periode.index')); ?>" class="waves-effect"><i class="fa fa-calendar"></i> <span> Periode PLP </span> </a>
         </li>
         
         <li>
@@ -52,7 +52,7 @@
         </li>
 
         <li>
-          <a href="<?php echo e(route ('pengajuanMagang.index')); ?>" class="waves-effect"><i class="fa fa-address-card-o"></i> <span> Pengajuan Magang </span> </a>
+          <a href="<?php echo e(route ('pengajuanMagang.index')); ?>" class="waves-effect"><i class="fa fa-address-card-o"></i> <span> Pengajuan PLP </span> </a>
         </li>
 
         <li>
@@ -60,7 +60,7 @@
         </li>
 
         <li>
-          <a href="<?php echo e(route ('riwayat.index')); ?>" class="waves-effect"><i class="fa fa-history"></i> <span> Riwayat Magang </span> </a>
+          <a href="<?php echo e(route ('riwayat.index')); ?>" class="waves-effect"><i class="fa fa-history"></i> <span> Riwayat PLP </span> </a>
         </li>
 
         <?php endif; ?>
@@ -68,7 +68,7 @@
 
         <?php if(auth()->check() && auth()->user()->hasRole('mahasiswa')): ?>
         <li>
-          <a href="<?php echo e(route ('pengajuanMagang.index')); ?>" class="waves-effect"><i class="fa fa-address-card-o"></i> <span> Magang </span> </a>
+          <a href="<?php echo e(route ('pengajuanMagang.index')); ?>" class="waves-effect"><i class="fa fa-address-card-o"></i> <span> PLP </span> </a>
         </li>
         <?php endif; ?>
 
@@ -78,7 +78,7 @@
         </li>
 
         <li>
-          <a href="<?php echo e(route ('riwayat.index')); ?>" class="waves-effect"><i class="fa fa-history"></i> <span> Riwayat Magang </span> </a>
+          <a href="<?php echo e(route ('riwayat.index')); ?>" class="waves-effect"><i class="fa fa-history"></i> <span> Riwayat PLP </span> </a>
         </li>
         <?php endif; ?>
 

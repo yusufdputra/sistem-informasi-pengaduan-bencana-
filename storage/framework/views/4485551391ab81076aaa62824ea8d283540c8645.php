@@ -29,7 +29,7 @@
             <th>Nama Sekolah</th>
             <th>Tanggal Pelaksanaan</th>
             <th>Dosen Pembimbing</th>
-            <th>Nilai Magang</th>
+            <th>Nilai PLP</th>
             <?php if(auth()->check() && auth()->user()->hasRole('admin')): ?>
             <th>Laporan</th>
             <?php endif; ?>
