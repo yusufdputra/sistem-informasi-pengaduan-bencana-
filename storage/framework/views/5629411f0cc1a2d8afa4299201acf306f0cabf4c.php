@@ -25,7 +25,7 @@
 
 
       <?php if($status_daftar != null): ?>
-      <?php if( $status == null): ?>
+      <?php if( ($status == null) ): ?>
       <div class="align-items-center">
         <a href="<?php echo e(route('pengajuanMagang.tambah')); ?>" class="btn btn-primary m-l-10 waves-light  mb-2">Tambah</a>
       </div>
@@ -57,7 +57,10 @@
             <th>Nama Sekolah</th>
             <th>Tanggal Pelaksanaan</th>
             <th>Dosen Pembimbing</th>
-            <th>Nilai Magang</th>
+            <th>Nilai PLP</th>
+            <?php if(auth()->check() && auth()->user()->hasRole('mahasiswa')): ?>
+            <th>Progres</th>
+            <?php endif; ?>
             <th>Status Pengajuan</th>
             <th>Aksi</th>
           </tr>
@@ -70,9 +73,16 @@
             <td><?php echo e($value->mhs->user->nomor_induk); ?></td>
             <td><?php echo e($value->mhs->nama); ?></td>
             <?php endif; ?>
-            <td><?php echo e($value->nama_sekolah); ?></td>
             <td>
-            <?php echo e(date('d-F-Y', strtotime($value->periode->mulai_magang))); ?> s/d <?php echo e(date('d-F-Y', strtotime($value->periode->akhir_magang))); ?>
+              <?php if($value->sekolah != null): ?>
+              <?php echo e($value->sekolah->nama); ?>
+
+              <?php else: ?>
+              Belum Ditentukan
+              <?php endif; ?>
+            </td>
+            <td>
+              <?php echo e(date('d-F-Y', strtotime($value->periode->mulai_magang))); ?> s/d <?php echo e(date('d-F-Y', strtotime($value->periode->akhir_magang))); ?>
 
             </td>
             <td>
@@ -92,12 +102,25 @@
               <?php endif; ?>
             </td>
 
+
+            <!-- LOOKBOOK -->
+            <?php if(auth()->check() && auth()->user()->hasRole('mahasiswa')): ?>
+            <td>
+              <a href="<?php echo e(route('lookbook', $value->id)); ?>" class="btn btn-sm btn-info waves-effect waves-light">Lihat</a>
+            </td>
+            <?php endif; ?>
+
+
+            <!-- AKSI -->
+
+            <!-- NOTIF GAGAL -->
             <?php if($value->url_laporan == NULL && \Carbon\Carbon::now() > $value->periode->akhir_magang ): ?>
             <td><span class="badge badge-danger">GAGAL</span></td>
             <td>
               Tidak Tersedia
             </td>
 
+            <!-- NOTIF PROSES -->
             <?php elseif($value->status_pengajuan == 'proses'): ?>
             <td><span class="badge badge-primary"><?php echo e(strtoupper($value->status_pengajuan)); ?></span></td>
             <td>
@@ -108,6 +131,7 @@
               <?php endif; ?>
             </td>
 
+            <!-- NOTIF SELESAI -->
             <?php elseif($value->status_pengajuan == 'diterima' || $value->status_pengajuan == 'selesai'): ?>
             <td><span class="badge badge-success"><?php echo e(strtoupper($value->status_pengajuan)); ?></span></td>
             <td>
@@ -126,6 +150,8 @@
               <?php endif; ?>
               <?php endif; ?>
             </td>
+
+            <!-- NOTIF DITOLAK -->
             <?php elseif($value->status_pengajuan == 'ditolak'): ?>
             <td><span class="badge badge-danger"><?php echo e(strtoupper($value->status_pengajuan)); ?></span></td>
             <td>
@@ -136,9 +162,11 @@
               <?php endif; ?>
 
             </td>
-           
-            
+
+
             <?php endif; ?>
+
+
 
           </tr>
           <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -156,7 +184,7 @@
   <div class="custom-modal-text">
 
     <div class="text-center">
-      <h4 class="text-uppercase font-bold mb-0">Keterangan Pengajuan Magang</h4>
+      <h4 class="text-uppercase font-bold mb-0">Keterangan Pengajuan PLP</h4>
     </div>
     <div class="text-left">
       <form class="form-horizontal m-t-20">
@@ -191,17 +219,17 @@
   <div class="custom-modal-text">
 
     <div class="text-center">
-      <h4 class="text-uppercase font-bold mb-0">Upload Laporan Magang</h4>
+      <h4 class="text-uppercase font-bold mb-0">Upload Laporan PLP</h4>
     </div>
     <div class="text-left">
-    <form class="form-horizontal m-t-20" enctype="multipart/form-data" action="<?php echo e(route('pengajuanMagang.upload')); ?>" method="POST">
+      <form class="form-horizontal m-t-20" enctype="multipart/form-data" action="<?php echo e(route('pengajuanMagang.upload')); ?>" method="POST">
         <?php echo csrf_field(); ?>
         <input type="hidden" id="id" name="id_pengajuan">
 
         <div class="form-group row">
           <label class="col-sm-3 col-form-label">URL Laporan</label>
           <div class="col-sm-9">
-            <input type="text" class="form-control" name="url_laporan" required placeholder="Link laporan yang telah di upload di Google Drive"/>
+            <input type="text" class="form-control" name="url_laporan" required placeholder="Link laporan yang telah di upload di Google Drive" />
           </div>
         </div>
 

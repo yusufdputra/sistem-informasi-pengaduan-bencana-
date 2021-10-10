@@ -51,7 +51,7 @@
           <tr>
             <th>No.</th>
             <th>Periode Pendaftaran</th>
-            <th>Periode Magang</th>
+            <th>Periode PLP</th>
             <th>Status</th>
             <th>Aksi</th>
           </tr>
@@ -89,7 +89,7 @@
   <div class="custom-modal-text">
 
     <div class="text-center">
-      <h4 class="text-uppercase font-bold mb-0">Tambah Periode Magang</h4>
+      <h4 class="text-uppercase font-bold mb-0">Tambah Periode PLP</h4>
     </div>
     <div class="text-left">
       <form class="form-horizontal m-t-20" enctype="multipart/form-data" action="<?php echo e(route('periode.store')); ?>" method="POST">
@@ -106,7 +106,7 @@
         </div>
 
         <div class="form-group">
-          <label class="col-sm-12">Periode Magang</label>
+          <label class="col-sm-12">Periode PLP</label>
           <div class="col-sm-12">
             <div class="input-daterange input-group date-range" id="">
               <input type="text" autocomplete="off" required placeholder="Tanggal Mulai" class="form-control" name="magang_start" />
@@ -154,7 +154,7 @@
         </div>
 
         <div class="form-group">
-          <label class="col-sm-12">Periode Magang</label>
+          <label class="col-sm-12">Periode PLP</label>
           <div class="col-sm-12">
             <div class="input-daterange input-group date-range" id="">
               <input type="text" autocomplete="off" required placeholder="Tanggal Mulai" class="form-control" id="magang_start" name="magang_start" />

@@ -97,8 +97,8 @@
                     <select required class="form-control" name="nilai_matkul_1">
                       <option value="" selected disabled hidden>Silahkan Pilih</option>
                       <option value="A" @if($pengajuan !=null) <?= $nilai_matkul[0] == '' ? 'selected' : ''; ?> @endif>A</option>
-                      <option value="B+" @if($pengajuan !=null) <?= $nilai_matkul[0] == 'B+' ? 'selected' : ''; ?> @endif>B+</option>
-                      <option value="A-" @if($pengajuan !=null) <?= $nilai_matkul[0] == 'A-' ? 'selected' : ''; ?> @endif>A-</option>
+                      <option value="B+" @if($pengajuan !=null) <?= $nilai_matkul[0] == 'B+' ? 'selected' : ''; ?> @endif>A-</option>
+                      <option value="A-" @if($pengajuan !=null) <?= $nilai_matkul[0] == 'A-' ? 'selected' : ''; ?> @endif>B+</option>
                       <option value="B" @if($pengajuan !=null) <?= $nilai_matkul[0] == 'B' ? 'selected' : ''; ?> @endif>B</option>
                       <option value="B-" @if($pengajuan !=null) <?= $nilai_matkul[0] == 'B-' ? 'selected' : ''; ?> @endif>B-</option>
                       <option value="C+" @if($pengajuan !=null) <?= $nilai_matkul[0] == 'C+' ? 'selected' : ''; ?> @endif>C+</option>
