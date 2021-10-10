@@ -23,12 +23,16 @@ class MahasiswaBimbingan extends Controller
         $periode = PeriodeController::cekPeriode();
 
         // dapatkan data magang user mahasiswa
-        $mhs = Magang::with('mhs', 'sekolah')
-            ->where('id_dosen', $id_dsn->id)
-            ->where('id_periode', $periode->id)
-            ->where('nilai_pembimbing', '=' , NULL)
-            ->orderBy('updated_at', 'ASC')
-            ->get();
+        if ($periode != null) {
+            $mhs = Magang::with('mhs', 'sekolah')
+                ->where('id_dosen', $id_dsn->id)
+                ->where('id_periode', $periode->id)
+                ->where('nilai_pembimbing', '=' , NULL)
+                ->orderBy('updated_at', 'ASC')
+                ->get();
+        }else{
+            $mhs = [];
+        }
 
 
         return view('dosen.bimbingan.index', compact('title', 'mhs'));
