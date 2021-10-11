@@ -59,7 +59,7 @@
             <th>Dosen Pembimbing</th>
             <th>Nilai PLP</th>
             <?php if(auth()->check() && auth()->user()->hasRole('mahasiswa')): ?>
-            <th>Progres</th>
+            <th>Lookbook</th>
             <?php endif; ?>
             <th>Status Pengajuan</th>
             <th>Aksi</th>

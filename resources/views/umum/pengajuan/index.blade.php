@@ -59,7 +59,7 @@
             <th>Dosen Pembimbing</th>
             <th>Nilai PLP</th>
             @role('mahasiswa')
-            <th>Progres</th>
+            <th>Lookbook</th>
             @endrole
             <th>Status Pengajuan</th>
             <th>Aksi</th>
