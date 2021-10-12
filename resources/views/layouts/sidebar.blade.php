@@ -7,10 +7,23 @@
         <img src="{{asset('adminto/images/users/avatar-1.jpg')}}" alt="user-img" title="Mat Helme" class="rounded-circle img-thumbnail img-responsive">
         <div class="user-status online"><i class="mdi mdi-adjust"></i></div>
       </div>
-      <h5><a href="#"> {{ Auth::user()->nomor_induk }}</a> </h5>
       <ul class="list-inline">
-
-
+        <!-- get nama user login -->
+        @role('mahasiswa')
+        @php
+        $user = App\Models\Mahasiswa::where('id_user', Auth::user()->id)->first()
+        @endphp
+        <h5><a href="#"> {{ $user->nama }}</a> </h5>
+        @endrole
+        @role('dosen')
+        @php
+        $user = App\Models\Dosen::where('id_user', Auth::user()->id)->first()
+        @endphp
+        <h5><a href="#"> {{ $user->nama }}</a> </h5>
+        @endrole
+        @role('admin')
+        <h5><a href="#"> ADMIN</a> </h5>
+        @endrole
         <li class="list-inline-item">
           <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -45,7 +58,7 @@
         <li>
           <a href="{{route ('periode.index')}}" class="waves-effect"><i class="fa fa-calendar"></i> <span> Periode PLP </span> </a>
         </li>
-        
+
         <li>
           <a href="{{route ('prodi.index')}}" class="waves-effect"><i class="fa fa-server"></i> <span> Program Studi </span> </a>
         </li>

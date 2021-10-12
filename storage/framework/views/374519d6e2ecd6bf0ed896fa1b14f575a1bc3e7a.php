@@ -7,10 +7,23 @@
         <img src="<?php echo e(asset('adminto/images/users/avatar-1.jpg')); ?>" alt="user-img" title="Mat Helme" class="rounded-circle img-thumbnail img-responsive">
         <div class="user-status online"><i class="mdi mdi-adjust"></i></div>
       </div>
-      <h5><a href="#"> <?php echo e(Auth::user()->nomor_induk); ?></a> </h5>
       <ul class="list-inline">
-
-
+        <!-- get nama user login -->
+        <?php if(auth()->check() && auth()->user()->hasRole('mahasiswa')): ?>
+        <?php
+        $user = App\Models\Mahasiswa::where('id_user', Auth::user()->id)->first()
+        ?>
+        <h5><a href="#"> <?php echo e($user->nama); ?></a> </h5>
+        <?php endif; ?>
+        <?php if(auth()->check() && auth()->user()->hasRole('dosen')): ?>
+        <?php
+        $user = App\Models\Dosen::where('id_user', Auth::user()->id)->first()
+        ?>
+        <h5><a href="#"> <?php echo e($user->nama); ?></a> </h5>
+        <?php endif; ?>
+        <?php if(auth()->check() && auth()->user()->hasRole('admin')): ?>
+        <h5><a href="#"> ADMIN</a> </h5>
+        <?php endif; ?>
         <li class="list-inline-item">
           <a class="dropdown-item" href="<?php echo e(route('logout')); ?>" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -46,7 +59,7 @@
         <li>
           <a href="<?php echo e(route ('periode.index')); ?>" class="waves-effect"><i class="fa fa-calendar"></i> <span> Periode PLP </span> </a>
         </li>
-        
+
         <li>
           <a href="<?php echo e(route ('prodi.index')); ?>" class="waves-effect"><i class="fa fa-server"></i> <span> Program Studi </span> </a>
         </li>
