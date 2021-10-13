@@ -31,6 +31,12 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
 
+    public function index()
+    {
+        
+        return view('home');
+    }
+
 
     public function auth()
     {
@@ -57,6 +63,7 @@ class HomeController extends Controller
 
             return view('home', compact('title', 'status_daftar', 'status_magang', 'jml_daftar','jml_selesai'));
         }
-        return view('auth.login', compact('title'));
+        // return view('auth.login', compact('title'));
+        return view('welcome');
     }
 }

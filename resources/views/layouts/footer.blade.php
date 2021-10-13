@@ -1,159 +1,134 @@
-<!-- jQuery  -->
 </div>
-<!-- App js -->
-<script src="{{asset('adminto/js/jquery.core.js')}}"></script>
-<script src="{{asset('adminto/js/jquery.app.js')}}"></script>
+<!--   Core JS Files   -->
+<script src="{{asset('atlantis/js/core/jquery.3.2.1.min.js')}}"></script>
+<script src="{{asset('atlantis/js/core/popper.min.js')}}"></script>
+<script src="{{asset('atlantis/js/core/bootstrap.min.js')}}"></script>
 
-<!-- Toastr js -->
-<script src="{{asset('adminto/plugins/toastr/toastr.min.js')}}"></script>
-<script src="{{asset('adminto/js/popper.min.js')}}"></script>
-<script src="{{asset('adminto/js/bootstrap.min.js')}}"></script>
-<script src="{{asset('adminto/js/detect.js')}}"></script>
-<script src="{{asset('adminto/js/fastclick.js')}}"></script>
-<script src="{{asset('adminto/js/jquery.blockUI.js')}}"></script>
-<script src="{{asset('adminto/js/waves.js')}}"></script>
-<script src="{{asset('adminto/js/jquery.nicescroll.js')}}"></script>
-<script src="{{asset('adminto/js/jquery.slimscroll.js')}}"></script>
-<script src="{{asset('adminto/js/jquery.scrollTo.min.js')}}"></script>
+<!-- jQuery UI -->
+<script src="{{asset('atlantis/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js')}}"></script>
+<script src="{{asset('atlantis/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js')}}"></script>
 
-<!-- Validation js (Parsleyjs) -->
-<script type="text/javascript" src="{{asset('adminto/plugins/parsleyjs/dist/parsley.min.js')}}"></script>
-
-<!-- Required datatable js -->
-<script src="{{asset('adminto/plugins/datatables/jquery.dataTables.min.js')}}"></script>
-<script src="{{asset('adminto/plugins/datatables/dataTables.bootstrap4.min.js')}}"></script>
-<!-- Buttons examples -->
-<script src="{{asset('adminto/plugins/datatables/dataTables.buttons.min.js')}}"></script>
-<script src="{{asset('adminto/plugins/datatables/buttons.bootstrap4.min.js')}}"></script>
-<script src="{{asset('adminto/plugins/datatables/jszip.min.js')}}"></script>
-<script src="{{asset('adminto/plugins/datatables/pdfmake.min.js')}}"></script>
-<script src="{{asset('adminto/plugins/datatables/vfs_fonts.js')}}"></script>
-<script src="{{asset('adminto/plugins/datatables/buttons.html5.min.js')}}"></script>
-<script src="{{asset('adminto/plugins/datatables/buttons.print.min.js')}}"></script>
-
-<!-- Key Tables -->
-<script src="{{asset('adminto/plugins/datatables/dataTables.keyTable.min.js')}}"></script>
-
-<!-- Responsive examples -->
-<script src="{{asset('adminto/plugins/datatables/dataTables.responsive.min.js')}}"></script>
-<script src="{{asset('adminto/plugins/datatables/responsive.bootstrap4.min.js')}}"></script>
-
-<!-- Selection table -->
-<script src="{{asset('adminto/plugins/datatables/dataTables.select.min.js')}}"></script>
-<!-- Modal-Effect -->
-<script src="{{asset('adminto/plugins/custombox/dist/custombox.min.js')}}"></script>
-<script src="{{asset('adminto/plugins/custombox/dist/legacy.min.js')}}"></script>
-
-<script src="{{asset('adminto/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js')}}"></script>
+<!-- jQuery Scrollbar -->
+<script src="{{asset('atlantis/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js')}}"></script>
 
 
-<!-- time picker -->
-<script src="{{asset('adminto/plugins/timepicker/bootstrap-timepicker.min.js')}}"></script>
-<script src="{{asset('adminto/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js')}}"></script>
-<script src="{{asset('adminto/plugins/bootstrap-daterangepicker/daterangepicker.js"')}}></script>
+<!-- Chart JS -->
+<script src="{{asset('atlantis/js/plugin/chart.js/chart.min.js')}}"></script>
 
-<!-- file uploads js -->
-<script src=" {{asset('adminto/plugins/fileuploads/js/dropify.min.js')}}"></script>
+<!-- jQuery Sparkline -->
+<script src="{{asset('atlantis/js/plugin/jquery.sparkline/jquery.sparkline.min.js')}}"></script>
 
-<!-- select2 -->
-<script src="{{asset('adminto/plugins/select2/js/select2.min.js')}}" type="text/javascript"></script>
-<script src="{{asset('adminto/plugins/switchery/switchery.min.js')}}"></script>
-<script src="{{asset('adminto/plugins/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js')}}"></script>
+<!-- Chart Circle -->
+<script src="{{asset('atlantis/js/plugin/chart-circle/circles.min.js')}}"></script>
 
+<!-- Datatables -->
+<script src="{{asset('atlantis/js/plugin/datatables/datatables.min.js')}}"></script>
 
-<!-- Form wizard -->
-<script src="{{asset('adminto/plugins/bootstrap-wizard/jquery.bootstrap.wizard.js')}}"></script>
-<script src="{{asset('adminto/plugins/jquery-validation/dist/jquery.validate.min.js')}}"></script>
+<!-- Bootstrap Notify -->
+<script src="{{asset('atlantis/js/plugin/bootstrap-notify/bootstrap-notify.min.js')}}"></script>
 
-<script type="text/javascript">
-    // Select2
-    $(".select2").select2();
-</script>
+<!-- jQuery Vector Maps -->
+<script src="{{asset('atlantis/js/plugin/jqvmap/jquery.vmap.min.js')}}"></script>
+<script src="{{asset('atlantis/js/plugin/jqvmap/maps/jquery.vmap.world.js')}}"></script>
 
-<script type="text/javascript">
-    $(document).ready(function() {
-        // form
-        $('form').parsley();
-        // Select2
-        $(".select2").select2();
-        // Date Picker
-        jQuery('#datepicker').datepicker();
-        jQuery('.datepicker-autoclose').datepicker({
-            autoclose: true,
-            format: 'dd-M-yyyy',
-            todayHighlight: true
-        });
+<!-- Sweet Alert -->
+<script src="{{asset('atlantis/js/plugin/sweetalert/sweetalert.min.js')}}"></script>
 
-        jQuery('.date-range').datepicker({
-            toggleActive: true,
-            autoclose: true,
-            format: 'dd-M-yyyy',
-        });
+<!-- Atlantis JS -->
+<script src="{{asset('atlantis/js/atlantis.min.js')}}"></script>
 
+<script>
+    Circles.create({
+        id: 'circles-1',
+        radius: 45,
+        value: 60,
+        maxValue: 100,
+        width: 7,
+        text: 5,
+        colors: ['#f1f1f1', '#FF9E27'],
+        duration: 400,
+        wrpClass: 'circles-wrp',
+        textClass: 'circles-text',
+        styleWrapper: true,
+        styleText: true
+    })
 
+    Circles.create({
+        id: 'circles-2',
+        radius: 45,
+        value: 70,
+        maxValue: 100,
+        width: 7,
+        text: 36,
+        colors: ['#f1f1f1', '#2BB930'],
+        duration: 400,
+        wrpClass: 'circles-wrp',
+        textClass: 'circles-text',
+        styleWrapper: true,
+        styleText: true
+    })
 
-        // Default Datatable
-        $('#datatable').DataTable();
+    Circles.create({
+        id: 'circles-3',
+        radius: 45,
+        value: 40,
+        maxValue: 100,
+        width: 7,
+        text: 12,
+        colors: ['#f1f1f1', '#F25961'],
+        duration: 400,
+        wrpClass: 'circles-wrp',
+        textClass: 'circles-text',
+        styleWrapper: true,
+        styleText: true
+    })
 
-        // Default Datatable
-        $('#datatable2').DataTable();
+    var totalIncomeChart = document.getElementById('totalIncomeChart').getContext('2d');
 
-        //Buttons examples
-        var column = [0,1,2,3,4,5,6]
-        var table = $('#datatable-buttons').DataTable({
-            lengthChange: false,
-            buttons: [
-                {
-                    extend: 'excelHtml5',
-                    exportOptions: {
-                        columns: column
+    var mytotalIncomeChart = new Chart(totalIncomeChart, {
+        type: 'bar',
+        data: {
+            labels: ["S", "M", "T", "W", "T", "F", "S", "S", "M", "T"],
+            datasets: [{
+                label: "Total Income",
+                backgroundColor: '#ff9e27',
+                borderColor: 'rgb(23, 125, 255)',
+                data: [6, 4, 9, 5, 4, 6, 4, 3, 8, 10],
+            }],
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            legend: {
+                display: false,
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        display: false //this will remove only the label
+                    },
+                    gridLines: {
+                        drawBorder: false,
+                        display: false
                     }
-                },
-                {
-                    extend: 'pdfHtml5',
-                    exportOptions: {
-                        columns: column
+                }],
+                xAxes: [{
+                    gridLines: {
+                        drawBorder: false,
+                        display: false
                     }
-                },
-                {
-                    extend: 'print',
-                    exportOptions: {
-                        columns: column
-                    }
-                }
-            ],
+                }]
+            },
+        }
+    });
 
-
-        });
-
-
-
-        jQuery('.timepicker2').timepicker({
-            showMeridian: false,
-            icons: {
-                up: 'mdi mdi-chevron-up',
-                down: 'mdi mdi-chevron-down'
-            }
-        });
-
-        // Key Tables
-
-        $('#key-table').DataTable({
-            keys: true
-        });
-
-        // Responsive Datatable
-        $('#responsive-datatable').DataTable();
-
-        // Multi Selection Datatable
-        $('#selection-datatable').DataTable({
-            select: {
-                style: 'multi'
-            }
-        });
-
-        table.buttons().container()
-            .appendTo('#datatable-buttons_wrapper .col-md-6:eq(0)');
+    $('#lineChart').sparkline([105, 103, 123, 100, 95, 105, 115], {
+        type: 'line',
+        height: '70',
+        width: '100%',
+        lineWidth: '2',
+        lineColor: '#ffa534',
+        fillColor: 'rgba(255, 165, 52, .14)'
     });
 </script>
 </body>

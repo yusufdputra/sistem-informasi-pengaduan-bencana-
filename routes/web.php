@@ -15,25 +15,15 @@ use App\Models\Lookbook;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
-Route::get('/', [HomeController::class, 'auth'])->name('/');
+Route::get('/', [HomeController::class, 'index'])->name('/');
 
-Auth::routes();
 
 Route::post('/register/mahasiswa', [RegisterController::class, 'mahasiswa'])->name('register.mahasiswa');
 Route::post('/register/dosen', [RegisterController::class, 'dosen'])->name('register.dosen');
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
+Auth::routes();
 // admin
 
 Route::group(['middleware' => ['role:admin']], function () {
