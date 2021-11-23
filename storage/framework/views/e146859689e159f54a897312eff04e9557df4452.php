@@ -1,12 +1,5 @@
 </div>
-<!--   Core JS Files   -->
-<script src="<?php echo e(asset('atlantis/js/core/jquery.3.2.1.min.js')); ?>"></script>
-<script src="<?php echo e(asset('atlantis/js/core/popper.min.js')); ?>"></script>
-<script src="<?php echo e(asset('atlantis/js/core/bootstrap.min.js')); ?>"></script>
 
-<!-- jQuery UI -->
-<script src="<?php echo e(asset('atlantis/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js')); ?>"></script>
-<script src="<?php echo e(asset('atlantis/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js')); ?>"></script>
 
 <!-- jQuery Scrollbar -->
 <script src="<?php echo e(asset('atlantis/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js')); ?>"></script>
@@ -18,8 +11,6 @@
 <!-- jQuery Sparkline -->
 <script src="<?php echo e(asset('atlantis/js/plugin/jquery.sparkline/jquery.sparkline.min.js')); ?>"></script>
 
-<!-- Chart Circle -->
-<script src="<?php echo e(asset('atlantis/js/plugin/chart-circle/circles.min.js')); ?>"></script>
 
 <!-- Datatables -->
 <script src="<?php echo e(asset('atlantis/js/plugin/datatables/datatables.min.js')); ?>"></script>
@@ -34,102 +25,77 @@
 <!-- Sweet Alert -->
 <script src="<?php echo e(asset('atlantis/js/plugin/sweetalert/sweetalert.min.js')); ?>"></script>
 
+
+<!-- Datatables -->
+<script src="<?php echo e(asset('atlantis/js/plugin/datatables/datatables.min.js')); ?>"></script>
+
+
 <!-- Atlantis JS -->
 <script src="<?php echo e(asset('atlantis/js/atlantis.min.js')); ?>"></script>
-
 <script>
-    Circles.create({
-        id: 'circles-1',
-        radius: 45,
-        value: 60,
-        maxValue: 100,
-        width: 7,
-        text: 5,
-        colors: ['#f1f1f1', '#FF9E27'],
-        duration: 400,
-        wrpClass: 'circles-wrp',
-        textClass: 'circles-text',
-        styleWrapper: true,
-        styleText: true
-    })
+  $(document).ready(function() {
+    $('#basic-datatables').DataTable({});
+  });
 
-    Circles.create({
-        id: 'circles-2',
-        radius: 45,
-        value: 70,
-        maxValue: 100,
-        width: 7,
-        text: 36,
-        colors: ['#f1f1f1', '#2BB930'],
-        duration: 400,
-        wrpClass: 'circles-wrp',
-        textClass: 'circles-text',
-        styleWrapper: true,
-        styleText: true
-    })
-
-    Circles.create({
-        id: 'circles-3',
-        radius: 45,
-        value: 40,
-        maxValue: 100,
-        width: 7,
-        text: 12,
-        colors: ['#f1f1f1', '#F25961'],
-        duration: 400,
-        wrpClass: 'circles-wrp',
-        textClass: 'circles-text',
-        styleWrapper: true,
-        styleText: true
-    })
-
-    var totalIncomeChart = document.getElementById('totalIncomeChart').getContext('2d');
-
-    var mytotalIncomeChart = new Chart(totalIncomeChart, {
-        type: 'bar',
-        data: {
-            labels: ["S", "M", "T", "W", "T", "F", "S", "S", "M", "T"],
-            datasets: [{
-                label: "Total Income",
-                backgroundColor: '#ff9e27',
-                borderColor: 'rgb(23, 125, 255)',
-                data: [6, 4, 9, 5, 4, 6, 4, 3, 8, 10],
-            }],
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            legend: {
-                display: false,
-            },
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        display: false //this will remove only the label
-                    },
-                    gridLines: {
-                        drawBorder: false,
-                        display: false
-                    }
-                }],
-                xAxes: [{
-                    gridLines: {
-                        drawBorder: false,
-                        display: false
-                    }
-                }]
-            },
+  function alertWarning(pesan) {
+    swal("Peringatan!", pesan, {
+      icon: "warning",
+      buttons: {
+        confirm: {
+          className: 'btn btn-warning'
         }
+      },
     });
+  }
 
-    $('#lineChart').sparkline([105, 103, 123, 100, 95, 105, 115], {
-        type: 'line',
-        height: '70',
-        width: '100%',
-        lineWidth: '2',
-        lineColor: '#ffa534',
-        fillColor: 'rgba(255, 165, 52, .14)'
+  function alertError(pesan) {
+    swal("Peringatan!", pesan, {
+      icon: "error",
+      buttons: {
+        confirm: {
+          className: 'btn btn-danger'
+        }
+      },
     });
+  }
+
+  function alertConfirmasiData(data, nama, alamat, nomor_hp, foto_ktp_lama, ktp_view) {
+    swal({
+      title: 'Data Ditemukan!',
+      text: "Apakah ingin menggunakan data sebelumnya?",
+      type: 'warning',
+      buttons: {
+        cancel: {
+          visible: true,
+          text: 'Tidak!',
+          className: 'btn btn-danger'
+        },
+        confirm: {
+          text: 'Ya, Gunakan!',
+          className: 'btn btn-success'
+        }
+      }
+    }).then((willDelete) => {
+      if (willDelete) {
+        swal("Data Berhasil Digunakan", {
+          icon: "success",
+          buttons: {
+            confirm: {
+              className: 'btn btn-success'
+            }
+          }
+        });
+        nama.val(data['nama'])
+        alamat.val(data['alamat'])
+        nomor_hp.val(data['no_hp'])
+        foto_ktp_lama.val(data['foto_ktp'])
+        ktp_view.attr('src', '../storage/' + data['foto_ktp'])
+
+      } else {
+        swal.close();
+      }
+    });
+  }
 </script>
 </body>
 

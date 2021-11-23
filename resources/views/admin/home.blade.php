@@ -1,13 +1,15 @@
-@extends('layouts.app')
+@include('layouts.header')
+@include('layouts.topbar')
 
-@section('content')
+@include('layouts.sidebar')
+
 
 <div class="page-inner mt--5">
   <div class="row">
     <div class="col-md-12">
       <div class="card full-height">
         <div class="card-body">
-          <div class="card-title">Menu Layanan</div>
+          <div class="card-title">Data Pengaduan</div>
           <!-- <div class="card-category">Sistem Informasi Desa Sidomulyo</div> -->
           <div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
 
@@ -157,5 +159,4 @@
 
 
 
-
-@endsection
+@include('layouts.footer')

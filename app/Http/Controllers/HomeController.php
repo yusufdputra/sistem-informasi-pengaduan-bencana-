@@ -20,10 +20,10 @@ class HomeController extends Controller
      * @return void
      */
 
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('guest');
+    // }
 
     /**
      * Show the application dashboard.
@@ -33,37 +33,23 @@ class HomeController extends Controller
 
     public function index()
     {
-        
+        $data['title'] = "Halaman Utama";
+        if (Auth::check()) {
+
+            // $pengajuan['selesai'] = Pengajuan::where('status', 'selesai')->count();
+            // $pengajuan['proses'] = Pengajuan::where('status', 'proses')->count();
+
+            return view('home', compact('data',));
+        }
+
+
         return view('home');
     }
 
 
     public function auth()
     {
-
-        $title = "Dashboard";
-        if (Auth::check()) {
-            // get status daftar periode saat ini
-            $status_daftar =  PeriodeController::cekPeriode();
-
-            // get status magang periode saat ini
-            $status_magang = Periode::where('mulai_magang', '<=', Carbon::now())
-                ->where('akhir_magang', '>=', Carbon::now())
-                ->first();
-
-            if ($status_daftar != null) {
-                $jml_daftar = Magang::where('id_periode', $status_daftar['id'])->count();
-                $jml_selesai = Magang::where('id_periode', $status_daftar['id'])->where('status_pengajuan', 'selesai')->count();
-
-            }else{
-                $jml_daftar = 0;
-                $jml_selesai = 0;
-            }
-
-
-            return view('home', compact('title', 'status_daftar', 'status_magang', 'jml_daftar','jml_selesai'));
-        }
-        // return view('auth.login', compact('title'));
-        return view('welcome');
+        $data['title'] = "Halaman Utama";
+        return view('home', compact('data',));
     }
 }
