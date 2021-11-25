@@ -15,7 +15,7 @@ class WargaController extends Controller
         } else {
             return 0;
         }
-        
-       
     }
+
+    
 }

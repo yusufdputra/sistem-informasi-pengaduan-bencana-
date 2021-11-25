@@ -14,6 +14,7 @@ class CreateWargaTable extends Migration
     public function up()
     {
         Schema::create('warga', function (Blueprint $table) {
+            $table->id();
             $table->string('nik')->unique();
             $table->string('nama');
             $table->string('alamat', 400);

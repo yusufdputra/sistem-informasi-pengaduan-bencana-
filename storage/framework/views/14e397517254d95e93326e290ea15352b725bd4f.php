@@ -28,6 +28,7 @@
               <thead>
                 <tr>
                   <th>No.</th>
+                  <th>Kode Pengaduan</th>
                   <th>NIK</th>
                   <th>Daerah</th>
                   <th>Nama Bencana</th>
@@ -40,10 +41,11 @@
                 <?php $__currentLoopData = $data['pengaduan']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key=>$value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <tr>
                   <td><?php echo e($key+1); ?></td>
-                  <td><?php echo e($value->nik_warga); ?></td>
+                  <td><?php echo e($value->kode); ?></td>
+                  <td><?php echo e($value->warga->nik); ?></td>
                   <td><?php echo e($value->daerah->nama); ?></td>
                   <td>
-                    <?php if($value->id_bencana == 12): ?>
+                    <?php if($value->id_bencana != 12): ?>
                     <?php echo e($value->bencana->nama); ?>
 
                     <?php else: ?>

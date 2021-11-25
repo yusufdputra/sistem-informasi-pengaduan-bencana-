@@ -9,17 +9,30 @@
       <div class="card full-height">
         <div class="card-body">
           <div class="card-title">
-            <a href="{{('/')}}" class=" btn btn-warning btn-sm">
-              <span class="btn-label">
-                <i class="fas fa-angle-double-left"></i>
-              </span>
-              Kembali
-            </a>
+            @role('admin')
+            <a href="{{route('pengaduan.index')}}" class=" btn btn-warning btn-sm">
+              @endrole
+              @guest
+              <a href="{{('/')}}" class=" btn btn-warning btn-sm">
+                @endguest
+                <span class="btn-label">
+                  <i class="fas fa-angle-double-left"></i>
+                </span>
+                Kembali
+              </a>
           </div>
 
 
           <!-- <div class="card-category">Sistem Informasi Desa Sidomulyo</div> -->
           <div class="pb-2 pt-4">
+            @guest
+            @if($data['pengaduan']->status == 'tolak')
+            <div class="alert alert-danger">
+              <div>Alasan penolakan : {{$data['pengaduan']->alasan_tolak}}</div>
+            </div>
+            @endif
+            @endguest
+
             @if(\Session::has('alert'))
             <div class="alert alert-danger">
               <div>{{Session::get('alert')}}</div>
@@ -45,33 +58,36 @@
                     <div class="form-group">
                       <label for="">NIK</label>
 
-                      <input type="number" disabled class="form-control " value="{{ $data['pengaduan']->nik_warga }}" placeholder="Sesuai KTP" label="">
+                      <p class="form-control">{{ $data['pengaduan']->warga->nik }}</p>
 
                     </div>
 
                     <div class="form-group">
                       <label for="">Nama</label>
-                      <input type="text" disabled class="form-control @error('nama') is-invalid @enderror" value="{{ $data['pengaduan']->warga->nama }}" id="nama" name="nama" placeholder="Sesuai KTP">
+                      <p class="form-control">{{ $data['pengaduan']->warga->nama }}</p>
                     </div>
 
                     <div class="form-group">
                       <label for="">Alamat</label>
-                      <textarea type="text" disabled class="form-control @error('alamat') is-invalid @enderror" value="" id="alamat" name="alamat" placeholder="Alamat saat ini" rows="3">{{ $data['pengaduan']->warga->alamat }}</textarea>
+                      <p class="form-control">{{ $data['pengaduan']->warga->alamat }}</p>
+
                     </div>
                   </div>
 
                   <div class="col-lg-6 col-md-12">
                     <div class="form-group">
                       <label for="">Nomor Hp</label>
-                      <input type="text" disabled class="form-control @error('no_hp') is-invalid @enderror" value="{{ $data['pengaduan']->warga->no_hp }}" id="no_hp" name="no_hp" placeholder="Nomor Aktif">
+                      <p class="form-control">{{ $data['pengaduan']->warga->no_hp }}</p>
+
                     </div>
                     <div class="form-group">
                       <label for="">Foto KTP</label>
-                      <div class="input-group">
-                        <figure class="imagecheck-figure">
-                          <img src="../../storage/{{$data['pengaduan']->warga->foto_ktp}}" height="200" alt="title" id="ktp_view" class="imagecheck-image">
-                        </figure>
-
+                      <div class="col-lg-6 ">
+                        <div class="gal-detail thumb">
+                          <a target="_BLANK" href="../../storage/{{$data['pengaduan']->warga->foto_ktp}}" class="image-popup">
+                            <img src="../../storage/{{$data['pengaduan']->warga->foto_ktp}}" class="thumb-img img-fluid" alt="Foto KTP">
+                          </a>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -90,9 +106,10 @@
                     <div class="form-group">
                       <label for="">Nama Bencana</label>
                       @if($data['pengaduan']->id_bencana != 12)
-                      <input type="text" disabled class="form-control " value="{{ $data['pengaduan']->bencana->nama }}" id="" name="" placeholder="">
+
+                      <p class="form-control">{{ $data['pengaduan']->bencana->nama }}</p>
                       @else
-                      <input type="text" disabled class="form-control " value="{{ $data['pengaduan']->bencana_lain }}" id="" name="" placeholder="">
+                      <p class="form-control">{{ $data['pengaduan']->bencana_lain }}</p>
 
                       @endif
 
@@ -104,50 +121,54 @@
 
                     <div class="form-group">
                       <label for="">Daerah Kejadian</label>
-                      <input type="text" disabled class="form-control " value="{{ $data['pengaduan']->daerah->nama }}" id="" name="" placeholder="">
+
+                      <p class="form-control">{{ $data['pengaduan']->daerah->nama }}</p>
                     </div>
 
                     <div class="form-group">
                       <label for="">Alamat Kejadian</label>
-                      <textarea type="text" disabled class="form-control @error('alamat_kjd') is-invalid @enderror" rows="3">{{$data['pengaduan']->almt_lengkap}}</textarea>
+
+                      <p class="form-control">{{ $data['pengaduan']->almt_lengkap }}</p>
                     </div>
 
 
                     <div class="form-group">
                       <label for="">Tanggal Kejadian</label>
-                      <input type="text" disabled class="form-control " value="{{date('d-F-Y', strtotime($data['pengaduan']->tgl_kejadian))}}" id="" name="" placeholder="">
+
+                      <p class="form-control">{{date('d-F-Y', strtotime($data['pengaduan']->tgl_kejadian))}}</p>
                     </div>
                     <div class="form-group">
                       <label for="">Jam Kejadian</label>
-                      <input type="text" disabled class="form-control " value="{{date('h:i:sa', strtotime($data['pengaduan']->jam_kejadian))}}" id="" name="" placeholder="">
+
+                      <p class="form-control">{{date('h:i:sa', strtotime($data['pengaduan']->jam_kejadian))}}</p>
                     </div>
 
                     <div class="form-group">
                       <label for="">Penyebab</label>
-                      <input type="text" disabled class="form-control " value="{{ $data['pengaduan']->penyebab }}" id="" name="" placeholder="">
+                      <p class="form-control">{{ $data['pengaduan']->penyebab }}</p>
                     </div>
 
                     <div class="form-group">
                       <label for="">Jenis Kerusakan</label>
-                      <textarea type="text" disabled class="form-control @error('alamat_kjd') is-invalid @enderror" rows="3">{{$data['pengaduan']->jns_kerusakan}}</textarea>
+                      <p class="form-control">{{ $data['pengaduan']->jns_kerusakan }}</p>
                     </div>
                     <div class="form-group">
                       <label for="">Penanggulangan</label>
-                      <textarea type="text" disabled class="form-control @error('alamat_kjd') is-invalid @enderror" rows="3">{{$data['pengaduan']->penanggulangan}}</textarea>
+                      <p class="form-control">{{ $data['pengaduan']->penanggulangan }}</p>
                     </div>
                     <div class="form-group">
                       <label for="">Bantuan</label>
-                      <textarea type="text" disabled class="form-control @error('alamat_kjd') is-invalid @enderror" rows="3">{{$data['pengaduan']->bantuan}}</textarea>
+                      <p class="form-control">{{ $data['pengaduan']->bantuan }}</p>
                     </div>
 
                     <div class="form-group">
                       <label for="">Kerugian</label>
-                      <input type="text" disabled class="form-control " value="{{ $data['pengaduan']->kerugian }}" id="" name="" placeholder="">
+                      <p class="form-control">{{ $data['pengaduan']->kerugian }}</p>
                     </div>
 
                     <div class="form-group">
                       <label for="">Keterangan Lebih Lanjut</label>
-                      <textarea type="text" disabled class="form-control @error('alamat_kjd') is-invalid @enderror" rows="3">{{$data['pengaduan']->keterangan}}</textarea>
+                      <p class="form-control">{{ $data['pengaduan']->keterangan }}</p>
                     </div>
                   </div>
 
@@ -159,12 +180,12 @@
                     @foreach($data['korban'] as $key => $value)
                     <div class="form-group">
                       <label for="">Jumlah Korban {{strtoupper($value->jenis)}}</label>
-                      <input type="text" disabled class="form-control " value="{{ $value->jumlah }}" id="" name="" placeholder="">
+                      <p class="form-control">{{ $value->jumlah}}</p>
                     </div>
 
                     <div class="form-group">
                       <label for="">Keterangan Korban {{strtoupper($value->jenis)}}</label>
-                      <textarea type="text" disabled class="form-control " rows="3">{{$value->keterangan}}</textarea>
+                      <p class="form-control">{{ $value->keterangan }}</p>
                     </div>
 
                     @endforeach
@@ -177,14 +198,22 @@
                       <div class="col-lg-6">
                         <div class="form-group">
                           <label for="">Sisi 1</label>
-                          <div class="input-group">
-                            <img src="../../storage/{{$data['pengaduan']->foto1}}" height="150" alt="title" id="" class="imagecheck-image">
+                          <div class="col-lg-6 ">
+                            <div class="gal-detail thumb">
+                              <a target="_BLANK" href="../../storage/{{$data['pengaduan']->foto1}}" class="image-popup">
+                                <img src="../../storage/{{$data['pengaduan']->foto1}}" class="thumb-img img-fluid" alt="Foto Sisi">
+                              </a>
+                            </div>
                           </div>
                         </div>
                         <div class="form-group">
                           <label for="">Sisi 2</label>
-                          <div class="input-group">
-                            <img src="../../storage/{{$data['pengaduan']->foto2}}" height="150" alt="title" id="" class="imagecheck-image">
+                          <div class="col-lg-6 ">
+                            <div class="gal-detail thumb">
+                              <a target="_BLANK" href="../../storage/{{$data['pengaduan']->foto2}}" class="image-popup">
+                                <img src="../../storage/{{$data['pengaduan']->foto2}}" class="thumb-img img-fluid" alt="Foto Sisi">
+                              </a>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -192,14 +221,22 @@
 
                         <div class="form-group">
                           <label for="">Sisi 3</label>
-                          <div class="input-group">
-                            <img src="../../storage/{{$data['pengaduan']->foto3}}" height="150" alt="title" id="" class="imagecheck-image">
+                          <div class="col-lg-6 ">
+                            <div class="gal-detail thumb">
+                              <a target="_BLANK" href="../../storage/{{$data['pengaduan']->foto3}}" class="image-popup">
+                                <img src="../../storage/{{$data['pengaduan']->foto3}}" class="thumb-img img-fluid" alt="Foto Sisi">
+                              </a>
+                            </div>
                           </div>
                         </div>
                         <div class="form-group">
                           <label for="">Sisi 4</label>
-                          <div class="input-group">
-                            <img src="../../storage/{{$data['pengaduan']->foto4}}" height="150" alt="title" id="" class="imagecheck-image">
+                          <div class="col-lg-6 ">
+                            <div class="gal-detail thumb">
+                              <a target="_BLANK" href="../../storage/{{$data['pengaduan']->foto4}}" class="image-popup">
+                                <img src="../../storage/{{$data['pengaduan']->foto4}}" class="thumb-img img-fluid" alt="Foto Sisi">
+                              </a>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -213,14 +250,17 @@
               </div>
 
 
+              @role('admin')
               <div class=" col-lg-12 mt-2 card-action">
                 <div class="row">
 
-                  
+
                   <a data-toggle="modal" href="#modal_tolak" data-id="{{$data['pengaduan']->id}}" class="btn btn-danger tolak">Tolak Pengaduan</a>
                   <a data-toggle="modal" href="#modal_terima" data-id="{{$data['pengaduan']->id}}" class="btn btn-success terima ml-2">Terima Pengaduan</a>
                 </div>
               </div>
+              @endrole
+
             </div>
           </div>
         </div>
@@ -281,7 +321,7 @@
           <div>
             <input type="hidden" id='id_terima' name='id'>
             <input type="hidden" value="terima" name="status" id="">
-            <input type="hidden" name="alasan_tolak"  id="">
+            <input type="hidden" name="alasan_tolak" id="">
             <h5 id="exampleModalLabel">Pastikan data telah terkonfirmasi dengan benar</h5>
           </div>
 

@@ -27,14 +27,15 @@
 
         <div class="container-fluid">
             <div class="collapse" id="search-nav">
-                <form class="navbar-left navbar-form nav-search mr-md-3">
+                <form class="navbar-left navbar-form nav-search mr-md-3" action="<?php echo e(route('tracking')); ?>" method="post" enctype="multipart/form-data">
+                    <?php echo csrf_field(); ?>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <button type="submit" class="btn btn-search pr-1">
                                 <i class="fa fa-search search-icon"></i>
                             </button>
                         </div>
-                        <input type="text" placeholder="Lacak Pengaduan" class="form-control">
+                        <input type="text" name="kode" <?php if(isset($data['kode'])): ?> value="<?php echo e($data['kode']); ?>" <?php endif; ?> required placeholder="Lacak Pengaduan" class="form-control">
                     </div>
                 </form>
             </div>

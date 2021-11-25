@@ -28,6 +28,7 @@
               <thead>
                 <tr>
                   <th>No.</th>
+                  <th>Kode Pengaduan</th>
                   <th>NIK</th>
                   <th>Daerah</th>
                   <th>Nama Bencana</th>
@@ -40,10 +41,11 @@
                 @foreach ($data['pengaduan'] AS $key=>$value)
                 <tr>
                   <td>{{$key+1}}</td>
-                  <td>{{$value->nik_warga}}</td>
+                  <td>{{$value->kode}}</td>
+                  <td>{{$value->warga->nik}}</td>
                   <td>{{$value->daerah->nama}}</td>
                   <td>
-                    @if($value->id_bencana == 12)
+                    @if($value->id_bencana != 12)
                     {{$value->bencana->nama}}
                     @else
                     {{$value->bencana_lain}}

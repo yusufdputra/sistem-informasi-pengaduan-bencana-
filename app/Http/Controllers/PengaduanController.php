@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Validator;
 
 class PengaduanController extends Controller
 {
+  private $target = "Pengaduan";
   public function index()
   {
     $this->middleware('auth');
@@ -26,8 +27,8 @@ class PengaduanController extends Controller
   public function detail($id)
   {
     $this->middleware('auth');
-    $data['title'] = "Detail Pengaduan Bencana";
     $data['pengaduan'] = Pengaduan::with('bencana', 'daerah', 'warga')->where('id', $id)->first();
+    $data['title'] = "Detail Pengaduan Bencana (" . $data['pengaduan']->kode . ")";
     $korban_arr = unserialize($data['pengaduan']->id_korban);
 
     $data['korban'] = [];
@@ -36,7 +37,7 @@ class PengaduanController extends Controller
     }
 
 
-    return view('admin.pengaduan.detail', compact('data'));
+    return view('pengaduan.detail', compact('data'));
   }
 
   public function tambah()
@@ -49,9 +50,13 @@ class PengaduanController extends Controller
   }
   public function store(Request $request)
   {
+    // generate kode
+    $kode = self::generateCode($request->nama);
+
+
     // validation
-    $rules = PengaduanController::rules();
-    $pesan = PengaduanController::msg();
+    $rules = self::rules();
+    $pesan = self::msg();
 
 
     $validator = Validator::make($request->all(), $rules, $pesan);
@@ -59,35 +64,28 @@ class PengaduanController extends Controller
       return redirect()->back()->withErrors($validator)->withInput($request->all());
     }
 
-    $target = "Pengaduan/" . $request->nik;
     try {
       // upload file ktp
-      $uploadKTP = UploadFileController::cekFile($request->file('foto_ktp'), $request->foto_ktp_lama, $request->has('foto_ktp_lama'), $target);
+      $uploadKTP = UploadFileController::cekFile($request->file('foto_ktp'), $request->foto_ktp_lama, $request->has('foto_ktp_lama'), $this->target);
       // upload sisi 1
-      $uploadSisi1 = UploadFileController::cekFile($request->file('sisi_1'), $request->sisi_1_lama, $request->has('sisi_1_lama'), $target);
+      $uploadSisi1 = UploadFileController::cekFile($request->file('sisi_1'), $request->sisi_1_lama, $request->has('sisi_1_lama'), $this->target);
       // upload sisi 2
-      $uploadSisi2 = UploadFileController::cekFile($request->file('sisi_2'), $request->sisi_2_lama, $request->has('sisi_2_lama'), $target);
+      $uploadSisi2 = UploadFileController::cekFile($request->file('sisi_2'), $request->sisi_2_lama, $request->has('sisi_2_lama'), $this->target);
       // upload sisi 3
-      $uploadSisi3 = UploadFileController::cekFile($request->file('sisi_3'), $request->sisi_3_lama, $request->has('sisi_3_lama'), $target);
+      $uploadSisi3 = UploadFileController::cekFile($request->file('sisi_3'), $request->sisi_3_lama, $request->has('sisi_3_lama'), $this->target);
       // upload sisi 4
-      $uploadSisi4 = UploadFileController::cekFile($request->file('sisi_4'), $request->sisi_4_lama, $request->has('sisi_4_lama'), $target);
+      $uploadSisi4 = UploadFileController::cekFile($request->file('sisi_4'), $request->sisi_4_lama, $request->has('sisi_4_lama'), $this->target);
 
       // simpan ke tabel warga
-
-      $whereWarga = [
-        'nik' => $request->nik
-      ];
-
-      $valuesWarga = [
-        'nama' => $request->nama,
+      $id_warga = Warga::insertGetId([
+        'nik' => $request->nik,
+        'nama' => strtoupper($request->nama),
         'alamat' => $request->alamat,
         'no_hp' => $request->no_hp,
         'foto_ktp' => $uploadKTP,
         'created_at'   => Carbon::now(),
         'updated_at'   => Carbon::now(),
-      ];
-
-      $warga = Warga::updateOrInsert($whereWarga, $valuesWarga);
+      ]);
 
       // simpan ke tabel korban
       $dataKorban = [
@@ -115,9 +113,9 @@ class PengaduanController extends Controller
         $bencana = $request->bencana_lain;
       }
 
-
       $valuesPengaduan = [
-        'nik_warga' => $request->nik,
+        'kode' => $kode,
+        'id_warga' => $id_warga,
         'id_bencana' => $request->id_bencana,
         'bencana_lain' => $bencana,
         'id_daerah' => $request->id_daerah,
@@ -144,16 +142,120 @@ class PengaduanController extends Controller
       $pengaduan = Pengaduan::updateOrInsert($wherePengaduan, $valuesPengaduan);
 
       if ($pengaduan) {
-        return redirect()->back()->with('success', 'Berhasil disimpan');
+        return redirect()->back()->with('success', 'Berhasil disimpan. Silahkan simpan kode ini untuk melacak pengaduan. Kode: ' . $kode);
       } else {
         return redirect()->back()->with('alert', 'Gagal disimpan');
       }
     } catch (\Throwable $th) {
 
-      return redirect()->back()->with('alert', 'Gagal disimpan. Terjadi kesalahan saat menyimpan gambar.' . $th);
+      return redirect()->back()->with('alert', 'Gagal disimpan. Terjadi kesalahan saat menyimpan gambar.');
     }
   }
 
+
+  public function update(Request $request)
+  {
+    // validation
+    $rules = self::rules();
+    $pesan = self::msg();
+
+
+    $validator = Validator::make($request->all(), $rules, $pesan);
+    if ($validator->fails()) {
+      return redirect()->back()->withErrors($validator)->withInput($request->all());
+    }
+
+
+    try {
+      // upload file ktp
+      $uploadKTP = UploadFileController::cekFile($request->file('foto_ktp'), $request->foto_ktp_lama, $request->has('foto_ktp_lama'), $this->target);
+      // upload sisi 1
+      $uploadSisi1 = UploadFileController::cekFile($request->file('sisi_1'), $request->sisi_1_lama, $request->has('sisi_1_lama'), $this->target);
+      // upload sisi 2
+      $uploadSisi2 = UploadFileController::cekFile($request->file('sisi_2'), $request->sisi_2_lama, $request->has('sisi_2_lama'), $this->target);
+      // upload sisi 3
+      $uploadSisi3 = UploadFileController::cekFile($request->file('sisi_3'), $request->sisi_3_lama, $request->has('sisi_3_lama'), $this->target);
+      // upload sisi 4
+      $uploadSisi4 = UploadFileController::cekFile($request->file('sisi_4'), $request->sisi_4_lama, $request->has('sisi_4_lama'), $this->target);
+
+      // simpan ke tabel warga
+
+      Warga::where('id', $request->id_warga)
+        ->update([
+          'nik' => $request->nik,
+          'nama' => strtoupper($request->nama),
+          'alamat' => $request->alamat,
+          'no_hp' => $request->no_hp,
+          'foto_ktp' => $uploadKTP,
+          'updated_at'   => Carbon::now(),
+        ]);
+
+      // simpan ke tabel korban
+      $jenisKorban = [
+        ['jenis' => 'meninggal'],
+        ['jenis' => 'luka'],
+        ['jenis' => 'hilang'],
+      ];
+
+      foreach ($jenisKorban as $key => $value) {
+
+        Korban::where('id',  intval($request->id_korban[$key]))
+          ->update([
+            'jenis'     => $value['jenis'],
+            'jumlah'    => $request->jml_korban[$key],
+            'keterangan'    => $request->ket_korban[$key],
+          ]);
+      }
+
+
+
+      $wherePengaduan = [
+        'id' => $request->id_pengaduan
+      ];
+
+      if (!isset($request->bencana_lain)) {
+        $bencana = null;
+      } else {
+        $bencana = $request->bencana_lain;
+      }
+
+      $valuesPengaduan = [
+        'kode' => $request->kode,
+        'id_warga' => $request->id_warga,
+        'id_bencana' => $request->id_bencana,
+        'bencana_lain' => $bencana,
+        'id_daerah' => $request->id_daerah,
+        'almt_lengkap' => $request->alamat_kjd,
+        'tgl_kejadian' => $request->tgl_kejadian,
+        'jam_kejadian' => $request->jam_kejadian,
+        'penyebab' => $request->penyebab,
+        'jns_kerusakan' => $request->jns_kerusakan,
+        'penanggulangan' => $request->penanggulangan,
+        'bantuan' => $request->bantuan,
+        'kerugian' => $request->kerugian,
+        'foto1' => $uploadSisi1,
+        'foto2' => $uploadSisi2,
+        'foto3' => $uploadSisi3,
+        'foto4' => $uploadSisi4,
+        'keterangan' => $request->keterangan,
+        'status' => 'proses',
+        'alasan_tolak' => null,
+        'updated_at'   => Carbon::now(),
+      ];
+
+
+      $pengaduan = Pengaduan::updateOrInsert($wherePengaduan, $valuesPengaduan);
+
+      if ($pengaduan) {
+        return redirect()->route('/')->with('success', 'Berhasil disimpan. Silahkan simpan kode ini untuk melacak pengaduan. Kode: ' . $request->kode)->withInput();
+      } else {
+        return redirect()->route('/')->with('alert', 'Gagal disimpan');
+      }
+    } catch (\Throwable $th) {
+
+      return redirect()->route('/')->with('alert', 'Gagal disimpan. Terjadi kesalahan saat menyimpan gambar.' . $th->getMessage());
+    }
+  }
 
   static function rules()
   {
@@ -179,7 +281,7 @@ class PengaduanController extends Controller
     return $pesan;
   }
 
-  public function updateStatus(Request $request )
+  public function updateStatus(Request $request)
   {
     $query = Pengaduan::where('id', $request->id)
       ->update([
@@ -187,9 +289,45 @@ class PengaduanController extends Controller
         'alasan_tolak' => $request->alasan_tolak
       ]);
     if ($query) {
-      return redirect()->route('pengaduan.index')->with('success', 'Pengaduan berhasil di'.$request->status);
+      return redirect()->route('pengaduan.index')->with('success', 'Pengaduan berhasil di' . $request->status);
     } else {
       return redirect()->back()->with('alert', 'Ooppss... terjadi kesalahan');
     }
+  }
+
+  static function generateCode($nama)
+  {
+    //split name using spaces
+    $words = explode(" ", $nama);
+    $inits = '';
+    //loop through array extracting initial letters
+    foreach ($words as $word) {
+      $inits .= strtoupper(substr($word, 0, 1));
+    }
+    $count =  Pengaduan::count();
+    $kode = $inits . str_pad($count + 1, 4, '0', STR_PAD_LEFT);
+
+    return $kode;
+  }
+
+  public function tracking(Request $request)
+  {
+    $data['title'] = 'Lacak Pengaduan';
+    $data['kode'] = $request->kode;
+    $data['pengaduan'] = Pengaduan::where('kode', $request->kode)->first();
+    if (($data['pengaduan']) != null) {
+      $data['bencana'] = Bencana::all();
+      $data['daerah'] = Daerah::all();
+      $korban_arr = unserialize($data['pengaduan']->id_korban);
+
+      $data['korban'] = [];
+      foreach ($korban_arr as $key => $value) {
+        $data['korban'][$key] = Korban::find($value);
+      }
+    }
+
+
+
+    return view('pengaduan.lacak', compact('data'));
   }
 }

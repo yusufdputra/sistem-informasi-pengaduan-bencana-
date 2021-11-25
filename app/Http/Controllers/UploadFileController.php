@@ -16,7 +16,7 @@ class UploadFileController extends Controller
             } else {
                 $file_lama = null;
             }
-            $upload = UploadFileController::uploadFile($target, $Getfile_baru, $file_lama);
+            $upload = self::uploadFile($target, $Getfile_baru, $file_lama);
         } else {
             // jika tidak ada ubah foto
             $upload = $Getfile_lama;
@@ -29,7 +29,7 @@ class UploadFileController extends Controller
             if ($file_lama != null) {
                 // update file
                 // hapus file lama
-                UploadFileController::unlinkFile($file_lama);
+                self::unlinkFile($file_lama);
             }
             // upload file baru
             $file_name = uniqid(rand(), true).'_'.time() . '_' . $file->getClientOriginalName();

@@ -11,6 +11,8 @@
 <!-- jQuery Sparkline -->
 <script src="<?php echo e(asset('atlantis/js/plugin/jquery.sparkline/jquery.sparkline.min.js')); ?>"></script>
 
+<!-- Magnific Popup-->
+<script src="<?php echo e(asset('atlantis/libs/magnific-popup/jquery.magnific-popup.min.js')); ?>"></script>
 
 <!-- Datatables -->
 <script src="<?php echo e(asset('atlantis/js/plugin/datatables/datatables.min.js')); ?>"></script>
@@ -58,6 +60,8 @@
       },
     });
   }
+
+ 
 
   function alertConfirmasiData(data, nama, alamat, nomor_hp, foto_ktp_lama, ktp_view) {
     swal({

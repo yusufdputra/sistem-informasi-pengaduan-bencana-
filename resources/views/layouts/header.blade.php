@@ -24,6 +24,10 @@
 		});
 	</script>
 
+	
+	<!-- Lightbox css -->
+	<link href="{{asset('atlantis/libs/magnific-popup/magnific-popup.css')}}" rel="stylesheet" type="text/css" />
+
 	<!-- CSS Files -->
 	<link rel="stylesheet" href="{{asset('atlantis/css/bootstrap.min.css')}}">
 	<link rel="stylesheet" href="{{asset('atlantis/css/atlantis.min.css')}}">
@@ -31,6 +35,9 @@
 	<script src="{{asset('atlantis/js/core/jquery.3.2.1.min.js')}}"></script>
 	<script src="{{asset('atlantis/js/core/popper.min.js')}}"></script>
 	<script src="{{asset('atlantis/js/core/bootstrap.min.js')}}"></script>
+
+
+
 
 	<!-- jQuery UI -->
 	<script src="{{asset('atlantis/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js')}}"></script>

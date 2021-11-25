@@ -23,6 +23,12 @@
 
 				<?php if(auth()->check() && auth()->user()->hasRole('admin')): ?>
 				<li class="nav-item">
+					<a href="<?php echo e(route('/')); ?>">
+						<i class="fas fa-home"></i>
+						<p>Dashboard</p>
+					</a>
+				</li>
+				<li class="nav-item">
 					<a href="<?php echo e(route('pengaduan.index')); ?>">
 						<i class="fas fa-layer-group"></i>
 						<p>Pengaduan</p>

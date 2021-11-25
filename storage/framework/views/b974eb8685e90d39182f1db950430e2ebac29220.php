@@ -58,7 +58,7 @@
                     <div class="form-group">
                       <label for="">NIK</label>
 
-                      <p class="form-control"><?php echo e($data['pengaduan']->nik_warga); ?></p>
+                      <p class="form-control"><?php echo e($data['pengaduan']->warga->nik); ?></p>
 
                     </div>
 
@@ -82,11 +82,12 @@
                     </div>
                     <div class="form-group">
                       <label for="">Foto KTP</label>
-                      <div class="input-group">
-                        <figure class="imagecheck-figure">
-                          <img src="../../storage/<?php echo e($data['pengaduan']->warga->foto_ktp); ?>" height="200" alt="title" id="ktp_view" class="imagecheck-image">
-                        </figure>
-
+                      <div class="col-lg-6 ">
+                        <div class="gal-detail thumb">
+                          <a target="_BLANK" href="../../storage/<?php echo e($data['pengaduan']->warga->foto_ktp); ?>" class="image-popup">
+                            <img src="../../storage/<?php echo e($data['pengaduan']->warga->foto_ktp); ?>" class="thumb-img img-fluid" alt="Foto KTP">
+                          </a>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -144,7 +145,7 @@
 
                     <div class="form-group">
                       <label for="">Penyebab</label>
-                      <p class="form-control"><?php echo e($data['pengaduan']->bencana_lain); ?></p>
+                      <p class="form-control"><?php echo e($data['pengaduan']->penyebab); ?></p>
                     </div>
 
                     <div class="form-group">
@@ -197,14 +198,22 @@
                       <div class="col-lg-6">
                         <div class="form-group">
                           <label for="">Sisi 1</label>
-                          <div class="input-group">
-                            <img src="../../storage/<?php echo e($data['pengaduan']->foto1); ?>" height="150" alt="title" id="" class="imagecheck-image">
+                          <div class="col-lg-6 ">
+                            <div class="gal-detail thumb">
+                              <a target="_BLANK" href="../../storage/<?php echo e($data['pengaduan']->foto1); ?>" class="image-popup">
+                                <img src="../../storage/<?php echo e($data['pengaduan']->foto1); ?>" class="thumb-img img-fluid" alt="Foto Sisi">
+                              </a>
+                            </div>
                           </div>
                         </div>
                         <div class="form-group">
                           <label for="">Sisi 2</label>
-                          <div class="input-group">
-                            <img src="../../storage/<?php echo e($data['pengaduan']->foto2); ?>" height="150" alt="title" id="" class="imagecheck-image">
+                          <div class="col-lg-6 ">
+                            <div class="gal-detail thumb">
+                              <a target="_BLANK" href="../../storage/<?php echo e($data['pengaduan']->foto2); ?>" class="image-popup">
+                                <img src="../../storage/<?php echo e($data['pengaduan']->foto2); ?>" class="thumb-img img-fluid" alt="Foto Sisi">
+                              </a>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -212,14 +221,22 @@
 
                         <div class="form-group">
                           <label for="">Sisi 3</label>
-                          <div class="input-group">
-                            <img src="../../storage/<?php echo e($data['pengaduan']->foto3); ?>" height="150" alt="title" id="" class="imagecheck-image">
+                          <div class="col-lg-6 ">
+                            <div class="gal-detail thumb">
+                              <a target="_BLANK" href="../../storage/<?php echo e($data['pengaduan']->foto3); ?>" class="image-popup">
+                                <img src="../../storage/<?php echo e($data['pengaduan']->foto3); ?>" class="thumb-img img-fluid" alt="Foto Sisi">
+                              </a>
+                            </div>
                           </div>
                         </div>
                         <div class="form-group">
                           <label for="">Sisi 4</label>
-                          <div class="input-group">
-                            <img src="../../storage/<?php echo e($data['pengaduan']->foto4); ?>" height="150" alt="title" id="" class="imagecheck-image">
+                          <div class="col-lg-6 ">
+                            <div class="gal-detail thumb">
+                              <a target="_BLANK" href="../../storage/<?php echo e($data['pengaduan']->foto4); ?>" class="image-popup">
+                                <img src="../../storage/<?php echo e($data['pengaduan']->foto4); ?>" class="thumb-img img-fluid" alt="Foto Sisi">
+                              </a>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -233,6 +250,7 @@
               </div>
 
 
+              <?php if(auth()->check() && auth()->user()->hasRole('admin')): ?>
               <div class=" col-lg-12 mt-2 card-action">
                 <div class="row">
 
@@ -241,6 +259,8 @@
                   <a data-toggle="modal" href="#modal_terima" data-id="<?php echo e($data['pengaduan']->id); ?>" class="btn btn-success terima ml-2">Terima Pengaduan</a>
                 </div>
               </div>
+              <?php endif; ?>
+
             </div>
           </div>
         </div>
@@ -337,4 +357,4 @@
 
 
 <?php $__env->stopSection(); ?>
-<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\pengaduan desa\resources\views/admin/pengaduan/detail.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\pengaduan desa\resources\views/pengaduan/detail.blade.php ENDPATH**/ ?>

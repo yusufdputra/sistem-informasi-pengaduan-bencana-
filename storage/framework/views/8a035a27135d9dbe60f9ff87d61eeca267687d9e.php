@@ -8,6 +8,17 @@
       <div class="card full-height">
         <div class="card-body">
           <div class="card-title">Menu Layanan</div>
+          <?php if(\Session::has('alert')): ?>
+            <div class="alert alert-danger">
+              <div><?php echo e(Session::get('alert')); ?></div>
+            </div>
+            <?php endif; ?>
+
+            <?php if(\Session::has('success')): ?>
+            <div class="alert alert-success">
+              <div><?php echo e(Session::get('success')); ?></div>
+            </div>
+            <?php endif; ?>
           <!-- <div class="card-category">Sistem Informasi Desa Sidomulyo</div> -->
           <div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
 
@@ -87,68 +98,54 @@
         <div class="card-header">
           <div class="card-head-row">
             <div class="card-title">Riwayat Pengaduan Masyarakat</div>
-            <div class="card-tools">
-              <ul class="nav nav-pills nav-secondary nav-pills-no-bd nav-sm" id="pills-tab" role="tablist">
-                <li class="nav-item">
-                  <a class="nav-link active" id="pills-today" data-toggle="pill" href="#pills-today" role="tab" aria-selected="true">Bulan Ini</a>
-                </li>
-              </ul>
-            </div>
+
           </div>
         </div>
         <div class="card-body">
+          <?php $__currentLoopData = $data['pengaduan']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key=>$value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+
           <div class="d-flex">
-            <div class="avatar avatar-online">
-              <span class="avatar-title rounded-circle border border-white bg-info">J</span>
+            <div class="avatar ">
+              <span class="avatar-title rounded-circle border border-white bg-info"><?php echo e(strtoupper(mb_substr($value->warga->nama,0,1))); ?></span>
             </div>
             <div class="flex-1 ml-3 pt-1">
-              <h6 class="text-uppercase fw-bold mb-1">Joko Subianto <span class="text-warning pl-3">Proses</span></h6>
-              <span class="text-muted">I am facing some trouble with my viewport. When i start my</span>
+              <?php if($value->status == 'proses'): ?>
+              <?php ($type = "text-primary"); ?>
+              <?php elseif($value->status == 'terima'): ?>
+              <?php ($type = "text-success"); ?>
+              <?php else: ?>
+              <?php ($type = "text-danger"); ?>
+              <?php endif; ?>
+              <h6 class="text-uppercase fw-bold mb-1"><?php echo e($value->warga->nama); ?> <span class="<?php echo e($type); ?> pl-3"><?php echo e(ucfirst($value->status)); ?></span></h6>
+              <span class="text-muted">
+                <?php if($value->id_bencana == 12): ?>
+                <?php echo e(ucwords( $value->bencana_lain)); ?>
+
+                <?php else: ?>
+                <?php echo e(ucwords($value->bencana->nama)); ?>
+
+                <?php endif; ?>
+                - <?php echo e($value->daerah->nama); ?> - <?php echo e($value->almt_lengkap); ?> - 
+
+                <?php if($value->status == 'tolak'): ?>
+                Alasan penolakan: <?php echo e($value->alasan_tolak); ?>
+
+                <?php endif; ?>
+                <!-- <a href="<?php echo e(route('pengaduan/detail',$value->id)); ?>" class="btn btn-link">
+                  <span class="btn-label">
+                    <i class="fa fa-eye"></i>
+                  </span>
+                  Detail
+                </a> -->
+              </span>
             </div>
             <div class="float-right pt-1">
-              <small class="text-muted">8:40 PM</small>
+              <small class="text-muted"><?php echo e($value->updated_at->diffForHumans()); ?></small>
             </div>
           </div>
           <div class="separator-dashed"></div>
-          <div class="d-flex">
-            <div class="avatar avatar-offline">
-              <span class="avatar-title rounded-circle border border-white bg-secondary">P</span>
-            </div>
-            <div class="flex-1 ml-3 pt-1">
-              <h6 class="text-uppercase fw-bold mb-1">Prabowo Widodo <span class="text-success pl-3">Selesai</span></h6>
-              <span class="text-muted">I have some query regarding the license issue.</span>
-            </div>
-            <div class="float-right pt-1">
-              <small class="text-muted">1 Day Ago</small>
-            </div>
-          </div>
-          <div class="separator-dashed"></div>
-          <div class="d-flex">
-            <div class="avatar avatar-away">
-              <span class="avatar-title rounded-circle border border-white bg-danger">L</span>
-            </div>
-            <div class="flex-1 ml-3 pt-1">
-              <h6 class="text-uppercase fw-bold mb-1">Lee Chong Wei <span class="text-success pl-3">Selesai</span></h6>
-              <span class="text-muted">Is there any update plan for RTL version near future?</span>
-            </div>
-            <div class="float-right pt-1">
-              <small class="text-muted">2 Days Ago</small>
-            </div>
-          </div>
-          <div class="separator-dashed"></div>
-          <div class="d-flex">
-            <div class="avatar avatar-offline">
-              <span class="avatar-title rounded-circle border border-white bg-secondary">P</span>
-            </div>
-            <div class="flex-1 ml-3 pt-1">
-              <h6 class="text-uppercase fw-bold mb-1">Peter Parker <span class="text-warning pl-3">Proses</span></h6>
-              <span class="text-muted">I have some query regarding the license issue.</span>
-            </div>
-            <div class="float-right pt-1">
-              <small class="text-muted">2 Day Ago</small>
-            </div>
-          </div>
-          <div class="separator-dashed"></div>
+          <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
         </div>
       </div>
     </div>

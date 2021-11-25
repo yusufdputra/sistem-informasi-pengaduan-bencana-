@@ -15,7 +15,7 @@ class Pengaduan extends Model
 
     public function warga()
     {
-        return $this->hasOne(Warga::class, 'nik', 'nik_warga')->withTrashed();
+        return $this->hasOne(Warga::class, 'id', 'id_warga')->withTrashed();
     }
 
     public function bencana()
