@@ -10,7 +10,12 @@
         <div class="card-body">
           <div class="card-title">
             <?php if(auth()->check() && auth()->user()->hasRole('admin')): ?>
+            <?php if($data['pengaduan']->status == 'terima'): ?>
+
+            <a href="<?php echo e(route('arsip.index')); ?>" class=" btn btn-warning btn-sm">
+            <?php else: ?>
             <a href="<?php echo e(route('pengaduan.index')); ?>" class=" btn btn-warning btn-sm">
+            <?php endif; ?>
               <?php endif; ?>
               <?php if(auth()->guard()->guest()): ?>
               <a href="<?php echo e(('/')); ?>" class=" btn btn-warning btn-sm">
@@ -251,12 +256,17 @@
 
 
               <?php if(auth()->check() && auth()->user()->hasRole('admin')): ?>
+
               <div class=" col-lg-12 mt-2 card-action">
                 <div class="row">
-
-
+                  <?php if($data['pengaduan']->status == 'proses'): ?>
                   <a data-toggle="modal" href="#modal_tolak" data-id="<?php echo e($data['pengaduan']->id); ?>" class="btn btn-danger tolak">Tolak Pengaduan</a>
                   <a data-toggle="modal" href="#modal_terima" data-id="<?php echo e($data['pengaduan']->id); ?>" class="btn btn-success terima ml-2">Terima Pengaduan</a>
+
+                  <?php elseif($data['pengaduan']->status == 'terima'): ?>
+                  <a target="_BLANK" href="<?php echo e(route(('pengaduan/cetak'),$data['pengaduan']->id)); ?>" class="btn btn-success ml-2">Cetak</a>
+
+                  <?php endif; ?>
                 </div>
               </div>
               <?php endif; ?>

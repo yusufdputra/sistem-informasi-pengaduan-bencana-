@@ -51,7 +51,7 @@
                     {{$value->bencana_lain}}
                     @endif
                   </td>
-                  <td>{{date('d-F-Y', strtotime($value->tgl_kejadian))}} - {{date('h:i:s a', strtotime($value->jam_kejadian))}}</td>
+                  <td>{{date('l, d-F-Y', strtotime($value->tgl_kejadian))}} - {{date('h:i:s a', strtotime($value->jam_kejadian))}}</td>
                   <td>{{$value->penyebab}}</td>
 
                   <td>

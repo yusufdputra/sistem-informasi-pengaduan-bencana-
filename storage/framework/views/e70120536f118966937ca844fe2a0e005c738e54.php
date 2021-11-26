@@ -53,7 +53,7 @@
 
                     <?php endif; ?>
                   </td>
-                  <td><?php echo e(date('d-F-Y', strtotime($value->tgl_kejadian))); ?> - <?php echo e(date('h:i:s a', strtotime($value->jam_kejadian))); ?></td>
+                  <td><?php echo e(date('l, d-F-Y', strtotime($value->tgl_kejadian))); ?> - <?php echo e(date('h:i:s a', strtotime($value->jam_kejadian))); ?></td>
                   <td><?php echo e($value->penyebab); ?></td>
 
                   <td>
@@ -73,4 +73,4 @@
 
 
 <?php $__env->stopSection(); ?>
-<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\pengaduan desa\resources\views/admin/pengaduan/index.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\pengaduan desa\resources\views/admin/arsip/index.blade.php ENDPATH**/ ?>

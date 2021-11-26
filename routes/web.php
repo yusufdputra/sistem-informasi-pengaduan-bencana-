@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\ArsipController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\CetakController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KuisionerController;
 use App\Http\Controllers\LookBookController;
@@ -35,10 +37,16 @@ Route::post('tracking', [PengaduanController::class, 'tracking'])->name('trackin
 Route::group(['middleware' => ['role:admin']], function () {
     
     // kelola pengajuan magang
-    Route::get('pengaduan/detail/{id}', [PengaduanController::class, 'detail'])->name('pengaduan/detail');
     Route::get('pengaduan', [PengaduanController::class, 'index'])->name('pengaduan.index');
+    Route::get('pengaduan/detail/{id}', [PengaduanController::class, 'detail'])->name('pengaduan/detail');
     Route::post('pengaduan/updateStatus', [PengaduanController::class, 'updateStatus'])->name('pengaduan.updateStatus');
-    Route::get('/pengajuan-magang/edit/{id}', [PengajuanMagangController::class, 'detail'])->name('pengajuanMagang/edit');
+    
+    // kelola arsip
+    Route::get('arsip', [ArsipController::class, 'index'])->name('arsip.index');
+    
+    // kelola cetak
+    Route::get('pengaduan/cetak/{id}', [CetakController::class, 'cetak'])->name('pengaduan/cetak');
+
 
 
 });

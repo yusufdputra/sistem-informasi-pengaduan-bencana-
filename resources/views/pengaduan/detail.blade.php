@@ -10,7 +10,12 @@
         <div class="card-body">
           <div class="card-title">
             @role('admin')
+            @if($data['pengaduan']->status == 'terima')
+
+            <a href="{{route('arsip.index')}}" class=" btn btn-warning btn-sm">
+            @else
             <a href="{{route('pengaduan.index')}}" class=" btn btn-warning btn-sm">
+            @endif
               @endrole
               @guest
               <a href="{{('/')}}" class=" btn btn-warning btn-sm">
@@ -251,12 +256,17 @@
 
 
               @role('admin')
+
               <div class=" col-lg-12 mt-2 card-action">
                 <div class="row">
-
-
+                  @if($data['pengaduan']->status == 'proses')
                   <a data-toggle="modal" href="#modal_tolak" data-id="{{$data['pengaduan']->id}}" class="btn btn-danger tolak">Tolak Pengaduan</a>
                   <a data-toggle="modal" href="#modal_terima" data-id="{{$data['pengaduan']->id}}" class="btn btn-success terima ml-2">Terima Pengaduan</a>
+
+                  @elseif($data['pengaduan']->status == 'terima')
+                  <a target="_BLANK" href="{{route(('pengaduan/cetak'),$data['pengaduan']->id)}}" class="btn btn-success ml-2">Cetak</a>
+
+                  @endif
                 </div>
               </div>
               @endrole

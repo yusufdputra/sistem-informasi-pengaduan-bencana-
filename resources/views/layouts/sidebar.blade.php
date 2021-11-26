@@ -34,6 +34,12 @@
 						<p>Pengaduan</p>
 					</a>
 				</li>
+				<li class="nav-item">
+					<a href="{{route('arsip.index')}}">
+						<i class="fas fa-archive"></i>
+						<p>Arsip</p>
+					</a>
+				</li>
 				@endrole
 			</ul>
 		</div>
