@@ -139,7 +139,7 @@
           <p><strong><u>Foto-Foto Kejadian</u></strong></p>
           <br>
           <br>
-          <div style="margin-right: auto; margin-left: auto;">
+          <div >
             <img class="foto_kejadian"  src="storage/<?php echo e(($data['pengaduan']->foto1)); ?>" alt="">
             <img class="foto_kejadian"  src="storage/<?php echo e(($data['pengaduan']->foto1)); ?>" alt="">
             <img class="foto_kejadian"  src="storage/<?php echo e(($data['pengaduan']->foto3)); ?>" alt="">

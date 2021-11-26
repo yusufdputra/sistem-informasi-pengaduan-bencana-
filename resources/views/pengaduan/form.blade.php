@@ -34,6 +34,7 @@
             <form action="{{route('pengaduan.store')}}" method="post" enctype="multipart/form-data">
               @csrf
               <input type="hidden" name="id" id="">
+              <input type="hidden" name="id_warga" id="id_warga">
               <div class="row">
 
                 <div class="col-lg-12">
@@ -279,6 +280,7 @@
 <script type="text/javascript">
   $('.cari-nik').click(function() {
     var nik = document.getElementById('nik').value
+    var id_warga = $('#id_warga')
     var nama = $('#nama')
     var alamat = $('#alamat')
     var nomor_hp = $('#no_hp')
@@ -288,6 +290,7 @@
 
     if (nik.length != 0) {
       nama.val('')
+      id_warga.val('')
       alamat.val('')
       nomor_hp.val('')
       foto_ktp_lama.val('')
@@ -302,13 +305,14 @@
             var pesan = "Data Tidak Ditemukan. Silahkan Isi Form dengan Benar!"
             alertWarning(pesan)
             nama.val('')
+            id_warga.val('')
             alamat.val('')
             nomor_hp.val('')
             foto_ktp_lama.val('')
             foto_ktp.prop('required', true)
             ktp_view.attr('src', '../atlantis/img/upload.svg')
           } else {
-            alertConfirmasiData(data, nama, alamat, nomor_hp, foto_ktp_lama, ktp_view)
+            alertConfirmasiData(data, id_warga, nama, alamat, nomor_hp, foto_ktp_lama, ktp_view)
             foto_ktp.removeAttr('required')
           }
 

@@ -10,6 +10,7 @@ use App\Models\Warga;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
@@ -79,7 +80,12 @@ class PengaduanController extends Controller
       $uploadSisi4 = UploadFileController::cekFile($request->file('sisi_4'), $request->sisi_4_lama, $request->has('sisi_4_lama'), $this->target);
 
       // simpan ke tabel warga
-      $id_warga = Warga::insertGetId([
+
+      $whereWarga = [
+        'nik' => $request->nik
+      ];
+
+      $valuesWarga = [
         'nik' => $request->nik,
         'nama' => strtoupper($request->nama),
         'alamat' => $request->alamat,
@@ -87,7 +93,14 @@ class PengaduanController extends Controller
         'foto_ktp' => $uploadKTP,
         'created_at'   => Carbon::now(),
         'updated_at'   => Carbon::now(),
-      ]);
+      ];
+
+      Warga::updateOrInsert($whereWarga, $valuesWarga);
+
+      $id_warga = $request->id_warga;
+      if ($id_warga == null) {
+        $id_warga =  DB::getPdo()->lastInsertId();
+      }
 
       // simpan ke tabel korban
       $dataKorban = [
@@ -150,7 +163,7 @@ class PengaduanController extends Controller
       }
     } catch (\Throwable $th) {
 
-      return redirect()->back()->with('alert', 'Gagal disimpan. Terjadi kesalahan saat menyimpan gambar.');
+      return redirect()->back()->with('alert', 'Gagal disimpan. Terjadi kesalahan saat menyimpan gambar.' . $th);
     }
   }
 
@@ -328,12 +341,11 @@ class PengaduanController extends Controller
       }
     }
     if (Auth::check()) {
-      
-    return view('pengaduan.detail', compact('data'));
+
+      return view('pengaduan.detail', compact('data'));
     } else {
       return view('pengaduan.lacak', compact('data'));
     }
-    
   }
 
   public function hapus($id)

@@ -33,6 +33,15 @@
 <script src="<?php echo e(asset('atlantis/js/plugin/datatables/datatables.min.js')); ?>"></script>
 
 
+<script src="<?php echo e(asset('atlantis/libs/flatpickr/flatpickr.min.js')); ?>"></script>
+<script src="<?php echo e(asset('atlantis/libs/spectrum-colorpicker2/spectrum.min.js')); ?>"></script>
+
+<script src="<?php echo e(asset('atlantis/libs/clockpicker/bootstrap-clockpicker.min.js')); ?>"></script>
+<script src="<?php echo e(asset('atlantis/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js')); ?>"></script>
+
+ <!-- Init js-->
+ <script src="<?php echo e(asset('atlantis/js/pages/form-pickers.init.js')); ?>"></script>
+
 <!-- Atlantis JS -->
 <script src="<?php echo e(asset('atlantis/js/atlantis.min.js')); ?>"></script>
 <script>
@@ -75,7 +84,7 @@
 
  
 
-  function alertConfirmasiData(data, nama, alamat, nomor_hp, foto_ktp_lama, ktp_view) {
+  function alertConfirmasiData(data,id_warga, nama, alamat, nomor_hp, foto_ktp_lama, ktp_view) {
     swal({
       title: 'Data Ditemukan!',
       text: "Apakah ingin menggunakan data sebelumnya?",
@@ -102,6 +111,7 @@
           }
         });
         nama.val(data['nama'])
+        id_warga.val(data['id'])
         alamat.val(data['alamat'])
         nomor_hp.val(data['no_hp'])
         foto_ktp_lama.val(data['foto_ktp'])

@@ -24,7 +24,7 @@
 		});
 	</script>
 
-	
+
 	<!-- Lightbox css -->
 	<link href="{{asset('atlantis/libs/magnific-popup/magnific-popup.css')}}" rel="stylesheet" type="text/css" />
 
@@ -43,6 +43,12 @@
 	<script src="{{asset('atlantis/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js')}}"></script>
 	<script src="{{asset('atlantis/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js')}}"></script>
 
+
+	<!-- Plugins css -->
+	<link href="{{asset('atlantis/libs/spectrum-colorpicker2/spectrum.min.css')}}" rel="stylesheet" type="text/css">
+	<link href="{{asset('atlantis/libs/flatpickr/flatpickr.min.css')}}" rel="stylesheet" type="text/css" />
+	<link href="{{asset('atlantis/libs/clockpicker/bootstrap-clockpicker.min.css')}}" rel="stylesheet" type="text/css" />
+	<link href="{{asset('atlantis/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css')}}" rel="stylesheet" type="text/css" />
 </head>
 
 <body>

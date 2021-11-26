@@ -36,10 +36,11 @@ Route::post('tracking', [PengaduanController::class, 'tracking'])->name('trackin
 
 Route::group(['middleware' => ['role:admin']], function () {
     
-    // kelola pengajuan magang
+    // kelola pengaduan
     Route::get('pengaduan', [PengaduanController::class, 'index'])->name('pengaduan.index');
     Route::get('pengaduan/detail/{id}', [PengaduanController::class, 'detail'])->name('pengaduan/detail');
     Route::post('pengaduan/updateStatus', [PengaduanController::class, 'updateStatus'])->name('pengaduan.updateStatus');
+    Route::get('pengaduan.rekap', [ArsipController::class, 'rekap'])->name('pengaduan.rekap');
     
     // kelola arsip
     Route::get('arsip', [ArsipController::class, 'index'])->name('arsip.index');

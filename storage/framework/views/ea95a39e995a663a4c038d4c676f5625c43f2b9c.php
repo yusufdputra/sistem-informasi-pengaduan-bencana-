@@ -34,6 +34,7 @@
             <form action="<?php echo e(route('pengaduan.store')); ?>" method="post" enctype="multipart/form-data">
               <?php echo csrf_field(); ?>
               <input type="hidden" name="id" id="">
+              <input type="hidden" name="id_warga" id="id_warga">
               <div class="row">
 
                 <div class="col-lg-12">
@@ -419,6 +420,7 @@ unset($__errorArgs, $__bag); ?>" value="<?php echo e(old('ket_hilang')); ?>" id=
 <script type="text/javascript">
   $('.cari-nik').click(function() {
     var nik = document.getElementById('nik').value
+    var id_warga = $('#id_warga')
     var nama = $('#nama')
     var alamat = $('#alamat')
     var nomor_hp = $('#no_hp')
@@ -428,6 +430,7 @@ unset($__errorArgs, $__bag); ?>" value="<?php echo e(old('ket_hilang')); ?>" id=
 
     if (nik.length != 0) {
       nama.val('')
+      id_warga.val('')
       alamat.val('')
       nomor_hp.val('')
       foto_ktp_lama.val('')
@@ -442,13 +445,14 @@ unset($__errorArgs, $__bag); ?>" value="<?php echo e(old('ket_hilang')); ?>" id=
             var pesan = "Data Tidak Ditemukan. Silahkan Isi Form dengan Benar!"
             alertWarning(pesan)
             nama.val('')
+            id_warga.val('')
             alamat.val('')
             nomor_hp.val('')
             foto_ktp_lama.val('')
             foto_ktp.prop('required', true)
             ktp_view.attr('src', '../atlantis/img/upload.svg')
           } else {
-            alertConfirmasiData(data, nama, alamat, nomor_hp, foto_ktp_lama, ktp_view)
+            alertConfirmasiData(data, id_warga, nama, alamat, nomor_hp, foto_ktp_lama, ktp_view)
             foto_ktp.removeAttr('required')
           }
 

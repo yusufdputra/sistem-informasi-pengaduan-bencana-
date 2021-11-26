@@ -6,7 +6,10 @@
     <div class="col-md-12">
       <div class="card">
         <div class="card-header">
-          <h4 class="card-title">Data Kejadian Bencana</h4>
+          <div class="row">
+            <h4 class="card-title ml-2">Data Kejadian Bencana</h4>
+            <button type="button" data-toggle="modal" href="#modal_rekap" class="btn btn-success btn-sm ml-2">Rekap Pengaduan</button>
+          </div>
         </div>
         <div class="card-body">
           <div class="table-responsive">
@@ -57,9 +60,9 @@
                   <td><?php echo e($value->penyebab); ?></td>
 
                   <td>
-                    <a href="<?php echo e(route('pengaduan/detail',$value->id)); ?>"  class="btn btn-primary btn-sm "><i class="fa fa-eye"></i></a>
+                    <a href="<?php echo e(route('pengaduan/detail',$value->id)); ?>" class="btn btn-primary btn-sm "><i class="fa fa-eye"></i></a>
                   </td>
-                  
+
                 </tr>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
               </tbody>
@@ -67,6 +70,39 @@
           </div>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modal_rekap" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Export Rekap Pengaduan</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal m-t-20" enctype="multipart/form-data" action="<?php echo e(route('pengaduan.rekap')); ?>" method="POST">
+          <?php echo csrf_field(); ?>
+
+          <div class="form-group">
+            <label for="basic-url">Pilih Tanggal</label>
+
+            <input type="text"  class="form-control" id="range-datepicker" placeholder="Tanggal awal" name="range_tgl" required >
+
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" onclick="Custombox.close();" class="btn btn-warning waves-effect" data-dismiss="modal">Batalkan</button>
+            <button type="submit" class="btn btn-success waves-effect waves-light">Export</button>
+          </div>
+
+
+        </form>
+      </div>
+
     </div>
   </div>
 </div>
