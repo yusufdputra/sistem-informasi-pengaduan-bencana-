@@ -1,6 +1,7 @@
 </div>
 
 
+
 <!-- jQuery Scrollbar -->
 <script src="{{asset('atlantis/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js')}}"></script>
 
@@ -45,6 +46,17 @@
       buttons: {
         confirm: {
           className: 'btn btn-warning'
+        }
+      },
+    });
+  }
+
+  function alertSuccess(pesan) {
+    swal("Sukses!", pesan, {
+      icon: "success",
+      buttons: {
+        confirm: {
+          className: 'btn btn-success'
         }
       },
     });

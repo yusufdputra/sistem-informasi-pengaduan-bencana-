@@ -27,6 +27,7 @@ Auth::routes();
 Route::get('pengaduan/tambah', [PengaduanController::class, 'tambah'])->name('pengaduan.tambah');
 Route::post('pengaduan/store', [PengaduanController::class, 'store'])->name('pengaduan.store');
 Route::post('pengaduan/update', [PengaduanController::class, 'update'])->name('pengaduan.update');
+Route::get('pengaduan/hapus/{id}', [PengaduanController::class, 'hapus'])->name('pengaduan/hapus');
 Route::get('getDataWarga/{nik}', [WargaController::class, 'getDataWarga'])->name('getDataWarga');
 Route::post('tracking', [PengaduanController::class, 'tracking'])->name('tracking');
 

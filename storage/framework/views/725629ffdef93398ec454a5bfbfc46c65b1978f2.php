@@ -42,6 +42,7 @@
 	<!-- jQuery UI -->
 	<script src="<?php echo e(asset('atlantis/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js')); ?>"></script>
 	<script src="<?php echo e(asset('atlantis/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js')); ?>"></script>
+
 </head>
 
 <body>

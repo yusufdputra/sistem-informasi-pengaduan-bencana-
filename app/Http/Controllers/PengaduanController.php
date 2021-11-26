@@ -9,6 +9,8 @@ use App\Models\Pengaduan;
 use App\Models\Warga;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
 class PengaduanController extends Controller
@@ -325,9 +327,24 @@ class PengaduanController extends Controller
         $data['korban'][$key] = Korban::find($value);
       }
     }
+    if (Auth::check()) {
+      
+    return view('pengaduan.detail', compact('data'));
+    } else {
+      return view('pengaduan.lacak', compact('data'));
+    }
+    
+  }
 
+  public function hapus($id)
+  {
+    $query = Pengaduan::where('id', $id)->delete();
 
-
-    return view('pengaduan.lacak', compact('data'));
+    if ($query) {
+      Session::flash('success', 'Berhasil menghapus pengaduan');
+      return true;
+    } else {
+      return false;
+    }
   }
 }

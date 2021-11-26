@@ -48,7 +48,7 @@
             @if($data['pengaduan']->status == 'tolak')
             <div class="alert alert-danger">
               <div>Pengaduan anda ditolak, alasan penolakan : <span class="text-danger"> {{$data['pengaduan']->alasan_tolak}} </span>
-                <button  id="alert_demo_5" class="ml-2 btn btn-primary btn-sm btn-border btn-round">Perbaiki </button>
+                <button id="edit_confirm_nik" class="ml-2 btn btn-primary btn-sm btn-border btn-round">Perbaiki </button>
               </div>
             </div>
             @elseif($data['pengaduan']->status == 'proses')
@@ -63,7 +63,7 @@
 
             <form action="{{route('pengaduan.update')}}" method="post" enctype="multipart/form-data">
               @csrf
-              <input type="hidden" name="id_pengaduan" value="{{ $data['pengaduan']->id }}" id="">
+              <input type="hidden" name="id_pengaduan" value="{{ $data['pengaduan']->id }}" id="id_pengaduan">
               <input type="hidden" name="id_warga" value="{{ $data['pengaduan']->id_warga }}" id="">
               <input type="hidden" name="kode" value="{{ $data['pengaduan']->kode }}" id="">
               <input type="hidden" name="" value="{{ $data['pengaduan']->warga->nik }}" id="nik_confirm">
@@ -136,7 +136,7 @@
                         </select>
                       </div>
 
-                      
+
 
 
                       @if($data['pengaduan']->id_bencana == 12)
@@ -151,7 +151,7 @@
                         <label for="">Bencana Lainnya</label>
                         <input type="text" autocomplete="off" aria-autocomplete="off" disabled class="form-control form_input" value="" placeholder="Bencana Lainnya" aria-label="" aria-describedby="basic-addon1" name="bencana_lain">
                       </div>
-                      
+
                       @endif
 
                       <div class="clear-fix"></div>
@@ -220,12 +220,12 @@
                       <input type="hidden" name="id_korban[]" value="{{ $value->id }}">
                       <div class="form-group">
                         <label for="">Jumlah Korban {{strtoupper($value->jenis)}}</label>
-                        <input type="number" required min="0" autocomplete="off" aria-autocomplete="off" class="form-control form_input" disabled value="{{ $value->jumlah }}" placeholder="0" aria-label="" aria-describedby="basic-addon1"  name="jml_korban[]">
+                        <input type="number" required min="0" autocomplete="off" aria-autocomplete="off" class="form-control form_input" disabled value="{{ $value->jumlah }}" placeholder="0" aria-label="" aria-describedby="basic-addon1" name="jml_korban[]">
                       </div>
 
                       <div class="form-group">
                         <label for="">Keterangan Korban {{strtoupper($value->jenis)}}</label>
-                        <textarea type="text" class="form-control form_input" disabled  name="ket_korban[]" required autocomplete="off" aria-autocomplete="off" placeholder="Keterangan Korban {{$value->keterangan}}" rows="3">{{$value->keterangan}}</textarea>
+                        <textarea type="text" class="form-control form_input" disabled name="ket_korban[]" required autocomplete="off" aria-autocomplete="off" placeholder="Keterangan Korban {{$value->keterangan}}" rows="3">{{$value->keterangan}}</textarea>
                       </div>
 
 
@@ -296,14 +296,17 @@
                   </div>
                 </div>
 
-                @if($data['pengaduan']->status == 'tolak')
+                <div class=" col-lg-12 mt-2 card-action row">
+                  @if($data['pengaduan']->status == 'tolak')
+                  <div class="btn_kirim" hidden>
+                    <button type="submit" class="btn btn-success ">Kirim</button>
+                  </div>
 
-
-                <div class=" col-lg-12 mt-2 card-action btn_kirim" hidden>
-                  <button type="submit" class="btn btn-success ">Kirim</button>
+                  @endif
+                  @if($data['pengaduan']->status != 'terima')
+                  <a href="#" id="hapus_confirm_nik" class="btn btn-danger ml-2">Hapus</a>
+                  @endif
                 </div>
-
-                @endif
               </div>
             </form>
 
@@ -317,17 +320,17 @@
 
 
 <script>
-  $('#alert_demo_5').click(function(e) {
+  $('#edit_confirm_nik').click(function(e) {
     swal({
       title: 'Konfirmasi NIK',
       type: 'warning',
-      html: '<br><input required class="form-control" placeholder="Masukkan NIK saat pengaduan dibuat" id="get_nik">',
+      html: '<br><input required class="form-control" placeholder="Masukkan NIK saat pengaduan dibuat" id="input_nik_edit">',
       content: {
         element: "input",
         attributes: {
           placeholder: "Masukkan NIK saat pengaduan dibuat",
           type: "text",
-          id: "get_nik",
+          id: "input_nik_edit",
           className: "form-control",
         },
       },
@@ -343,12 +346,74 @@
     }).then((willDelete) => {
       if (willDelete) {
         var nik_confirm = $('#nik_confirm').val()
-        var get_nik = $('#get_nik').val()
-        if (nik_confirm == get_nik) {
-          
+        var input_nik_edit = $('#input_nik_edit').val()
+        if (input_nik_edit == nik_confirm) {
           swal("", "NIK terkonfirmasi", "success");
-          editForm()
-        }else{
+          var form = $('.form_input')
+          var foto = $('.form_foto')
+          var row_warga = $('.row-warga')
+          var btn_kirim = $('.btn_kirim')
+
+          row_warga.removeAttr('hidden')
+          form.removeAttr('disabled')
+          foto.removeAttr('hidden')
+          btn_kirim.removeAttr('hidden')
+        } else {
+          swal("", "NIK tidak valid", "warning");
+        }
+      } else {
+        swal.close();
+      }
+    })
+  });
+  $('#hapus_confirm_nik').click(function(e) {
+    swal({
+      title: 'Konfirmasi NIK',
+      type: 'warning',
+      html: '<br><input required class="form-control" placeholder="Masukkan NIK saat pengaduan dibuat" id="get_nik_hapus">',
+      content: {
+        element: "input",
+        attributes: {
+          placeholder: "Masukkan NIK saat pengaduan dibuat",
+          type: "text",
+          id: "get_nik_hapus",
+          className: "form-control",
+        },
+      },
+      buttons: {
+        cancel: {
+          visible: true,
+          className: 'btn btn-danger'
+        },
+        confirm: {
+          className: 'btn btn-success'
+        }
+      },
+    }).then((willDelete) => {
+      if (willDelete) {
+        var nik_confirm = $('#nik_confirm').val()
+        var get_nik_hapus = $('#get_nik_hapus').val()
+        if (nik_confirm == get_nik_hapus) {
+          var id_pengaduan = $('#id_pengaduan').val()
+          $.ajax({
+            url: '{{url("pengaduan/hapus")}}/' + id_pengaduan,
+            type: 'GET',
+            dataType: 'json',
+            success: 'success',
+            success: function(data) {
+              if (data) {
+                window.location.href = '/'
+              } else {
+                swal("", "Terjadi kesalahan. Coba lagi!", "warning");
+              }
+            },
+            error: function(data) {
+              swal("", "Terjadi kesalahan. Coba lagi!", "warning");
+            }
+          })
+
+
+        } else {
           swal("", "NIK tidak valid", "warning");
 
         }
@@ -356,20 +421,13 @@
         swal.close();
       }
     })
-
-
-    // .then(
-    //   function() {
-    //     swal("", "You entered : " + $('#input-field').val(), "success");
-    //   }
-    // );
   });
 </script>
 
 
 
 <script type="text/javascript">
-    document.getElementById('id_bencana').addEventListener("change", function() {
+  document.getElementById('id_bencana').addEventListener("change", function() {
     var id_bencana = document.getElementById('id_bencana')
     var input_lainnya = document.getElementById('bencana_lainnya')
     // get value
@@ -379,17 +437,8 @@
       input_lainnya.style.display = 'none'
     }
   })
-  function editForm() {
-    var form = $('.form_input')
-    var foto = $('.form_foto')
-    var row_warga = $('.row-warga')
-    var btn_kirim = $('.btn_kirim')
 
-    row_warga.removeAttr('hidden')
-    form.removeAttr('disabled')
-    foto.removeAttr('hidden')
-    btn_kirim.removeAttr('hidden')
-  }
+
   foto_ktp.onchange = evt => {
     const [file] = foto_ktp.files
     if (file) {
