@@ -71,7 +71,7 @@
         </td>
         <td valign="top"><?php echo e($value->daerah->nama); ?></td>
         <td valign="top"><?php echo e($value->almt_lengkap); ?></td>
-        <td valign="top"><?php echo e(date('l d-F-Y', strtotime($value->tgl_kejadian))); ?> - <?php echo e(date('h:i:s a', strtotime($value->jam_kejadian))); ?></td>
+        <td valign="top"><?php echo e(\Carbon\Carbon::parse($value->tgl_kejadian)->formatLocalized('%A %d %B %Y')); ?> - <?php echo e(date('h:i:s a', strtotime($value->jam_kejadian))); ?></td>
         <td valign="top"><?php echo e($value->penyebab); ?></td>
         <td valign="top"><?php echo e($value->jns_kerusakan); ?></td>
         <td valign="top"><?php echo e($value->penanggulangan); ?></td>

@@ -140,12 +140,12 @@
                     <div class="form-group">
                       <label for="">Tanggal Kejadian</label>
 
-                      <p class="form-control">{{date('d-F-Y', strtotime($data['pengaduan']->tgl_kejadian))}}</p>
+                      <p class="form-control">{{\Carbon\Carbon::parse($data['pengaduan']->tgl_kejadian)->formatLocalized('%A %d %B %Y')}}</p>
                     </div>
                     <div class="form-group">
                       <label for="">Jam Kejadian</label>
 
-                      <p class="form-control">{{date('h:i:sa', strtotime($data['pengaduan']->jam_kejadian))}}</p>
+                      <p class="form-control">{{date('h:i:s a', strtotime($data['pengaduan']->jam_kejadian))}}</p>
                     </div>
 
                     <div class="form-group">

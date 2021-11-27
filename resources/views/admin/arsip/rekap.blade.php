@@ -69,7 +69,7 @@
         </td>
         <td valign="top">{{$value->daerah->nama}}</td>
         <td valign="top">{{$value->almt_lengkap}}</td>
-        <td valign="top">{{date('l d-F-Y', strtotime($value->tgl_kejadian))}} - {{date('h:i:s a', strtotime($value->jam_kejadian))}}</td>
+        <td valign="top">{{\Carbon\Carbon::parse($value->tgl_kejadian)->formatLocalized('%A %d %B %Y')}} - {{date('h:i:s a', strtotime($value->jam_kejadian))}}</td>
         <td valign="top">{{$value->penyebab}}</td>
         <td valign="top">{{$value->jns_kerusakan}}</td>
         <td valign="top">{{$value->penanggulangan}}</td>

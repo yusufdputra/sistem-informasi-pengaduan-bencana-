@@ -98,7 +98,7 @@
           <table class="tabel-border">
             <tr>
               <td>Hari/Tanggal</td>
-              <td>{{date('l, d-M-Y', strtotime($data['pengaduan']->tgl_kejadian))}}</td>
+              <td>{{\Carbon\Carbon::parse($data['pengaduan']->tgl_kejadian)->formatLocalized('%A %d %B %Y')}}</td>
             </tr>
             <tr>
               <td>Jam</td>
@@ -147,7 +147,7 @@
           <div id="formttd">
             <p>
               <strong>
-                Sungai Pinang, {{date('l d-M-Y', strtotime($data['pengaduan']->updated_at))}}
+                Sungai Pinang, {{\Carbon\Carbon::parse($data['pengaduan']->updated_at)->formatLocalized('%A %d %B %Y')}} 
                 <br>
                 Operator Penerima Laporan,
                 <br><br><br>

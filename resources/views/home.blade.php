@@ -7,7 +7,9 @@
     <div class="col-md-12">
       <div class="card full-height">
         <div class="card-body">
-          <div class="card-title">Menu Layanan</div>
+          <div class="card-title">
+            {{$data['header']}}
+          </div>
           @if(\Session::has('alert'))
           <div class="alert alert-danger">
             <div>{{Session::get('alert')}}</div>
@@ -29,13 +31,71 @@
                   <div class="row">
                     <div class="col-5">
                       <div class="icon-big text-center">
-                        <i class="flaticon-users"></i>
+                        <i class="flaticon-bars-1"></i>
                       </div>
                     </div>
                     <div class="col-7 col-stats">
                       <div class="numbers">
                         <p class="card-category">Total Pengaduan</p>
                         <h4 class="card-title">{{$data['total']}}</h4>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+         
+            <div class="col-sm-6 col-md-3">
+              <div class="card card-stats card-secondary card-round">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-5">
+                      <div class="icon-big text-center">
+                        <i class="flaticon-exclamation"></i>
+                      </div>
+                    </div>
+                    <div class="col-7 col-stats">
+                      <div class="numbers">
+                        <p class="card-category">Pengaduan Diproses</p>
+                        <h4 class="card-title">{{$data['proses']}}</h4>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-3">
+              <div class="card card-stats card-success card-round">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-5">
+                      <div class="icon-big text-center">
+                        <i class="flaticon-success"></i>
+                      </div>
+                    </div>
+                    <div class="col-7 col-stats">
+                      <div class="numbers">
+                        <p class="card-category">Pengaduan Diterima</p>
+                        <h4 class="card-title">{{$data['terima']}}</h4>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-3">
+              <div class="card card-stats card-danger card-round">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-5">
+                      <div class="icon-big text-center">
+                        <i class="flaticon-error"></i>
+                      </div>
+                    </div>
+                    <div class="col-7 col-stats">
+                      <div class="numbers">
+                        <p class="card-category">Pengaduan Ditolak</p>
+                        <h4 class="card-title">{{$data['tolak']}}</h4>
                       </div>
                     </div>
                   </div>

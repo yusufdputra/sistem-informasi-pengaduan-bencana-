@@ -20,7 +20,7 @@ class PengaduanExport implements FromView
     }
     public function view(): View
     {
-
+        setlocale(LC_ALL, 'IND');
         $tanggal = explode(" to ", $this->request->range_tgl);
 
         $data['pengaduan'] = Pengaduan::with('warga', 'bencana', 'daerah')

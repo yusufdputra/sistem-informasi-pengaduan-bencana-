@@ -32,36 +32,21 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
 
-    public function index()
-    {
-        $data['title'] = "Halaman Utama";
 
-        if (Auth::check()) {
-
-            $data['pengaduan'] = Pengaduan::orderBy('updated_at', 'DESC')->limit(10)->get();
-
-            $data['total'] = Pengaduan::count();
-            $data['selesai'] = Pengaduan::where('status', 'terima')->count();
-            $data['proses'] = Pengaduan::where('status', 'proses')->count();
-            $data['tolak'] = Pengaduan::where('status', 'tolak')->count();
-
-            return view('home', compact('data',));
-        }
-
-
-        return view('home', compact('data'));
-    }
 
 
     public function auth()
     {
+        setlocale(LC_ALL, 'IND');
         $data['title'] = "Halaman Utama";
+        $data['header'] = "Menu Layanan";
         $data['pengaduan'] = Pengaduan::orderBy('updated_at', 'DESC')->limit(10)->get();
         if (Auth::check()) {
-            $data['total'] = Pengaduan::count();
-            $data['selesai'] = Pengaduan::where('status', 'terima')->count();
-            $data['proses'] = Pengaduan::where('status', 'proses')->count();
-            $data['tolak'] = Pengaduan::where('status', 'tolak')->count();
+            $data['header'] = "Rekap Pengaduan Bulan ".Carbon::now()->formatLocalized('%B %Y');
+            $data['total'] = Pengaduan::whereMonth('updated_at', Carbon::now()->month)->count();
+            $data['terima'] = Pengaduan::where('status', 'terima')->whereMonth('updated_at', Carbon::now()->month)->count();
+            $data['proses'] = Pengaduan::where('status', 'proses')->whereMonth('updated_at', Carbon::now()->month)->count();
+            $data['tolak'] = Pengaduan::where('status', 'tolak')->whereMonth('updated_at', Carbon::now()->month)->count();
 
         }
 

@@ -19,6 +19,7 @@ class PengaduanController extends Controller
   private $target = "Pengaduan";
   public function index()
   {
+    setlocale(LC_ALL, 'IND');
     $this->middleware('auth');
     $data['title'] = "Kelola Pengaduan Bencana";
     $data['pengaduan'] = Pengaduan::with('bencana', 'daerah', 'warga')->where('status', 'proses')->get();
@@ -29,6 +30,7 @@ class PengaduanController extends Controller
 
   public function detail($id)
   {
+    setlocale(LC_ALL, 'IND');
     $this->middleware('auth');
     $data['pengaduan'] = Pengaduan::with('bencana', 'daerah', 'warga')->where('id', $id)->first();
     $data['title'] = "Detail Pengaduan Bencana (" . $data['pengaduan']->kode . ")";

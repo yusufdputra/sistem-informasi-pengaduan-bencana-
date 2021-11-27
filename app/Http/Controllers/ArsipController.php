@@ -17,6 +17,7 @@ class ArsipController extends Controller
 
   public function index()
   {
+    setlocale(LC_ALL, 'IND');
     $this->middleware('auth');
     $data['title'] = "Arsip Pengaduan Bencana";
     $data['pengaduan'] = Pengaduan::with('bencana', 'daerah', 'warga')

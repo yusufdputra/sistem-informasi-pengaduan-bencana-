@@ -15,6 +15,7 @@ class CetakController extends Controller
 
     public function cetak($id)
     {
+        setlocale(LC_ALL, 'IND');
         $data ['pengaduan'] = Pengaduan::with('warga', 'bencana', 'daerah')->find($id);
 
         $pdf = PDF::loadview('admin.cetak.satu', compact('data'))->setPaper('a4', 'potrait');

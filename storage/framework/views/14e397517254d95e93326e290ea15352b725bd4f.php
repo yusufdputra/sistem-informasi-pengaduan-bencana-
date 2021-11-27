@@ -53,7 +53,7 @@
 
                     <?php endif; ?>
                   </td>
-                  <td><?php echo e(date('l d-F-Y', strtotime($value->tgl_kejadian))); ?> - <?php echo e(date('h:i:s a', strtotime($value->jam_kejadian))); ?></td>
+                  <td><?php echo e(\Carbon\Carbon::parse($value->tgl_kejadian)->formatLocalized('%A %d %B %Y')); ?> - <?php echo e(date('h:i:s a', strtotime($value->jam_kejadian))); ?></td>
                   <td><?php echo e($value->penyebab); ?></td>
 
                   <td>
