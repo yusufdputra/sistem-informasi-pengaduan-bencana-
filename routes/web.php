@@ -36,7 +36,7 @@ Route::get('getDataWarga/{nik}', [WargaController::class, 'getDataWarga'])->name
 Route::post('tracking', [PengaduanController::class, 'tracking'])->name('tracking');
 
 
-Route::group(['middleware' => ['role:admin']], function () {
+Route::group(['middleware' => ['role:admin|superadmin']], function () {
     
     // kelola pengaduan
     Route::get('pengaduan', [PengaduanController::class, 'index'])->name('pengaduan.index');
@@ -54,9 +54,17 @@ Route::group(['middleware' => ['role:admin']], function () {
     Route::get('profil', [ProfilController::class, 'index'])->name('profil.index');
     //kelola kata sandi
     Route::post('/katasandi.reset', [ResetPasswordController::class, 'reset'])->name('katasandi.reset');
-
-
-
+    
+    
+    
 });
 
 
+
+Route::group(['middleware' => ['role:superadmin']], function () {
+    // kelola akun
+    Route::get('users', [UserManagementController::class, 'index'])->name('users.index');
+    Route::post('/user/store', [UserManagementController::class, 'store'])->name('user.store');
+    Route::post('/user/hapus', [UserManagementController::class, 'hapus'])->name('user.hapus');
+    Route::post('/user/resetpw', [UserManagementController::class, 'resetpw'])->name('user.resetpw');
+});

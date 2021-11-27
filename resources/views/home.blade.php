@@ -24,7 +24,7 @@
           <!-- <div class="card-category">Sistem Informasi Desa Sidomulyo</div> -->
           <div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
 
-            @role('admin')
+            @role('admin|superadmin')
             <div class="col-sm-6 col-md-3">
               <div class="card card-stats card-primary card-round">
                 <div class="card-body">

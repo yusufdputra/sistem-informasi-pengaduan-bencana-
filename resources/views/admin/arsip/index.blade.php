@@ -89,7 +89,6 @@
 
           <div class="form-group">
             <label for="basic-url">Pilih Tanggal</label>
-
             <input type="text"  class="form-control" id="range-datepicker" placeholder="Tanggal awal" name="range_tgl" required >
 
           </div>

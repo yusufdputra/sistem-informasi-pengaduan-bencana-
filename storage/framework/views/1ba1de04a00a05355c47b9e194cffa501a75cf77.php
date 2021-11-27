@@ -9,7 +9,12 @@
 					<a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
 						<span>
 							Hi,
-							<span class="user-level">Administrator</span>
+							<span class="user-level">
+								<?php if(auth()->guard()->check()): ?>
+								<?php echo e(ucwords( Auth::user()->username)); ?>
+
+								<?php endif; ?>
+							</span>
 							<span class="caret"></span>
 						</span>
 					</a>
@@ -21,16 +26,25 @@
 
 
 
-				<?php if(auth()->check() && auth()->user()->hasRole('admin')): ?>
+
+				<?php if(auth()->check() && auth()->user()->hasRole('admin|superadmin')): ?>
 				<li class="nav-item">
 					<a href="<?php echo e(route('/')); ?>">
 						<i class="fas fa-home"></i>
 						<p>Dashboard</p>
 					</a>
 				</li>
+
+				<?php if(auth()->check() && auth()->user()->hasRole('superadmin')): ?>
+				<li class="nav-item">
+					<a href="<?php echo e(route('users.index')); ?>">
+						<i class="fas fa-users"></i>
+						<p>Kelola Akun</p>
+					</a>
+				</li>
+				<?php endif; ?>
 				<?php
-				
-				$notif_count =  App\Models\Pengaduan::where('status', 'proses')->count()
+				$notif_count = App\Models\Pengaduan::where('status', 'proses')->count()
 				?>
 				<li class="nav-item">
 					<a href="<?php echo e(route('pengaduan.index')); ?>">

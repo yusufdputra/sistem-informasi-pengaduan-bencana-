@@ -9,7 +9,7 @@
       <div class="card full-height">
         <div class="card-body">
           <div class="card-title">
-            @role('admin')
+            @role('admin|superadmin')
             @if($data['pengaduan']->status == 'terima')
 
             <a href="{{route('arsip.index')}}" class=" btn btn-warning btn-sm">
@@ -255,7 +255,7 @@
               </div>
 
 
-              @role('admin')
+              @role('admin|superadmin')
 
               <div class=" col-lg-12 mt-2 card-action">
                 <div class="row">

@@ -7,6 +7,7 @@ use App\Models\Pengaduan;
 use Carbon\Carbon;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ArsipController extends Controller
 {
@@ -31,6 +32,17 @@ class ArsipController extends Controller
 
   public function rekap(Request $request)
   {
+    // validasi
+    $rules = [
+      'range_tgl' => 'required',
+    ];
+    $pesan = [
+      'range_tgl.unique' => "Anda harus memilih tanggal yang benar",
+    ];
+    $validator = Validator::make($request->all(), $rules, $pesan);
+    if ($validator->fails()) {
+      return redirect()->back()->with('alert', "Anda harus memilih tanggal yang benar");
+    }
     return Excel::download(new PengaduanExport($request), 'arsip pengaduan.xlsx');
   }
 }

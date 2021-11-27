@@ -10,7 +10,7 @@
       <div class="card full-height">
         <div class="card-body">
           <div class="card-title">
-            @role('admin')
+            @role('admin|superadmin')
             <a href="{{route('pengaduan.index')}}" class=" btn btn-warning btn-sm">
               @endrole
               @guest

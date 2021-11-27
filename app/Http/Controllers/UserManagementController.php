@@ -7,42 +7,68 @@ use App\Models\Mahasiswa;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class UserManagementController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
+
+        setlocale(LC_ALL, 'IND');
     }
 
-    public function index($jenis)
+    public function index()
     {
-        $title = "Kelola Data User " . strtoupper($jenis);
-        if ($jenis == "mahasiswa") {
-            $users = Mahasiswa::with('user', 'prodi')->get();
-        }else{
-            $users = Dosen::with('user', 'prodi')->get();
-        }
+        $data['title'] = "Kelola Data Admin ";
 
-        return view('admin.users.index', compact('title', 'users', 'jenis'));
+        $data['admin'] = User::select('id', 'username', 'created_at')
+            ->whereHas(
+                'roles',
+                function ($admin) {
+                    $admin->where('name', 'admin');
+                }
+            )->orderBy('created_at', 'DESC')->get();
+
+        return view('admin.users.index', compact('data'));
+    }
+
+    public function store(Request $request)
+    {
+        // validasi
+        $rules = [
+            'username' => 'unique:users',
+        ];
+        $pesan = [
+            'username.unique' => "username sudah terdaftar",
+        ];
+        $validator = Validator::make($request->all(), $rules, $pesan);
+        if ($validator->fails()) {
+            return redirect()->back()->with('alert', "Username sudah terdaftar. Gunakan yang lain.");
+        }
+        $query = User::create([
+            'username' => $request->username,
+            'password' => bcrypt($request->password)
+        ]);
+        $query->assignRole('admin');
+
+        if ($query) {
+            return redirect()->back()->with('success', 'Berhasil menambah akun');
+        } else {
+            return redirect()->back()->with('alert', 'Gagal menambah akun');
+        }
     }
 
     public function hapus(Request $request)
     {
 
-        $query = User::where('id', $request->id_user)
+        $query = User::where('id', $request->id)
             ->delete();
 
         if ($query) {
-            if ($request->jenis == "mahasiswa") {
-                Mahasiswa::where('id', $request->id)->delete();
-            }else {
-                Dosen::where('id', $request->id)->delete();
-            }
-
-            return redirect()->back()->with('success', 'Berhasil menghapus user');
+            return redirect()->back()->with('success', 'Berhasil menghapus akun');
         } else {
-            return redirect()->back()->with('alert', 'Gagal menghapus user');
+            return redirect()->back()->with('alert', 'Gagal menghapus akun');
         }
     }
 
@@ -54,27 +80,9 @@ class UserManagementController extends Controller
             ]);
 
         if ($query) {
-            return redirect()->back()->with('success', 'Password User berhasil diubah');
+            return redirect()->back()->with('success', 'Kata sandi berhasil diubah');
         } else {
-            return redirect()->back()->with('alert', 'Password User gagal diubah');
-        }
-    }
-
-    public function status(Request $request)
-    {
-        $ubah_status = "ON";
-        if ($request->status == "ON") {
-            $ubah_status = "OFF";
-        }
-        $query = Dosen::where('id', $request->id)
-            ->update([
-                'status' => $ubah_status
-            ]);
-
-        if ($query) {
-            return redirect()->back()->with('success', 'Status dosen berhasil diubah');
-        } else {
-            return redirect()->back()->with('alert', 'Status dosen gagal diubah');
+            return redirect()->back()->with('alert', 'Kata sandi gagal diubah');
         }
     }
 }

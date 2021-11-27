@@ -9,7 +9,7 @@
       <div class="card full-height">
         <div class="card-body">
           <div class="card-title">
-            <?php if(auth()->check() && auth()->user()->hasRole('admin')): ?>
+            <?php if(auth()->check() && auth()->user()->hasRole('admin|superadmin')): ?>
             <?php if($data['pengaduan']->status == 'terima'): ?>
 
             <a href="<?php echo e(route('arsip.index')); ?>" class=" btn btn-warning btn-sm">
@@ -255,7 +255,7 @@
               </div>
 
 
-              <?php if(auth()->check() && auth()->user()->hasRole('admin')): ?>
+              <?php if(auth()->check() && auth()->user()->hasRole('admin|superadmin')): ?>
 
               <div class=" col-lg-12 mt-2 card-action">
                 <div class="row">
