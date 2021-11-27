@@ -17,9 +17,9 @@ class CreateWargaTable extends Migration
             $table->id();
             $table->string('nik')->unique();
             $table->string('nama');
-            $table->string('alamat', 400);
+            $table->text('alamat');
             $table->string('no_hp');
-            $table->string('foto_ktp');
+            $table->text('foto_ktp');
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
         });

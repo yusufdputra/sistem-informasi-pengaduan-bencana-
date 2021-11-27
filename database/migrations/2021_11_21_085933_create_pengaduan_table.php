@@ -15,8 +15,8 @@ class CreatePengaduanTable extends Migration
     {
         Schema::create('pengaduan', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('id_warga');
             $table->string('kode');
-            $table->string('id_warga');
             $table->bigInteger('id_bencana');
             $table->string('bencana_lain')->nullable();
             $table->bigInteger('id_daerah');
@@ -29,10 +29,10 @@ class CreatePengaduanTable extends Migration
             $table->string('bantuan');
             $table->string('kerugian');
             $table->string('id_korban');
-            $table->string('foto1', 400);
-            $table->string('foto2', 400);
-            $table->string('foto3', 400);
-            $table->string('foto4', 400);
+            $table->text('foto1');
+            $table->text('foto2');
+            $table->text('foto3');
+            $table->text('foto4');
             $table->text('keterangan');
             $table->string('status');
             $table->text('alasan_tolak')->nullable();
