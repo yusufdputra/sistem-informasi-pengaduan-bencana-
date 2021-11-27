@@ -3,7 +3,7 @@
     <div class="logo-header" data-background-color="blue2">
 
         <a href="{{('/')}}" class="logo">
-            <img src="{{asset('atlantis/img/logo.svg')}}" alt="navbar brand" class="navbar-brand">
+            <img src="{{asset('atlantis/img/produk.png')}}" height="30px" alt="navbar brand" class="navbar-brand">
         </a>
 
         @role('admin')
@@ -73,7 +73,7 @@
                             <li>
                                 @auth
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">My Profile</a>
+                                <a class="dropdown-item" href="{{route('profil.index')}}">Profil</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{route('logout')}}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">Logout</a>

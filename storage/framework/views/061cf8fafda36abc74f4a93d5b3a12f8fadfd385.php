@@ -3,7 +3,7 @@
     <div class="logo-header" data-background-color="blue2">
 
         <a href="<?php echo e(('/')); ?>" class="logo">
-            <img src="<?php echo e(asset('atlantis/img/logo.svg')); ?>" alt="navbar brand" class="navbar-brand">
+            <img src="<?php echo e(asset('atlantis/img/produk.png')); ?>" height="30px" alt="navbar brand" class="navbar-brand">
         </a>
 
         <?php if(auth()->check() && auth()->user()->hasRole('admin')): ?>
@@ -73,7 +73,7 @@
                             <li>
                                 <?php if(auth()->guard()->check()): ?>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">My Profile</a>
+                                <a class="dropdown-item" href="<?php echo e(route('profil.index')); ?>">Profil</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="<?php echo e(route('logout')); ?>" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">Logout</a>

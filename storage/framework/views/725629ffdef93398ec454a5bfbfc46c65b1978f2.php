@@ -5,7 +5,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<title><?php echo e(config('app.name')); ?></title>
 	<meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
-	<link rel="icon" href="<?php echo e(asset('atlantis/img/icon.ico')); ?>" type="image/x-icon" />
+	<link rel="icon" href="<?php echo e(asset('atlantis/img/icon.png')); ?>" type="image/x-icon" />
 
 	<!-- Fonts and icons -->
 	<script src="<?php echo e(asset('atlantis/js/plugin/webfont/webfont.min.js')); ?>"></script>

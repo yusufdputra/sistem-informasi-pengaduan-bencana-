@@ -39,8 +39,13 @@
 <script src="<?php echo e(asset('atlantis/libs/clockpicker/bootstrap-clockpicker.min.js')); ?>"></script>
 <script src="<?php echo e(asset('atlantis/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js')); ?>"></script>
 
- <!-- Init js-->
- <script src="<?php echo e(asset('atlantis/js/pages/form-pickers.init.js')); ?>"></script>
+
+<!-- Plugin js-->
+<script src="<?php echo e(asset('atlantis/libs/parsleyjs/parsley.min.js')); ?>"></script>
+<!-- Validation init js-->
+<script src="<?php echo e(asset('atlantis/js/pages/form-validation.init.js')); ?>"></script>
+<!-- Init js-->
+<script src="<?php echo e(asset('atlantis/js/pages/form-pickers.init.js')); ?>"></script>
 
 <!-- Atlantis JS -->
 <script src="<?php echo e(asset('atlantis/js/atlantis.min.js')); ?>"></script>
@@ -82,9 +87,9 @@
     });
   }
 
- 
 
-  function alertConfirmasiData(data,id_warga, nama, alamat, nomor_hp, foto_ktp_lama, ktp_view) {
+
+  function alertConfirmasiData(data, id_warga, nama, alamat, nomor_hp, foto_ktp_lama, ktp_view) {
     swal({
       title: 'Data Ditemukan!',
       text: "Apakah ingin menggunakan data sebelumnya?",

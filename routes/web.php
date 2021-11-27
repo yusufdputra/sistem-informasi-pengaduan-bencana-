@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ArsipController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\CetakController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KuisionerController;
@@ -11,6 +12,7 @@ use App\Http\Controllers\PengaduanController;
 use App\Http\Controllers\PengajuanMagangController;
 use App\Http\Controllers\PeriodeController;
 use App\Http\Controllers\ProdiController;
+use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\RiwayatController;
 use App\Http\Controllers\SekolahController;
 use App\Http\Controllers\UserManagementController;
@@ -47,6 +49,11 @@ Route::group(['middleware' => ['role:admin']], function () {
     
     // kelola cetak
     Route::get('pengaduan/cetak/{id}', [CetakController::class, 'cetak'])->name('pengaduan/cetak');
+    
+    // kelola profil
+    Route::get('profil', [ProfilController::class, 'index'])->name('profil.index');
+    //kelola kata sandi
+    Route::post('/katasandi.reset', [ResetPasswordController::class, 'reset'])->name('katasandi.reset');
 
 
 

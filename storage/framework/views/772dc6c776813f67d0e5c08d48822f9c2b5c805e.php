@@ -1,28 +1,26 @@
-@extends('layouts.app')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 <div class="page-inner mt--5">
     <div class="row">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">{{$data['title']}}</h4>
+                    <h4 class="card-title"><?php echo e($data['title']); ?></h4>
                 </div>
                 <div class="card-body">
 
-                    @if(\Session::has('alert'))
+                    <?php if(\Session::has('alert')): ?>
                     <div class="alert alert-danger">
-                        <div>{{Session::get('alert')}}</div>
+                        <div><?php echo e(Session::get('alert')); ?></div>
                     </div>
-                    @endif
+                    <?php endif; ?>
 
-                    @if(\Session::has('success'))
+                    <?php if(\Session::has('success')): ?>
                     <div class="alert alert-success">
-                        <div>{{Session::get('success')}}</div>
+                        <div><?php echo e(Session::get('success')); ?></div>
                     </div>
-                    @endif
-                    <form class="form-horizontal m-t-20 parsley-examples" enctype="multipart/form-data" action="{{route('katasandi.reset')}}" method="POST">
-                        @csrf
+                    <?php endif; ?>
+                    <form class="form-horizontal m-t-20 parsley-examples" enctype="multipart/form-data" action="<?php echo e(route('katasandi.reset')); ?>" method="POST">
+                        <?php echo csrf_field(); ?>
 
                         <div class="form-group">
                             <label class=" col-form-label">Kata Sandi Lama</label>
@@ -63,4 +61,5 @@
 </div>
 
 
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\pengaduan desa\resources\views/auth/passwords/reset.blade.php ENDPATH**/ ?>
