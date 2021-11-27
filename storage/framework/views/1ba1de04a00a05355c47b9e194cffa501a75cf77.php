@@ -28,10 +28,15 @@
 						<p>Dashboard</p>
 					</a>
 				</li>
+				<?php
+				
+				$notif_count =  App\Models\Pengaduan::where('status', 'proses')->count()
+				?>
 				<li class="nav-item">
 					<a href="<?php echo e(route('pengaduan.index')); ?>">
 						<i class="fas fa-layer-group"></i>
-						<p>Pengaduan</p>
+						<p>Pengaduan </p>
+						<span class="badge badge-success"><?php echo e($notif_count); ?></span>
 					</a>
 				</li>
 				<li class="nav-item">

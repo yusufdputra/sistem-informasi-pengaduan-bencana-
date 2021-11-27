@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\PengaduanExport;
 use App\Models\Pengaduan;
 use Carbon\Carbon;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
 
 class ArsipController extends Controller
@@ -24,5 +26,10 @@ class ArsipController extends Controller
 
 
     return view('admin.arsip.index', compact('data'));
+  }
+
+  public function rekap(Request $request)
+  {
+    return Excel::download(new PengaduanExport($request), 'arsip pengaduan.xlsx');
   }
 }

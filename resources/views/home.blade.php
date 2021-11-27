@@ -9,19 +9,43 @@
         <div class="card-body">
           <div class="card-title">Menu Layanan</div>
           @if(\Session::has('alert'))
-            <div class="alert alert-danger">
-              <div>{{Session::get('alert')}}</div>
-            </div>
-            @endif
+          <div class="alert alert-danger">
+            <div>{{Session::get('alert')}}</div>
+          </div>
+          @endif
 
-            @if(\Session::has('success'))
-            <div class="alert alert-success">
-              <div>{{Session::get('success')}}</div>
-            </div>
-            @endif
+          @if(\Session::has('success'))
+          <div class="alert alert-success">
+            <div>{{Session::get('success')}}</div>
+          </div>
+          @endif
           <!-- <div class="card-category">Sistem Informasi Desa Sidomulyo</div> -->
           <div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
 
+            @role('admin')
+            <div class="col-sm-6 col-md-3">
+              <div class="card card-stats card-primary card-round">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-5">
+                      <div class="icon-big text-center">
+                        <i class="flaticon-users"></i>
+                      </div>
+                    </div>
+                    <div class="col-7 col-stats">
+                      <div class="numbers">
+                        <p class="card-category">Total Pengaduan</p>
+                        <h4 class="card-title">{{$data['total']}}</h4>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            @endrole
+
+            @guest
             <div class="col-sm-6 col-md-3">
 
               <a href="{{route('pengaduan.tambah')}}">
@@ -87,6 +111,8 @@
                 </div>
               </a>
             </div>
+            @endguest
+
           </div>
         </div>
       </div>
@@ -123,7 +149,7 @@
                 @else
                 {{ucwords($value->bencana->nama)}}
                 @endif
-                - {{$value->daerah->nama}} - {{$value->almt_lengkap}} - 
+                - {{$value->daerah->nama}} - {{$value->almt_lengkap}} -
 
                 @if($value->status == 'tolak')
                 Alasan penolakan: {{$value->alasan_tolak}}

@@ -9,19 +9,43 @@
         <div class="card-body">
           <div class="card-title">Menu Layanan</div>
           <?php if(\Session::has('alert')): ?>
-            <div class="alert alert-danger">
-              <div><?php echo e(Session::get('alert')); ?></div>
-            </div>
-            <?php endif; ?>
+          <div class="alert alert-danger">
+            <div><?php echo e(Session::get('alert')); ?></div>
+          </div>
+          <?php endif; ?>
 
-            <?php if(\Session::has('success')): ?>
-            <div class="alert alert-success">
-              <div><?php echo e(Session::get('success')); ?></div>
-            </div>
-            <?php endif; ?>
+          <?php if(\Session::has('success')): ?>
+          <div class="alert alert-success">
+            <div><?php echo e(Session::get('success')); ?></div>
+          </div>
+          <?php endif; ?>
           <!-- <div class="card-category">Sistem Informasi Desa Sidomulyo</div> -->
           <div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
 
+            <?php if(auth()->check() && auth()->user()->hasRole('admin')): ?>
+            <div class="col-sm-6 col-md-3">
+              <div class="card card-stats card-primary card-round">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-5">
+                      <div class="icon-big text-center">
+                        <i class="flaticon-users"></i>
+                      </div>
+                    </div>
+                    <div class="col-7 col-stats">
+                      <div class="numbers">
+                        <p class="card-category">Total Pengaduan</p>
+                        <h4 class="card-title"><?php echo e($data['total']); ?></h4>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <?php endif; ?>
+
+            <?php if(auth()->guard()->guest()): ?>
             <div class="col-sm-6 col-md-3">
 
               <a href="<?php echo e(route('pengaduan.tambah')); ?>">
@@ -87,6 +111,8 @@
                 </div>
               </a>
             </div>
+            <?php endif; ?>
+
           </div>
         </div>
       </div>
@@ -125,7 +151,7 @@
                 <?php echo e(ucwords($value->bencana->nama)); ?>
 
                 <?php endif; ?>
-                - <?php echo e($value->daerah->nama); ?> - <?php echo e($value->almt_lengkap); ?> - 
+                - <?php echo e($value->daerah->nama); ?> - <?php echo e($value->almt_lengkap); ?> -
 
                 <?php if($value->status == 'tolak'): ?>
                 Alasan penolakan: <?php echo e($value->alasan_tolak); ?>

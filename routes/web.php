@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'auth'])->name('/');
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'auth'])->name('home');
 
 Auth::routes();
 // admin
@@ -40,7 +40,7 @@ Route::group(['middleware' => ['role:admin']], function () {
     Route::get('pengaduan', [PengaduanController::class, 'index'])->name('pengaduan.index');
     Route::get('pengaduan/detail/{id}', [PengaduanController::class, 'detail'])->name('pengaduan/detail');
     Route::post('pengaduan/updateStatus', [PengaduanController::class, 'updateStatus'])->name('pengaduan.updateStatus');
-    Route::get('pengaduan.rekap', [ArsipController::class, 'rekap'])->name('pengaduan.rekap');
+    Route::post('pengaduan.rekap', [ArsipController::class, 'rekap'])->name('pengaduan.rekap');
     
     // kelola arsip
     Route::get('arsip', [ArsipController::class, 'index'])->name('arsip.index');

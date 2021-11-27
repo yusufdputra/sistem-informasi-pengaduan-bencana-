@@ -40,8 +40,10 @@ class HomeController extends Controller
 
             $data['pengaduan'] = Pengaduan::orderBy('updated_at', 'DESC')->limit(10)->get();
 
-            // $pengajuan['selesai'] = Pengajuan::where('status', 'selesai')->count();
-            // $pengajuan['proses'] = Pengajuan::where('status', 'proses')->count();
+            $data['total'] = Pengaduan::count();
+            $data['selesai'] = Pengaduan::where('status', 'terima')->count();
+            $data['proses'] = Pengaduan::where('status', 'proses')->count();
+            $data['tolak'] = Pengaduan::where('status', 'tolak')->count();
 
             return view('home', compact('data',));
         }
@@ -55,6 +57,13 @@ class HomeController extends Controller
     {
         $data['title'] = "Halaman Utama";
         $data['pengaduan'] = Pengaduan::orderBy('updated_at', 'DESC')->limit(10)->get();
+        if (Auth::check()) {
+            $data['total'] = Pengaduan::count();
+            $data['selesai'] = Pengaduan::where('status', 'terima')->count();
+            $data['proses'] = Pengaduan::where('status', 'proses')->count();
+            $data['tolak'] = Pengaduan::where('status', 'tolak')->count();
+
+        }
 
         return view('home', compact('data',));
     }
