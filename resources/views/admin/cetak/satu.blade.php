@@ -35,7 +35,7 @@
 
 
     #formttd {
-      position:absolute;
+      position: absolute;
       right: 5px;
       margin-top: -30px;
       width: 300px;
@@ -65,9 +65,9 @@
       padding: 5px;
       background-size: cover;
       position: relative;
+      
+      
     }
-
-
   </style>
 
 </head>
@@ -134,29 +134,39 @@
 
 
 
+          <p><strong><u>Foto KTP Pelapor</u></strong></p>
+
+          <div>
+            <img class="foto_kejadian" src="storage/{{($data['pengaduan']->warga->foto_ktp)}}" alt="">
+          </div>
+
+          <div style="page-break-inside: avoid;"> 
+
+          
           <p><strong><u>Foto-Foto Kejadian</u></strong></p>
           <br>
           <br>
           <div >
-            <img class="foto_kejadian"  src="storage/{{($data['pengaduan']->foto1)}}" alt="">
-            <img class="foto_kejadian"  src="storage/{{($data['pengaduan']->foto1)}}" alt="">
-            <img class="foto_kejadian"  src="storage/{{($data['pengaduan']->foto3)}}" alt="">
-            <img class="foto_kejadian"  src="storage/{{($data['pengaduan']->foto1)}}" alt="">
+            <img class="foto_kejadian" src="storage/{{($data['pengaduan']->foto1)}}" alt="">
+            <img class="foto_kejadian" src="storage/{{($data['pengaduan']->foto1)}}" alt="">
+            <img class="foto_kejadian" src="storage/{{($data['pengaduan']->foto3)}}" alt="">
+            <img class="foto_kejadian" src="storage/{{($data['pengaduan']->foto1)}}" alt="">
           </div>
 
           <div id="formttd">
             <p>
               <strong>
-                Sungai Pinang, {{\Carbon\Carbon::parse($data['pengaduan']->updated_at)->formatLocalized('%A %d %B %Y')}} 
+                Sungai Pinang, {{\Carbon\Carbon::parse($data['pengaduan']->updated_at)->formatLocalized('%A %d %B %Y')}}
                 <br>
                 Operator Penerima Laporan,
                 <br><br><br>
-                
-                  (.....................................)
-                
+
+                (.....................................)
+
               </strong>
             </p>
-  
+
+          </div>
           </div>
         </div>
 
